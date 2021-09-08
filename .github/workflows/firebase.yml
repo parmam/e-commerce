@@ -42,12 +42,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Download build
-    - uses: actions/download-artifact@v2.0.10
+      uses: actions/download-artifact@v2.0.10
       with:
         name: build
         path: build
     - name: Deploy to Firebase
-    - uses: w9jds/firebase-action@develop
+      uses: w9jds/firebase-action@develop
       with:
         args: deploy --only hosting
       env:
