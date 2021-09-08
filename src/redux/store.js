@@ -1,14 +1,14 @@
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
-import { persistStore } from 'redux-persist';
+import { createStore, applyMiddleware } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import thunk from 'redux-thunk'
+import { persistStore } from 'redux-persist'
 
-import persistReducer from './reducers';
+import persistReducer from './reducers/rootReducer'
 
-const compose = composeWithDevTools(applyMiddleware(thunk));
-const store = createStore(persistReducer, compose);
-const persistor = persistStore(store);
+const compose = composeWithDevTools(applyMiddleware(thunk))
+const store = createStore(persistReducer, compose)
+const persistor = persistStore(store)
 
-const exports = { store, persistor };
+const exports = { store, persistor }
 
-export default exports;
+export default exports
