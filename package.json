@@ -5,17 +5,10 @@
   "version": "1.0.0",
   "private": false,
   "scripts": {
-    "eslint": "eslint ./src",
-    "eslint-fix": "eslint --fix ./src",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint ./",
-    "lint-fix": "eslint ./ --fix"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [
@@ -35,6 +28,7 @@
     "@material-ui/core": "^5.0.0-beta.5",
     "@material-ui/icons": "^5.0.0-beta.5",
     "@material-ui/styles": "^5.0.0-beta.5",
+    "axios": "^0.21.4",
     "chart.js": "^3.5.1",
     "formik": "^2.1.5",
     "history": "^5.0.0",
@@ -47,14 +41,16 @@
     "react-feather": "^2.0.8",
     "react-helmet": "^6.1.0",
     "react-perfect-scrollbar": "^1.5.8",
+    "react-redux": "^7.2.5",
     "react-router": "^6.0.0-beta.0",
     "react-router-dom": "^6.0.0-beta.0",
     "react-scripts": "^4.0.3",
+    "redux": "^4.1.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0",
     "standard": "^16.0.3",
     "uuid": "^8.3.0",
     "yup": "^0.32.9"
-  },
-  "devDependencies": {
-    "eslint-config-airbnb": "^18.2.1"
   }
 }
