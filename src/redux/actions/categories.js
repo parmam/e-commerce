@@ -50,10 +50,3 @@ export const addSubCategory = (newSubCategory) => async (dispatch) => {
     payload: subCategory.data
   })
 }
-
-/*
-
-POST  >> crea una nueva categoría (espera un name, por body)
-POST /categories/addSub >> crea una nueva subCategoría (espera category y subCategory por body)
-
-*/
