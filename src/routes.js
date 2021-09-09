@@ -1,15 +1,15 @@
-import { Navigate } from 'react-router-dom';
-import DashboardLayout from './components/DashboardLayout';
-import MainLayout from './components/MainLayout';
-import Account from './pages/Account';
-import CustomerList from './pages/CustomerList';
-import Dashboard from './pages/Dashboard';
-import Login from './pages/Login';
-import NotFound from './pages/NotFound';
-import ProductList from './pages/ProductList';
-import Register from './pages/Register';
-import Settings from './pages/Settings';
-
+import { Navigate } from 'react-router-dom'
+import DashboardLayout from './components/DashboardLayout'
+import MainLayout from './components/MainLayout'
+import Account from './pages/Account'
+import CustomerList from './pages/CustomerList'
+import Dashboard from './pages/Dashboard'
+import Login from './pages/Login'
+import NotFound from './pages/NotFound'
+import ProductList from './pages/ProductList'
+import Register from './pages/Register'
+import Settings from './pages/Settings'
+import Test from './pages/Test'
 const routes = [
   {
     path: 'app',
@@ -20,7 +20,7 @@ const routes = [
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'products', element: <ProductList /> },
       { path: 'settings', element: <Settings /> },
-      { path: '*', element: <Navigate to="/404" /> }
+      { path: '*', element: <Navigate to='/404' /> }
     ]
   },
   {
@@ -30,10 +30,11 @@ const routes = [
       { path: 'login', element: <Login /> },
       { path: 'register', element: <Register /> },
       { path: '404', element: <NotFound /> },
-      { path: '/', element: <Navigate to="/app/dashboard" /> },
-      { path: '*', element: <Navigate to="/404" /> }
+      { path: '/', element: <Navigate to='/app/dashboard' /> },
+      { path: '/test', element: <Test to='/test' /> },
+      { path: '*', element: <Navigate to='/404' /> }
     ]
   }
-];
+]
 
-export default routes;
+export default routes
