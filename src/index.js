@@ -1,12 +1,12 @@
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import React from 'react';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import App from './App';
-import Store from './redux/store';
+import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+import React from 'react'
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+import App from './App'
+import Store from './redux/store'
 
-const { persistor, store } = Store;
+const { persistor, store } = Store
 ReactDOM.render(
   (
     <>
@@ -22,4 +22,4 @@ ReactDOM.render(
     </>
   ),
   document.getElementById('root')
-);
+)

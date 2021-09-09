@@ -1,17 +1,20 @@
-import { TEST } from '../constants';
+import { combineReducers } from 'redux'
+import { persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
-const initialState = {
+import products from './products'
 
-};
+const persistConfig = {
+  key: 'root',
+  debug: true,
+  storage
+}
 
-const rootReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case TEST:
+const rootReducer = combineReducers({
+  products
 
-      return 'TEST SUCCESSFULLY';
-    default:
-      return state;
-  }
-};
+})
 
-export default rootReducer;
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
+export default persistedReducer
