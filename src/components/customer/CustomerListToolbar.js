@@ -6,8 +6,8 @@ import {
   TextField,
   InputAdornment,
   SvgIcon
-} from '@material-ui/core';
-import { Search as SearchIcon } from 'react-feather';
+} from '@material-ui/core'
+import { Search as SearchIcon } from 'react-feather'
 
 const CustomerListToolbar = (props) => (
   <Box {...props}>
@@ -24,8 +24,8 @@ const CustomerListToolbar = (props) => (
         Export
       </Button>
       <Button
-        color="primary"
-        variant="contained"
+        color='primary'
+        variant='contained'
       >
         Add customer
       </Button>
@@ -38,24 +38,24 @@ const CustomerListToolbar = (props) => (
               fullWidth
               InputProps={{
                 startAdornment: (
-                  <InputAdornment position="start">
+                  <InputAdornment position='start'>
                     <SvgIcon
-                      fontSize="small"
-                      color="action"
+                      fontSize='small'
+                      color='action'
                     >
                       <SearchIcon />
                     </SvgIcon>
                   </InputAdornment>
                 )
               }}
-              placeholder="Search customer"
-              variant="outlined"
+              placeholder='Search customer'
+              variant='outlined'
             />
           </Box>
         </CardContent>
       </Card>
     </Box>
   </Box>
-);
+)
 
-export default CustomerListToolbar;
+export default CustomerListToolbar

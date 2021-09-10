@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import {
   Avatar,
   Box,
@@ -7,9 +7,9 @@ import {
   Divider,
   Grid,
   Typography
-} from '@material-ui/core';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import GetAppIcon from '@material-ui/icons/GetApp';
+} from '@material-ui/core'
+import AccessTimeIcon from '@material-ui/icons/AccessTime'
+import GetAppIcon from '@material-ui/icons/GetApp'
 
 const ProductCard = ({ product, ...rest }) => (
   <Card
@@ -29,23 +29,23 @@ const ProductCard = ({ product, ...rest }) => (
         }}
       >
         <Avatar
-          alt="Product"
+          alt='Product'
           src={product.media}
-          variant="square"
+          variant='square'
         />
       </Box>
       <Typography
-        align="center"
-        color="textPrimary"
+        align='center'
+        color='textPrimary'
         gutterBottom
-        variant="h4"
+        variant='h4'
       >
         {product.title}
       </Typography>
       <Typography
-        align="center"
-        color="textPrimary"
-        variant="body1"
+        align='center'
+        color='textPrimary'
+        variant='body1'
       >
         {product.description}
       </Typography>
@@ -65,12 +65,12 @@ const ProductCard = ({ product, ...rest }) => (
             display: 'flex'
           }}
         >
-          <AccessTimeIcon color="action" />
+          <AccessTimeIcon color='action' />
           <Typography
-            color="textSecondary"
-            display="inline"
+            color='textSecondary'
+            display='inline'
             sx={{ pl: 1 }}
-            variant="body2"
+            variant='body2'
           >
             Updated 2hr ago
           </Typography>
@@ -82,12 +82,12 @@ const ProductCard = ({ product, ...rest }) => (
             display: 'flex'
           }}
         >
-          <GetAppIcon color="action" />
+          <GetAppIcon color='action' />
           <Typography
-            color="textSecondary"
-            display="inline"
+            color='textSecondary'
+            display='inline'
             sx={{ pl: 1 }}
-            variant="body2"
+            variant='body2'
           >
             {product.totalDownloads}
             {' '}
@@ -97,10 +97,10 @@ const ProductCard = ({ product, ...rest }) => (
       </Grid>
     </Box>
   </Card>
-);
+)
 
 ProductCard.propTypes = {
   product: PropTypes.object.isRequired
-};
+}
 
-export default ProductCard;
+export default ProductCard

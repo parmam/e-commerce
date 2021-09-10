@@ -1,13 +1,13 @@
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet'
 import {
   Box,
   Container,
   Grid,
   Pagination
-} from '@material-ui/core';
-import ProductListToolbar from '../components/product/ProductListToolbar';
-import ProductCard from '../components/product/ProductCard';
-import products from '../__mocks__/products';
+} from '@material-ui/core'
+import ProductListToolbar from '../components/product/ProductListToolbar'
+import ProductCard from '../components/product/ProductCard'
+import products from '../__mocks__/products'
 
 const ProductList = () => (
   <>
@@ -49,14 +49,14 @@ const ProductList = () => (
           }}
         >
           <Pagination
-            color="primary"
+            color='primary'
             count={3}
-            size="small"
+            size='small'
           />
         </Box>
       </Container>
     </Box>
   </>
-);
+)
 
-export default ProductList;
+export default ProductList

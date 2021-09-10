@@ -1,7 +1,8 @@
-import { LOGIN_USER } from '../constants'
+import { LOGIN_USER, GET_USERS } from '../constants'
 
 const initialState = {
-  user: {}
+  user: {},
+  users: []
 }
 
 const user = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         user: state
+      }
+    case GET_USERS:
+      return {
+        ...state,
+        users: action.payload
       }
     default:
       return state

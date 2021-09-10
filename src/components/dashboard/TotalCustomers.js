@@ -5,10 +5,10 @@ import {
   CardContent,
   Grid,
   Typography
-} from '@material-ui/core';
-import { green } from '@material-ui/core/colors';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import PeopleIcon from '@material-ui/icons/PeopleOutlined';
+} from '@material-ui/core'
+import { green } from '@material-ui/core/colors'
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward'
+import PeopleIcon from '@material-ui/icons/PeopleOutlined'
 
 const TotalCustomers = (props) => (
   <Card {...props}>
@@ -20,15 +20,15 @@ const TotalCustomers = (props) => (
       >
         <Grid item>
           <Typography
-            color="textSecondary"
+            color='textSecondary'
             gutterBottom
-            variant="h6"
+            variant='h6'
           >
             TOTAL CUSTOMERS
           </Typography>
           <Typography
-            color="textPrimary"
-            variant="h3"
+            color='textPrimary'
+            variant='h3'
           >
             1,600
           </Typography>
@@ -54,7 +54,7 @@ const TotalCustomers = (props) => (
       >
         <ArrowUpwardIcon sx={{ color: green[900] }} />
         <Typography
-          variant="body2"
+          variant='body2'
           sx={{
             color: green[900],
             mr: 1
@@ -63,14 +63,14 @@ const TotalCustomers = (props) => (
           16%
         </Typography>
         <Typography
-          color="textSecondary"
-          variant="caption"
+          color='textSecondary'
+          variant='caption'
         >
           Since last month
         </Typography>
       </Box>
     </CardContent>
   </Card>
-);
+)
 
-export default TotalCustomers;
+export default TotalCustomers
