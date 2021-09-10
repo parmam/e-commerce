@@ -9,21 +9,21 @@ import {
   FormControlLabel,
   Grid,
   Typography
-} from '@material-ui/core';
+} from '@material-ui/core'
 
 const SettingsNotifications = (props) => (
   <form {...props}>
     <Card>
       <CardHeader
-        subheader="Manage the notifications"
-        title="Notifications"
+        subheader='Manage the notifications'
+        title='Notifications'
       />
       <Divider />
       <CardContent>
         <Grid
           container
           spacing={6}
-          wrap="wrap"
+          wrap='wrap'
         >
           <Grid
             item
@@ -36,42 +36,42 @@ const SettingsNotifications = (props) => (
             xs={12}
           >
             <Typography
-              color="textPrimary"
+              color='textPrimary'
               gutterBottom
-              variant="h6"
+              variant='h6'
             >
               Notifications
             </Typography>
             <FormControlLabel
               control={(
                 <Checkbox
-                  color="primary"
+                  color='primary'
                   defaultChecked
                 />
               )}
-              label="Email"
+              label='Email'
             />
             <FormControlLabel
               control={(
                 <Checkbox
-                  color="primary"
+                  color='primary'
                   defaultChecked
                 />
               )}
-              label="Push Notifications"
+              label='Push Notifications'
             />
             <FormControlLabel
               control={<Checkbox />}
-              label="Text Messages"
+              label='Text Messages'
             />
             <FormControlLabel
               control={(
                 <Checkbox
-                  color="primary"
+                  color='primary'
                   defaultChecked
                 />
               )}
-              label="Phone calls"
+              label='Phone calls'
             />
           </Grid>
           <Grid
@@ -85,33 +85,33 @@ const SettingsNotifications = (props) => (
             xs={12}
           >
             <Typography
-              color="textPrimary"
+              color='textPrimary'
               gutterBottom
-              variant="h6"
+              variant='h6'
             >
               Messages
             </Typography>
             <FormControlLabel
               control={(
                 <Checkbox
-                  color="primary"
+                  color='primary'
                   defaultChecked
                 />
               )}
-              label="Email"
+              label='Email'
             />
             <FormControlLabel
               control={<Checkbox />}
-              label="Push Notifications"
+              label='Push Notifications'
             />
             <FormControlLabel
               control={(
                 <Checkbox
-                  color="primary"
+                  color='primary'
                   defaultChecked
                 />
               )}
-              label="Phone calls"
+              label='Phone calls'
             />
           </Grid>
         </Grid>
@@ -125,14 +125,14 @@ const SettingsNotifications = (props) => (
         }}
       >
         <Button
-          color="primary"
-          variant="contained"
+          color='primary'
+          variant='contained'
         >
           Save
         </Button>
       </Box>
     </Card>
   </form>
-);
+)
 
-export default SettingsNotifications;
+export default SettingsNotifications

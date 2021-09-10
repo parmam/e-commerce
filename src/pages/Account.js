@@ -1,11 +1,11 @@
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet'
 import {
   Box,
   Container,
   Grid
-} from '@material-ui/core';
-import AccountProfile from '../components/account/AccountProfile';
-import AccountProfileDetails from '../components/account/AccountProfileDetails';
+} from '@material-ui/core'
+import AccountProfile from '../components/account/AccountProfile'
+import AccountProfileDetails from '../components/account/AccountProfileDetails'
 
 const Account = () => (
   <>
@@ -19,7 +19,7 @@ const Account = () => (
         py: 3
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth='lg'>
         <Grid
           container
           spacing={3}
@@ -44,6 +44,6 @@ const Account = () => (
       </Container>
     </Box>
   </>
-);
+)
 
-export default Account;
+export default Account

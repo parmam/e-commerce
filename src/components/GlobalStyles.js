@@ -1,12 +1,12 @@
-import createStyles from '@material-ui/styles/createStyles';
-import makeStyles from '@material-ui/styles/makeStyles';
+import createStyles from '@material-ui/styles/createStyles'
+import makeStyles from '@material-ui/styles/makeStyles'
 
 const useStyles = makeStyles(() => createStyles({
   '@global': {
     '*': {
       boxSizing: 'border-box',
       margin: 0,
-      padding: 0,
+      padding: 0
     },
     html: {
       '-webkit-font-smoothing': 'antialiased',
@@ -27,12 +27,12 @@ const useStyles = makeStyles(() => createStyles({
       width: '100%'
     }
   }
-}));
+}))
 
 const GlobalStyles = () => {
-  useStyles();
+  useStyles()
 
-  return null;
-};
+  return null
+}
 
-export default GlobalStyles;
+export default GlobalStyles

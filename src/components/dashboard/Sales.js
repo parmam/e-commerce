@@ -1,4 +1,4 @@
-import { Bar } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2'
 import {
   Box,
   Button,
@@ -8,12 +8,12 @@ import {
   Divider,
   useTheme,
   colors
-} from '@material-ui/core';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+} from '@material-ui/core'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 
 const Sales = (props) => {
-  const theme = useTheme();
+  const theme = useTheme()
 
   const data = {
     datasets: [
@@ -39,7 +39,7 @@ const Sales = (props) => {
       }
     ],
     labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug']
-  };
+  }
 
   const options = {
     animation: false,
@@ -90,7 +90,7 @@ const Sales = (props) => {
       mode: 'index',
       titleFontColor: theme.palette.text.primary
     }
-  };
+  }
 
   return (
     <Card {...props}>
@@ -98,13 +98,13 @@ const Sales = (props) => {
         action={(
           <Button
             endIcon={<ArrowDropDownIcon />}
-            size="small"
-            variant="text"
+            size='small'
+            variant='text'
           >
             Last 7 days
           </Button>
         )}
-        title="Latest Sales"
+        title='Latest Sales'
       />
       <Divider />
       <CardContent>
@@ -129,16 +129,16 @@ const Sales = (props) => {
         }}
       >
         <Button
-          color="primary"
+          color='primary'
           endIcon={<ArrowRightIcon />}
-          size="small"
-          variant="text"
+          size='small'
+          variant='text'
         >
           Overview
         </Button>
       </Box>
     </Card>
-  );
-};
+  )
+}
 
-export default Sales;
+export default Sales

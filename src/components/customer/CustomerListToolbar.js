@@ -7,7 +7,7 @@ import {
   InputAdornment,
   SvgIcon
 } from '@material-ui/core';
-import { Search as SearchIcon } from 'react-feather';
+import { Search as Icon } from 'react-feather';
 
 const CustomerListToolbar = (props) => (
   <Box {...props}>

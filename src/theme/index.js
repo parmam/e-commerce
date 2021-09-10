@@ -1,4 +1,4 @@
-import { createTheme } from '@material-ui/core';
+import { createTheme } from '@material-ui/core'
 
 const theme = createTheme({
   palette: {
@@ -77,6 +77,6 @@ const theme = createTheme({
       fontWeight: 500
     }
   }
-});
+})
 
-export default theme;
+export default theme

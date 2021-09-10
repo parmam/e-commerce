@@ -1,4 +1,4 @@
-import { Doughnut } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2'
 import {
   Box,
   Card,
@@ -8,13 +8,13 @@ import {
   Typography,
   colors,
   useTheme
-} from '@material-ui/core';
-import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import PhoneIcon from '@material-ui/icons/Phone';
-import TabletIcon from '@material-ui/icons/Tablet';
+} from '@material-ui/core'
+import LaptopMacIcon from '@material-ui/icons/LaptopMac'
+import PhoneIcon from '@material-ui/icons/Phone'
+import TabletIcon from '@material-ui/icons/Tablet'
 
 const TrafficByDevice = (props) => {
-  const theme = useTheme();
+  const theme = useTheme()
 
   const data = {
     datasets: [
@@ -31,7 +31,7 @@ const TrafficByDevice = (props) => {
       }
     ],
     labels: ['Desktop', 'Tablet', 'Mobile']
-  };
+  }
 
   const options = {
     animation: false,
@@ -53,7 +53,7 @@ const TrafficByDevice = (props) => {
       mode: 'index',
       titleFontColor: theme.palette.text.primary
     }
-  };
+  }
 
   const devices = [
     {
@@ -74,11 +74,11 @@ const TrafficByDevice = (props) => {
       icon: PhoneIcon,
       color: colors.orange[600]
     }
-  ];
+  ]
 
   return (
     <Card {...props}>
-      <CardHeader title="Traffic by Device" />
+      <CardHeader title='Traffic by Device' />
       <Divider />
       <CardContent>
         <Box
@@ -112,16 +112,16 @@ const TrafficByDevice = (props) => {
                 textAlign: 'center'
               }}
             >
-              <Icon color="action" />
+              <Icon color='action' />
               <Typography
-                color="textPrimary"
-                variant="body1"
+                color='textPrimary'
+                variant='body1'
               >
                 {title}
               </Typography>
               <Typography
                 style={{ color }}
-                variant="h2"
+                variant='h2'
               >
                 {value}
                 %
@@ -131,7 +131,7 @@ const TrafficByDevice = (props) => {
         </Box>
       </CardContent>
     </Card>
-  );
-};
+  )
+}
 
-export default TrafficByDevice;
+export default TrafficByDevice
