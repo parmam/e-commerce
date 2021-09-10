@@ -4,12 +4,13 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - masterjobs:
+      - develop
+
+jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
-
       - name: Yarn Installation
         run: |
           mkdir ~/.npm-global
@@ -18,30 +19,30 @@ on:
           source ~/.profile
           npm install -g yarn
       - name: Checkout Repo
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
       - name: Install Dependencies
         run: yarn install
-      - name: Build
+      - name: build
         run: yarn build
       - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v2.2.4
         with:
           name: build
           path: build
-
   deploy:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
       - name: Download Artifact
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@v2.0.10
         with:
           name: build
+          path: build
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
+        uses: w9jds/firebase-action@develop
         with:
           args: deploy --only hosting
         env:

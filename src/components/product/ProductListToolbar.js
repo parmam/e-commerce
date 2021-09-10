@@ -14,7 +14,6 @@ const ProductListToolbar = (props) => (
     <Box
       sx={{ mt: 0 }}
     >
-
       <Card>
         <CardContent>
           <Box sx={{ maxWidth: 500, margin: 'auto' }}>
