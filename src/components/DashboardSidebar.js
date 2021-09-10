@@ -41,6 +41,11 @@ const items = [
     title: 'Customers'
   },
   {
+    href: '/app/Admins',
+    icon: UsersIcon,
+    title: 'Admins'
+  },
+  {
     href: '/app/products',
     icon: ShoppingBagIcon,
     title: 'Products'

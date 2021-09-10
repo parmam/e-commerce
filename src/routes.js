@@ -3,6 +3,7 @@ import DashboardLayout from './components/DashboardLayout'
 import MainLayout from './components/MainLayout'
 import Account from './pages/Account'
 import CustomerList from './pages/CustomerList'
+import AdminList from './pages/AdminList'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
@@ -16,7 +17,8 @@ const routes = [
     element: <DashboardLayout />,
     children: [
       { path: 'account', element: <Account /> },
-      { path: 'customers', element: <CustomerList /> },
+      { path: 'customers', element: <CustomerList userType='Admin' /> },
+      { path: 'admins', element: <AdminList userType='User' /> },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'products', element: <ProductList /> },
       { path: 'settings', element: <Settings /> },

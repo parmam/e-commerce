@@ -21,13 +21,25 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getUsers } from 'src/redux/actions/user'
 import { Users } from 'react-feather'
 
-const CustomerListResults = ({ customers, ...rest }) => {
+const CustomerListResults = ({ userType, ...rest }) => {
   const [selectedUsersIds, setSelectedUsersIds] = useState([])
   const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(0)
 
   const dispatch = useDispatch()
-  const users = useSelector(store => store.user.users)
+  const usersRedux = useSelector(store => store.user.users)
+  const users = usersRedux.filter(user => user.type !== userType)
+  users.sort(function (a, b) {
+    if (a.name < b.name) {
+      return 1
+    }
+    if (a.name > b.name) {
+      return -1
+    }
+    // a must be equal to b
+    return 0
+  })
+
   // const [users, setUsers] = useState()
   const handleSelectAll = (event) => {
     let newSelectedUsersIds
@@ -85,11 +97,11 @@ const CustomerListResults = ({ customers, ...rest }) => {
               <TableRow>
                 <TableCell padding='checkbox'>
                   <Checkbox
-                    checked={selectedUsersIds.length === customers.length}
+                    checked={selectedUsersIds.length === users.length}
                     color='primary'
                     indeterminate={
                     selectedUsersIds.length > 0 &&
-                    selectedUsersIds.length < customers.length
+                    selectedUsersIds.length < users.length
                     }
                     onChange={handleSelectAll}
                   />
@@ -112,7 +124,7 @@ const CustomerListResults = ({ customers, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.slice(page, page + limit).map((user) => (
+              {users && users.slice(page, page + limit).map((user) => (
                 <TableRow
                   hover
                   key={user.id}
@@ -142,15 +154,15 @@ const CustomerListResults = ({ customers, ...rest }) => {
                         color='textPrimary'
                         variant='body1'
                       >
-                        {user.name}
+                        {user.name && user.name}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {user.email}
+                    {user.email && user.email}
                   </TableCell>
                   <TableCell>
-                    {user.address + ' - ' + '(' + user.cp + ')'}
+                    {user.address && user.cp ? (user.address + ' - ' + '(' + user.cp + ')') : null}
                     {/* {`${user.address.city}, ${user.address.state}, ${user.address.country}`} */}
                   </TableCell>
                   <TableCell>
