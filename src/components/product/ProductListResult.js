@@ -16,6 +16,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 import React, { useEffect, useState } from 'react'
 import { getProducts } from '../../redux/actions/products'
+import  FakeContext from '../../FakeContext'
 
 const ProductListResults = ({ ...rest }) => {
   const [products, setProducts] = useState([])
@@ -24,14 +25,15 @@ const ProductListResults = ({ ...rest }) => {
   const [page, setPage] = useState(0)
   const dispatch = useDispatch()
   const allProducts = useSelector(store => store.products.allProducts)
-
+  const fake = FakeContext()
   useEffect(() => {
     if (allProducts) {
       dispatch(getProducts())
     }
     setProducts(allProducts)
+    console.log(fake)
   }, [])
-
+  
   const handleSelectAll = (event) => {
     let newSelectedProductId
     if (event.target.checked) {
