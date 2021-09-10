@@ -6,6 +6,7 @@ import GroupButtons from '../Resourses/GroupButtons'
 import customers from '../__mocks__/customers'
 
 const CustomerList = () => (
+
   <>
     <Helmet>
       <title>Customers | Material Kit</title>

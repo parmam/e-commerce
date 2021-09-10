@@ -12,33 +12,21 @@ import { Search as SearchIcon } from 'react-feather'
 const ProductListToolbar = (props) => (
   <Box {...props}>
     <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end'
-      }}
+      sx={{ mt: 0 }}
     >
-      <Button>
-        Import
-      </Button>
-      <Button sx={{ mx: 1 }}>
-        Export
-      </Button>
-      <Button
-        color='primary'
-        variant='contained'
-      >
-        Add product
-      </Button>
-    </Box>
-    <Box sx={{ mt: 3 }}>
       <Card>
         <CardContent>
-          <Box sx={{ maxWidth: 500 }}>
+          <Box sx={{ maxWidth: 500, margin: 'auto' }}>
             <TextField
               fullWidth
+              style={{
+                marginTop: '8px'
+              }}
               InputProps={{
                 startAdornment: (
-                  <InputAdornment position='start'>
+                  <InputAdornment
+                    position='start'
+                  >
                     <SvgIcon
                       fontSize='small'
                       color='action'
@@ -48,12 +36,52 @@ const ProductListToolbar = (props) => (
                   </InputAdornment>
                 )
               }}
-              placeholder='Search product'
+              placeholder='Search Product'
               variant='outlined'
             />
           </Box>
         </CardContent>
       </Card>
+    </Box>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'flex-end'
+      }}
+      style={{
+        marginTop: '23px'
+      }}
+    >
+      {/* <Button>
+        Import
+      </Button>
+      <Button sx={{ mx: 1 }}>
+        Export
+      </Button> */}
+      <Button
+        color='warning'
+        variant='contained'
+        style={{
+          marginRight: '5px'
+        }}
+      >
+        BORRAR
+      </Button>
+      <Button
+        color='primary'
+        variant='contained'
+        style={{
+          marginRight: '5px'
+        }}
+      >
+        EDITAR LISTA
+      </Button>
+      <Button
+        color='primary'
+        variant='contained'
+      >
+        AGREGAR PRODUCTOS
+      </Button>
     </Box>
   </Box>
 )
