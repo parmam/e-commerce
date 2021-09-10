@@ -1,5 +1,5 @@
-import { v4 as uuid } from 'uuid';
-import moment from 'moment';
+import { v4 as uuid } from 'uuid'
+import moment from 'moment'
 import {
   Box,
   Button,
@@ -11,9 +11,9 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText
-} from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+} from '@material-ui/core'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 
 const products = [
   {
@@ -46,13 +46,13 @@ const products = [
     imageUrl: '/static/images/products/product_5.png',
     updatedAt: moment().subtract(9, 'hours')
   }
-];
+]
 
 const LatestProducts = (props) => (
   <Card {...props}>
     <CardHeader
       subtitle={`${products.length} in total`}
-      title="Latest Products"
+      title='Latest Products'
     />
     <Divider />
     <List>
@@ -76,8 +76,8 @@ const LatestProducts = (props) => (
             secondary={`Updated ${product.updatedAt.fromNow()}`}
           />
           <IconButton
-            edge="end"
-            size="small"
+            edge='end'
+            size='small'
           >
             <MoreVertIcon />
           </IconButton>
@@ -93,15 +93,15 @@ const LatestProducts = (props) => (
       }}
     >
       <Button
-        color="primary"
+        color='primary'
         endIcon={<ArrowRightIcon />}
-        size="small"
-        variant="text"
+        size='small'
+        variant='text'
       >
         View all
       </Button>
     </Box>
   </Card>
-);
+)
 
-export default LatestProducts;
+export default LatestProducts

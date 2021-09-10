@@ -1,8 +1,9 @@
-import { Helmet } from 'react-helmet';
-import { Box, Container } from '@material-ui/core';
-import CustomerListResults from '../components/customer/CustomerListResults';
-import CustomerListToolbar from '../components/customer/CustomerListToolbar';
-import customers from '../__mocks__/customers';
+import { Helmet } from 'react-helmet'
+import { Box, Container } from '@material-ui/core'
+import CustomerListResults from '../components/customer/CustomerListResults'
+import CustomerListToolbar from '../components/customer/CustomerListToolbar'
+import GroupButtons from '../Resourses/GroupButtons'
+import customers from '../__mocks__/customers'
 
 const CustomerList = () => (
   <>
@@ -24,6 +25,6 @@ const CustomerList = () => (
       </Container>
     </Box>
   </>
-);
+)
 
-export default CustomerList;
+export default CustomerList

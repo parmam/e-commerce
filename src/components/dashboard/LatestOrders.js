@@ -1,6 +1,6 @@
-import moment from 'moment';
-import { v4 as uuid } from 'uuid';
-import PerfectScrollbar from 'react-perfect-scrollbar';
+import moment from 'moment'
+import { v4 as uuid } from 'uuid'
+import PerfectScrollbar from 'react-perfect-scrollbar'
 import {
   Box,
   Button,
@@ -15,8 +15,8 @@ import {
   TableRow,
   TableSortLabel,
   Tooltip
-} from '@material-ui/core';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+} from '@material-ui/core'
+import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 
 const orders = [
   {
@@ -79,11 +79,11 @@ const orders = [
     createdAt: 1554670800000,
     status: 'delivered'
   }
-];
+]
 
 const LatestOrders = (props) => (
   <Card {...props}>
-    <CardHeader title="Latest Orders" />
+    <CardHeader title='Latest Orders' />
     <Divider />
     <PerfectScrollbar>
       <Box sx={{ minWidth: 800 }}>
@@ -96,14 +96,14 @@ const LatestOrders = (props) => (
               <TableCell>
                 Customer
               </TableCell>
-              <TableCell sortDirection="desc">
+              <TableCell sortDirection='desc'>
                 <Tooltip
                   enterDelay={300}
-                  title="Sort"
+                  title='Sort'
                 >
                   <TableSortLabel
                     active
-                    direction="desc"
+                    direction='desc'
                   >
                     Date
                   </TableSortLabel>
@@ -131,9 +131,9 @@ const LatestOrders = (props) => (
                 </TableCell>
                 <TableCell>
                   <Chip
-                    color="primary"
+                    color='primary'
                     label={order.status}
-                    size="small"
+                    size='small'
                   />
                 </TableCell>
               </TableRow>
@@ -150,15 +150,15 @@ const LatestOrders = (props) => (
       }}
     >
       <Button
-        color="primary"
+        color='primary'
         endIcon={<ArrowRightIcon />}
-        size="small"
-        variant="text"
+        size='small'
+        variant='text'
       >
         View all
       </Button>
     </Box>
   </Card>
-);
+)
 
-export default LatestOrders;
+export default LatestOrders

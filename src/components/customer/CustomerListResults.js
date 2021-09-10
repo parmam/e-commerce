@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import moment from 'moment';
-import PerfectScrollbar from 'react-perfect-scrollbar';
+import { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import GroupButtons from 'src/Resourses/GroupButtons'
+import { ButtonStateGreen, ButtonStateGrey } from 'src/Resourses/ButtonState'
 import {
   Avatar,
   Box,
@@ -14,53 +15,66 @@ import {
   TablePagination,
   TableRow,
   Typography
-} from '@material-ui/core';
-import getInitials from '../../utils/getInitials';
+} from '@material-ui/core'
+import getInitials from '../../utils/getInitials'
+import { useSelector, useDispatch } from 'react-redux'
+import { getUsers } from 'src/redux/actions/user'
+import { Users } from 'react-feather'
 
 const CustomerListResults = ({ customers, ...rest }) => {
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(0);
+  const [selectedUsersIds, setSelectedUsersIds] = useState([])
+  const [limit, setLimit] = useState(10)
+  const [page, setPage] = useState(0)
 
+  const dispatch = useDispatch()
+  const users = useSelector(store => store.user.users)
+  // const [users, setUsers] = useState()
   const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
+    let newSelectedUsersIds
 
     if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
+      newSelectedUsersIds = users.map((customer) => customer.id)
     } else {
-      newSelectedCustomerIds = [];
+      newSelectedUsersIds = []
     }
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
+    setSelectedUsersIds(newSelectedUsersIds)
+  }
+
+  console.log(users)
+  useEffect(() => {
+    dispatch(getUsers())
+    // console.log(users[0].status)
+    // console.log(users[1].status)
+  }, [dispatch])
 
   const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
+    const selectedIndex = selectedUsersIds.indexOf(id)
+    let newSelectedUsersIds = []
 
     if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
+      newSelectedUsersIds = newSelectedUsersIds.concat(selectedUsersIds, id)
     } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
+      newSelectedUsersIds = newSelectedUsersIds.concat(selectedUsersIds.slice(1))
+    } else if (selectedIndex === selectedUsersIds.length - 1) {
+      newSelectedUsersIds = newSelectedUsersIds.concat(selectedUsersIds.slice(0, -1))
     } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
-      );
+      newSelectedUsersIds = newSelectedUsersIds.concat(
+        selectedUsersIds.slice(0, selectedIndex),
+        selectedUsersIds.slice(selectedIndex + 1)
+      )
     }
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
+    setSelectedUsersIds(newSelectedUsersIds)
+  }
 
   const handleLimitChange = (event) => {
-    setLimit(event.target.value);
-  };
+    setLimit(event.target.value)
+  }
 
   const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
+    setPage(newPage)
+  }
 
   return (
     <Card {...rest}>
@@ -69,13 +83,13 @@ const CustomerListResults = ({ customers, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
+                <TableCell padding='checkbox'>
                   <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
-                    color="primary"
+                    checked={selectedUsersIds.length === customers.length}
+                    color='primary'
                     indeterminate={
-                      selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < customers.length
+                    selectedUsersIds.length > 0 &&
+                    selectedUsersIds.length < customers.length
                     }
                     onChange={handleSelectAll}
                   />
@@ -90,25 +104,25 @@ const CustomerListResults = ({ customers, ...rest }) => {
                   Location
                 </TableCell>
                 <TableCell>
-                  Phone
+                  Actions
                 </TableCell>
                 <TableCell>
-                  Registration date
+                  Status
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {users.slice(page, page + limit).map((user) => (
                 <TableRow
                   hover
-                  key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  key={user.id}
+                  selected={selectedUsersIds.indexOf(user.id) !== -1}
                 >
-                  <TableCell padding="checkbox">
+                  <TableCell padding='checkbox'>
                     <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
-                      value="true"
+                      checked={selectedUsersIds.indexOf(user.id) !== -1}
+                      onChange={(event) => handleSelectOne(event, user.id)}
+                      value='true'
                     />
                   </TableCell>
                   <TableCell>
@@ -119,30 +133,34 @@ const CustomerListResults = ({ customers, ...rest }) => {
                       }}
                     >
                       <Avatar
-                        src={customer.avatarUrl}
+                        src={user.avatarUrl}
                         sx={{ mr: 2 }}
                       >
-                        {getInitials(customer.name)}
+                        {getInitials(user.name)}
                       </Avatar>
                       <Typography
-                        color="textPrimary"
-                        variant="body1"
+                        color='textPrimary'
+                        variant='body1'
                       >
-                        {customer.name}
+                        {user.name}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {customer.email}
+                    {user.email}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    {user.address + ' - ' + '(' + user.cp + ')'}
+                    {/* {`${user.address.city}, ${user.address.state}, ${user.address.country}`} */}
                   </TableCell>
                   <TableCell>
-                    {customer.phone}
+                    {/* {console.log(user.type, 'usertype')} */}
+                    <GroupButtons id={user.id} type={user.type} status={user.status} />
                   </TableCell>
                   <TableCell>
-                    {moment(customer.createdAt).format('DD/MM/YYYY')}
+                    {user.status === true
+                      ? <ButtonStateGreen />
+                      : <ButtonStateGrey />}
                   </TableCell>
                 </TableRow>
               ))}
@@ -151,20 +169,20 @@ const CustomerListResults = ({ customers, ...rest }) => {
         </Box>
       </PerfectScrollbar>
       <TablePagination
-        component="div"
-        count={customers.length}
+        component='div'
+        count={users.length}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
         rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[10]}
       />
     </Card>
-  );
-};
+  )
+}
 
 CustomerListResults.propTypes = {
-  customers: PropTypes.array.isRequired
-};
+  users: PropTypes.array.isRequired
+}
 
-export default CustomerListResults;
+export default CustomerListResults

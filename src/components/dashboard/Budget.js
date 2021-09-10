@@ -5,10 +5,10 @@ import {
   CardContent,
   Grid,
   Typography
-} from '@material-ui/core';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import MoneyIcon from '@material-ui/icons/Money';
-import { red } from '@material-ui/core/colors';
+} from '@material-ui/core'
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
+import MoneyIcon from '@material-ui/icons/Money'
+import { red } from '@material-ui/core/colors'
 
 const Budget = (props) => (
   <Card
@@ -23,15 +23,15 @@ const Budget = (props) => (
       >
         <Grid item>
           <Typography
-            color="textSecondary"
+            color='textSecondary'
             gutterBottom
-            variant="h6"
+            variant='h6'
           >
             BUDGET
           </Typography>
           <Typography
-            color="textPrimary"
-            variant="h3"
+            color='textPrimary'
+            variant='h3'
           >
             $24,000
           </Typography>
@@ -61,19 +61,19 @@ const Budget = (props) => (
             color: red[900],
             mr: 1
           }}
-          variant="body2"
+          variant='body2'
         >
           12%
         </Typography>
         <Typography
-          color="textSecondary"
-          variant="caption"
+          color='textSecondary'
+          variant='caption'
         >
           Since last month
         </Typography>
       </Box>
     </CardContent>
   </Card>
-);
+)
 
-export default Budget;
+export default Budget

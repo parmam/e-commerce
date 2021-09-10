@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import { styled } from '@material-ui/core/styles';
-import DashboardNavbar from './DashboardNavbar';
-import DashboardSidebar from './DashboardSidebar';
+import { useState } from 'react'
+import { Outlet } from 'react-router-dom'
+import { styled } from '@material-ui/core/styles'
+import DashboardNavbar from './DashboardNavbar'
+import DashboardSidebar from './DashboardSidebar'
 
 const DashboardLayoutRoot = styled('div')(
   ({ theme }) => ({
@@ -12,7 +12,7 @@ const DashboardLayoutRoot = styled('div')(
     overflow: 'hidden',
     width: '100%'
   })
-);
+)
 
 const DashboardLayoutWrapper = styled('div')(
   ({ theme }) => ({
@@ -24,22 +24,22 @@ const DashboardLayoutWrapper = styled('div')(
       paddingLeft: 256
     }
   })
-);
+)
 
 const DashboardLayoutContainer = styled('div')({
   display: 'flex',
   flex: '1 1 auto',
   overflow: 'hidden'
-});
+})
 
 const DashboardLayoutContent = styled('div')({
   flex: '1 1 auto',
   height: '100%',
   overflow: 'auto'
-});
+})
 
 const DashboardLayout = () => {
-  const [isMobileNavOpen, setMobileNavOpen] = useState(false);
+  const [isMobileNavOpen, setMobileNavOpen] = useState(false)
 
   return (
     <DashboardLayoutRoot>
@@ -56,7 +56,7 @@ const DashboardLayout = () => {
         </DashboardLayoutContainer>
       </DashboardLayoutWrapper>
     </DashboardLayoutRoot>
-  );
-};
+  )
+}
 
-export default DashboardLayout;
+export default DashboardLayout
