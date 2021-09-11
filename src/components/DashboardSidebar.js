@@ -139,13 +139,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
         </List>
       </Box>
       <Box sx={{ flexGrow: 1 }} />
-      <Box
-        sx={{
-          backgroundColor: 'background.default',
-          m: 2,
-          p: 2
-        }}
-      >
+      {/* <Box sx={{ backgroundColor: 'background.default', m: 2, p: 2 }}>
         <Typography
           align='center'
           gutterBottom
@@ -175,7 +169,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
             See PRO version
           </Button>
         </Box>
-      </Box>
+      </Box> */}
     </Box>
   )
 

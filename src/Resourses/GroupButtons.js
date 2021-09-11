@@ -4,29 +4,45 @@ import { useDispatch } from 'react-redux'
 import { setStatusUser, setUserType } from '../redux/actions/user'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { toastCustom } from '../Tools/Tostify'
 
 const GroupButtons = ({ id, type, status }) => {
   const dispatch = useDispatch()
   console.log(type)
   const [userStatus, setUserStatus] = useState(status)
   const [userType, setUserTypes] = useState(type)
-  useEffect(() => {
 
+  useEffect(() => {
   }, [userType, userStatus])
 
   const handleStatus = () => {
     dispatch(setStatusUser(id, userStatus))
-    userStatus === false ? (setUserStatus(true)) : (setUserStatus(false))
+
+    if (userStatus === false) {
+      setUserStatus(true)
+      toastCustom('El usuario ha sido activado', 'success', 4000, 'top-right')
+    } else {
+      setUserStatus(false)
+      toastCustom('El usuario ha sido desactivado', 'error', 4000, 'top-right')
+    }
   }
 
   const handleReset = async () => {
     await axios.put(`http://localhost:3002/admin/resetpassword/${id}`, { withCredentials: true })
+    toastCustom('La contraseña ha si restablecida', 'success', 4000, 'top-right')
   }
 
   const handleAdmin = async () => {
     console.log(type)
     dispatch(setUserType(id, userType))
-    userType === 'User' ? (setUserTypes('Admin')) : (setUserTypes('User'))
+    if (userType === 'User') {
+      setUserTypes('Admin')
+      toastCustom('El usuario ahora es Admin', 'success', 4000, 'top-right')
+    } else {
+      setUserTypes('User')
+      toastCustom('El admin ahora es Usuario', 'success', 4000, 'top-right')
+    }
+    // userType === 'User' ? (setUserTypes('Admin')) : (setUserTypes('User'))
   }
 
   return (
