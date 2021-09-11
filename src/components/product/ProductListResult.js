@@ -16,24 +16,40 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 import React, { useEffect, useState } from 'react'
 import { getProducts } from '../../redux/actions/products'
-import  FakeContext from '../../FakeContext'
 
-const ProductListResults = ({ ...rest }) => {
+
+
+const ProductListResults = ({ allProducts, eventHandler, setEventHandler, ...rest }) => {
   const [products, setProducts] = useState([])
   const [selectedProductIds, setSelectedProductIds] = useState([])
   const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(0)
+  const [flag, setFlag] = useState(1)
   const dispatch = useDispatch()
-  const allProducts = useSelector(store => store.products.allProducts)
-  const fake = FakeContext()
+ 
+
   useEffect(() => {
-    if (allProducts) {
-      dispatch(getProducts())
+    if (!allProducts || allProducts !== products) {
+      (async () => {
+        setProducts(allProducts.filter(products => products.state))
+      })()
+      console.log(products)
     }
-    setProducts(allProducts)
-    console.log(fake)
-  }, [])
-  
+  },[allProducts])
+
+  useEffect(() => {
+    if(!selectedProductIds.length){
+      setEventHandler({...eventHandler, deleteProductsBtn:false, selectedProducts:selectedProductIds})
+    }
+    if(selectedProductIds.length){
+      setEventHandler({...eventHandler, deleteProductsBtn:true, selectedProducts:selectedProductIds})
+    }
+},[selectedProductIds])
+
+
+  useEffect(() => {
+  },[selectedProductIds])
+
   const handleSelectAll = (event) => {
     let newSelectedProductId
     if (event.target.checked) {
@@ -113,7 +129,7 @@ const ProductListResults = ({ ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {products.slice(page, page + limit).map((product) => (
+              {products.slice(page, page + limit).map((product) =>  (
                 <TableRow
                   hover
                   key={product.id}

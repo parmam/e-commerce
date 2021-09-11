@@ -1,26 +1,32 @@
-import { GET_ALL_PRODUCTS, GET_BESTS, GET_PRODUCT_DETAIL, POST_PRODUCT } from '../constants'
+import { GET_ALL_PRODUCTS, GET_BESTS, GET_PRODUCT_DETAIL, POST_PRODUCT, DELETE_PRODUCTS } from '../constants'
 import axios from 'axios'
-
+import { ApiURL } from '../../config'
 export const getProducts = () => async (dispatch) => {
-  const products = await axios.get('http://localhost:3001/products', { withCredentials: true })
-  return dispatch({
-    type: GET_ALL_PRODUCTS,
-    payload: products.data
-  })
+  try{
+    const products = await axios.get(`${ApiURL}/products`, { withCredentials: true })
+    return dispatch({
+      type: GET_ALL_PRODUCTS,
+      payload: products.data
+    })
+  }catch(error){
+    console.log(error)
+  }
 }
 
 export const getProductsDetails = (id) => async (dispatch) => {
-  const product = await axios.get(`http://localhost:3001/products/${id}`, { withCredentials: true })
-  console.log(product)
+  try{
+  const product = await axios.get(`${ApiURL}/products/${id}`, { withCredentials: true })
   return dispatch({
     type: GET_PRODUCT_DETAIL,
     payload: product.data
   })
+  }catch(error){
+    console.log(error)
+  }
 }
 
 export const getBestProducts = (n) => async (dispatch) => {
-  const bests = await axios.get(`http://localhost:3001/products/best/${n}`, { withCredentiales: true })
-  console.log(bests)
+  const bests = await axios.get(`${ApiURL}/products/best/${n}`, { withCredentiales: true })
   return dispatch({
     type: GET_BESTS,
     payload: bests.data
@@ -29,10 +35,22 @@ export const getBestProducts = (n) => async (dispatch) => {
 
 export const addProducts = (newProduct) => async (dispatch) => {
   console.log(newProduct)
-  const product = await axios.post('http://localhost:3001/products/add', newProduct, { withCredentials: true })
-  console.log(product)
+  const product = await axios.post(`${ApiURL}/products/add`, newProduct, { withCredentials: true })
   return dispatch({
     type: POST_PRODUCT,
     payload: product.data
+  })
+}
+
+export const removeProducts = (idsArr) => async (dispatch) => {
+  const product = {
+    idProducts: idsArr
+  }
+  JSON.stringify(product)
+  const deletedProducts = await axios.put(`${ApiURL}/products/deleteproducts`, product, { withCredentials: true })
+  console.log(deletedProducts)
+  return dispatch({
+    type: DELETE_PRODUCTS,
+    payload: deletedProducts.data
   })
 }
