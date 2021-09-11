@@ -11,7 +11,6 @@ import {
   TextField,
   Typography
 } from '@material-ui/core'
-import { PrecisionManufacturingRounded } from '@material-ui/icons'
 
 const states = [
   {
