@@ -14,11 +14,13 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
+  Typography,
+  Link
 } from '@material-ui/core'
 import getInitials from '../../utils/getInitials'
 import { useSelector, useDispatch } from 'react-redux'
 import { getUsers } from 'src/redux/actions/user'
+import { UserMinus } from 'react-feather'
 // import { Users } from 'react-feather'
 const CustomerListResults = ({ userType, ...rest }) => {
   const [selectedUsersIds, setSelectedUsersIds] = useState([])
@@ -114,12 +116,9 @@ const CustomerListResults = ({ userType, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users && users.slice(page, page + 10).map((user) => (
-                <TableRow
-                  hover
-                  key={user.id}
-                  selected={selectedUsersIds.indexOf(user.id) !== -1}
-                >
+              {users && users.slice(page, page + 10).map((user, i) => (
+                // <Link key={user.id + i}>
+                <TableRow hover key={user.id} selected={selectedUsersIds.indexOf(user.id) !== -1}>
                   <TableCell padding='checkbox'>
                     <Checkbox
                       checked={selectedUsersIds.indexOf(user.id) !== -1}
@@ -164,6 +163,7 @@ const CustomerListResults = ({ userType, ...rest }) => {
                       : <ButtonStateGrey />}
                   </TableCell>
                 </TableRow>
+                // </Link>
               ))}
             </TableBody>
           </Table>
