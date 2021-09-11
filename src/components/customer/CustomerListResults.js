@@ -19,16 +19,15 @@ import {
 import getInitials from '../../utils/getInitials'
 import { useSelector, useDispatch } from 'react-redux'
 import { getUsers } from 'src/redux/actions/user'
-import { Users } from 'react-feather'
-
+// import { Users } from 'react-feather'
 const CustomerListResults = ({ userType, ...rest }) => {
   const [selectedUsersIds, setSelectedUsersIds] = useState([])
-  const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(0)
 
   const dispatch = useDispatch()
   const usersRedux = useSelector(store => store.user.users)
   const users = usersRedux.filter(user => user.type !== userType)
+
   users.sort(function (a, b) {
     if (a.name < b.name) {
       return 1
@@ -36,11 +35,9 @@ const CustomerListResults = ({ userType, ...rest }) => {
     if (a.name > b.name) {
       return -1
     }
-    // a must be equal to b
     return 0
   })
 
-  // const [users, setUsers] = useState()
   const handleSelectAll = (event) => {
     let newSelectedUsersIds
 
@@ -53,11 +50,8 @@ const CustomerListResults = ({ userType, ...rest }) => {
     setSelectedUsersIds(newSelectedUsersIds)
   }
 
-  console.log(users)
   useEffect(() => {
     dispatch(getUsers())
-    // console.log(users[0].status)
-    // console.log(users[1].status)
   }, [dispatch])
 
   const handleSelectOne = (event, id) => {
@@ -78,10 +72,6 @@ const CustomerListResults = ({ userType, ...rest }) => {
     }
 
     setSelectedUsersIds(newSelectedUsersIds)
-  }
-
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value)
   }
 
   const handlePageChange = (event, newPage) => {
@@ -124,7 +114,7 @@ const CustomerListResults = ({ userType, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users && users.slice(page, page + limit).map((user) => (
+              {users && users.slice(page, page + 10).map((user) => (
                 <TableRow
                   hover
                   key={user.id}
@@ -166,7 +156,6 @@ const CustomerListResults = ({ userType, ...rest }) => {
                     {/* {`${user.address.city}, ${user.address.state}, ${user.address.country}`} */}
                   </TableCell>
                   <TableCell>
-                    {/* {console.log(user.type, 'usertype')} */}
                     <GroupButtons id={user.id} type={user.type} status={user.status} />
                   </TableCell>
                   <TableCell>
@@ -184,9 +173,8 @@ const CustomerListResults = ({ userType, ...rest }) => {
         component='div'
         count={users.length}
         onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
         page={page}
-        rowsPerPage={limit}
+        rowsPerPage={10}
         rowsPerPageOptions={[10]}
       />
     </Card>

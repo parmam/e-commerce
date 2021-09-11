@@ -5,6 +5,8 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import App from './App'
 import Store from './redux/store'
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
 
 const { persistor, store } = Store
 ReactDOM.render(
@@ -15,6 +17,7 @@ ReactDOM.render(
           <PersistGate loading={null} persistor={persistor}>
             <BrowserRouter>
               <App />
+              <ToastContainer />
             </BrowserRouter>
           </PersistGate>
         </Provider>
