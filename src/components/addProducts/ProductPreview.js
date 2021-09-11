@@ -19,7 +19,7 @@ const user = {
   timezone: 'GTM-7'
 }
 
-const AddProducts = (props) => (
+const ProductPreview = (props) => (
   <Card {...props}>
     <CardContent>
       <Box
@@ -70,4 +70,4 @@ const AddProducts = (props) => (
   </Card>
 )
 
-export default AddProducts
+export default ProductPreview
