@@ -5,11 +5,11 @@ import CustomerListToolbar from '../components/customer/CustomerListToolbar'
 import GroupButtons from '../Resourses/GroupButtons'
 import customers from '../__mocks__/customers'
 
-const CustomerList = () => (
+const AdminList = () => (
 
   <>
     <Helmet>
-      <title>Customers | Material Kit</title>
+      <title>Admins | Material Kit</title>
     </Helmet>
     <Box
       sx={{
@@ -21,11 +21,11 @@ const CustomerList = () => (
       <Container maxWidth={false}>
         <CustomerListToolbar />
         <Box sx={{ pt: 3 }}>
-          <CustomerListResults userType='Admin' />
+          <CustomerListResults userType='User' />
         </Box>
       </Container>
     </Box>
   </>
 )
 
-export default CustomerList
+export default AdminList
