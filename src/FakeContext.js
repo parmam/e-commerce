@@ -1,16 +1,17 @@
 import React, {useState} from 'react'
 
 
-const FakeContext = () => {
+export const FakeContext = () => {
     const [eventHandler, setEventHandler] = useState({
-        removeProducts: false,
+        deleteProductsBtn: false,
+        selectedProducts:[],
         setSearch:''
     })
 
     return{
         eventHandler,
-        setEventHandler
+        setEventHandler,
     }
+
 }
 
-export default FakeContext

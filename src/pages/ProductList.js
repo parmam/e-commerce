@@ -3,8 +3,15 @@ import { Box, Container } from '@material-ui/core'
 import ProductListResult from '../components/product/ProductListResult'
 import ProductListToolbar from '../components/product/ProductListToolbar'
 import products from '../__mocks__/products'
-const ProductList = () => {
-  
+import { FakeContext } from '../FakeContext'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+const ProductList = ({...rest}) => {
+  const allProducts = useSelector(store => store.products.allProducts)
+  const { eventHandler, setEventHandler } = FakeContext()
+  useEffect(() => {
+    console.log(eventHandler)
+  },[eventHandler])
   return (
 
     <>
@@ -19,9 +26,18 @@ const ProductList = () => {
         }}
       >
         <Container maxWidth={false}>
-          <ProductListToolbar />
+          <ProductListToolbar 
+            products={products} 
+            eventHandler={eventHandler} 
+            setEventHandler={setEventHandler} 
+            allProducts={allProducts}
+          />
           <Box sx={{ pt: 3 }}>
-            <ProductListResult products={products} />
+            <ProductListResult 
+              eventHandler={eventHandler} 
+              setEventHandler={setEventHandler} 
+              allProducts={allProducts}
+            />
           </Box>
         </Container>
       </Box>

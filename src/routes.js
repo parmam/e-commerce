@@ -11,6 +11,8 @@ import ProductList from './pages/ProductList'
 import Register from './pages/Register'
 import Settings from './pages/Settings'
 import Test from './pages/Test'
+import AddProductsPage from './pages/AddProductsPage'
+import EditProducts from './pages/EditProducts'
 const routes = [
   {
     path: 'app',
@@ -22,6 +24,8 @@ const routes = [
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'products', element: <ProductList /> },
       { path: 'settings', element: <Settings /> },
+      { path: '/products/add', element: <AddProductsPage /> },
+      { path: '/products/edit', element: <EditProducts /> },
       { path: '*', element: <Navigate to='/404' /> }
     ]
   },
@@ -34,7 +38,9 @@ const routes = [
       { path: '404', element: <NotFound /> },
       { path: '/', element: <Navigate to='/app/dashboard' /> },
       { path: '/test', element: <Test to='/test' /> },
-      { path: '*', element: <Navigate to='/404' /> }
+
+      { path: '*', element: <Navigate to='/404' /> },
+      
     ]
   }
 ]
