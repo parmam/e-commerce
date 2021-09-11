@@ -38,7 +38,6 @@ const routes = [
       { path: '404', element: <NotFound /> },
       { path: '/', element: <Navigate to='/app/dashboard' /> },
       { path: '/test', element: <Test to='/test' /> },
-
       { path: '*', element: <Navigate to='/404' /> },
       
     ]

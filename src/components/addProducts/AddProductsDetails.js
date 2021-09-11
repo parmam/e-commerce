@@ -27,7 +27,7 @@ const states = [
   }
 ]
 
-const AccountProductsDetails = (props) => {
+const AddPorductsDetails = (props) => {
   const [values, setValues] = useState({
     firstName: 'Katarina',
     lastName: 'Smith',
@@ -47,187 +47,6 @@ const AccountProductsDetails = (props) => {
   return (
     <>
 
-      <Card>
-        <CardHeader
-          subheader='En primer lugar debera ingresar las marcas de los productos que tendra en su tienda, luego las categorias y subcategorias relacionadas a las mismas'
-          title='Agregar marcas, categorias y sub categorias'
-        />
-        <CardContent>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                helperText=''
-                label='Categoria'
-                name='category'
-                onChange={handleChange}
-                required
-                value={values.firstName}
-                variant='outlined'
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label='Categorias registradas'
-                name='allCategories'
-                onChange={handleChange}
-                select
-                helperText='Haga click sobre la categoria que desea eliminar'
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant='outlined'
-              >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label='Categorias'
-                name='allSubCategories'
-                onChange={handleChange}
-                select
-                helperText='Seleccione una categoria para asociarla con una sub categoria'
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant='outlined'
-              >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                helperText='Ingrese el nombre de la sub categoria'
-                label='Nombre'
-                name='subCategory'
-                onChange={handleChange}
-                required
-                value={values.firstName}
-                variant='outlined'
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <Box>
-                <Button variant='outlined' color='warning' style={{ heigth: 5, fontSize: 12, marginRight: 1, margin: 1.5 }}>
-                  - Primaryasdasdsa
-                </Button>
-                <Button variant='outlined' color='warning' style={{ heigth: 5, fontSize: 12, marginRight: 1, margin: 1.5 }}>
-                  - Primary
-                </Button>
-                <Button variant='outlined' color='warning' style={{ heigth: 5, fontSize: 12, marginRight: 1, margin: 1.5 }}>
-                  - Primary
-                </Button>
-                <Button variant='outlined' color='warning' style={{ heigth: 5, fontSize: 12, marginRight: 1, margin: 1.5 }}>
-                  - Pri
-                </Button>
-                <Button variant='outlined' color='warning' style={{ heigth: 5, fontSize: 12, marginRight: 1, margin: 1.5 }}>
-                  - Psdasddrimary
-                </Button>
-                <Button variant='outlined' color='warning' style={{ heigth: 5, fontSize: 12, marginRight: 1, margin: 1.5 }}>
-                  - Primary
-                </Button>
-              </Box>
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <Typography
-                color='textSecondary'
-                variant='body1'
-                style={{ fontSize: 14 }}
-              >
-                A su izquierda tiene las sub categorias asignadas a la categoria seleccionada, en caso de querer eliminar alguna de ellas solo debe presionar
-                el boton correspondiente a la sub categoria, tenga en cuenta que esta se desvinculara de todos los productos a la cual esta asignada.
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                helperText=''
-                label='Marcas'
-                name='brand'
-                onChange={handleChange}
-                required
-                value={values.firstName}
-                variant='outlined'
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label='Marcas registradas'
-                name='allBrands'
-                onChange={handleChange}
-                select
-                helperText='Haga click sobre la marca que desea eliminar'
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant='outlined'
-              >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>
-
-          </Grid>
-        </CardContent>
-      </Card>
-      <Divider />
 
       <form
         autoComplete='off'
@@ -245,91 +64,15 @@ const AccountProductsDetails = (props) => {
               container
               spacing={3}
             >
-              <Grid
+            <Grid
                 item
                 md={6}
                 xs={12}
               >
                 <TextField
                   fullWidth
-                  helperText=''
-                  label='First name'
-                  name='firstName'
-                  onChange={handleChange}
-                  required
-                  value={values.firstName}
-                  variant='outlined'
-                />
-              </Grid>
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
-                <TextField
-                  fullWidth
-                  label='Last name'
-                  name='lastName'
-                  onChange={handleChange}
-                  required
-                  value={values.lastName}
-                  variant='outlined'
-                />
-              </Grid>
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
-                <TextField
-                  fullWidth
-                  label='Email Address'
-                  name='email'
-                  onChange={handleChange}
-                  required
-                  value={values.email}
-                  variant='outlined'
-                />
-              </Grid>
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
-                <TextField
-                  fullWidth
-                  label='Phone Number'
-                  name='phone'
-                  onChange={handleChange}
-                  type='number'
-                  value={values.phone}
-                  variant='outlined'
-                />
-              </Grid>
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
-                <TextField
-                  fullWidth
-                  label='Country'
-                  name='country'
-                  onChange={handleChange}
-                  required
-                  value={values.country}
-                  variant='outlined'
-                />
-              </Grid>
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
-                <TextField
-                  fullWidth
-                  label='Select State'
-                  name='state'
+                  label='Marca'
+                  name='brand'
                   onChange={handleChange}
                   required
                   select
@@ -346,6 +89,122 @@ const AccountProductsDetails = (props) => {
                     </option>
                   ))}
                 </TextField>
+              </Grid>
+              <Grid
+                item
+                md={6}
+                xs={12}
+              >
+                <TextField
+                  fullWidth
+                  helperText=''
+                  label='Modelo'
+                  name='firstName'
+                  onChange={handleChange}
+                  required
+                  value={values.firstName}
+                  variant='outlined'
+                />
+              </Grid>
+              <Grid
+                item
+                md={6}
+                xs={12}
+              >
+                <TextField
+                  fullWidth
+                  label='Categoria'
+                  name='category'
+                  onChange={handleChange}
+                  required
+                  select
+                  SelectProps={{ native: true }}
+                  value={values.state}
+                  variant='outlined'
+                >
+                  {states.map((option) => (
+                    <option
+                      key={option.value}
+                      value={option.value}
+                    >
+                      {option.label}
+                    </option>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid
+                item
+                md={6}
+                xs={12}
+              >
+                <TextField
+                  fullWidth
+                  label='Sub categoria'
+                  name='subcategory'
+                  onChange={handleChange}
+                  required
+                  select
+                  SelectProps={{ native: true }}
+                  value={values.state}
+                  variant='outlined'
+                >
+                  {states.map((option) => (
+                    <option
+                      key={option.value}
+                      value={option.value}
+                    >
+                      {option.label}
+                    </option>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid
+                item
+                md={6}
+                xs={12}
+              >
+                <TextField
+                  fullWidth
+                  label='Precio'
+                  name='price'
+                  onChange={handleChange}
+                  required
+                  value={values.lastName}
+                  variant='outlined'
+                />
+              </Grid>
+              <Grid
+                item
+                md={6}
+                xs={12}
+              >
+                <TextField
+                  fullWidth
+                  label='Descuento'
+                  name='discount'
+                  onChange={handleChange}
+                  required
+                  value={values.email}
+                  variant='outlined'
+                />
+              </Grid>
+  
+              <Grid
+                item
+                md={12}
+                xs={12}
+              >
+                <TextField
+                  fullWidth
+                  label='Descripcion del producto'
+                  name='description'
+                  onChange={handleChange}
+                  required
+                  multiline
+                  value={values.country}
+                  variant='outlined'
+
+                />
               </Grid>
             </Grid>
           </CardContent>
@@ -370,4 +229,4 @@ const AccountProductsDetails = (props) => {
   )
 }
 
-export default AccountProductsDetails
+export default AddPorductsDetails
