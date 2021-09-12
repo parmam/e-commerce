@@ -1,5 +1,3 @@
-
-import PropTypes from 'prop-types'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import {
   Avatar,
@@ -13,42 +11,31 @@ import {
   TablePagination,
   TableRow
 } from '@material-ui/core'
-import { useSelector, useDispatch } from 'react-redux'
+
 import React, { useEffect, useState } from 'react'
-import { getProducts } from '../../redux/actions/products'
 
-
-
-const ProductListResults = ({ allProducts, eventHandler, setEventHandler, ...rest }) => {
-  const [products, setProducts] = useState([])
+const ProductListResults = ({dispatch, allProducts ,eventHandler, setEventHandler, ...rest }) => {
   const [selectedProductIds, setSelectedProductIds] = useState([])
   const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(0)
-  const [flag, setFlag] = useState(1)
-  const dispatch = useDispatch()
- 
-
+  const [products, setProducts] = useState([])
+  
+  if (!selectedProductIds.length && selectedProductIds !== eventHandler.selectedProducts) {
+    setEventHandler({ ...eventHandler, deleteProductsBtn: false, selectedProducts: selectedProductIds })
+  }
+  if (selectedProductIds.length && selectedProductIds !== eventHandler.selectedProducts) {
+    setEventHandler({ ...eventHandler, deleteProductsBtn: true, selectedProducts: selectedProductIds })
+  }
   useEffect(() => {
-    if (!allProducts || allProducts !== products) {
-      (async () => {
-        setProducts(allProducts.filter(products => products.state))
-      })()
-      console.log(products)
+    if(!eventHandler.deleteProductsBtn){
+      setSelectedProductIds([])
     }
-  },[allProducts])
-
+  },[eventHandler.deleteProductsBtn])
+  
   useEffect(() => {
-    if(!selectedProductIds.length){
-      setEventHandler({...eventHandler, deleteProductsBtn:false, selectedProducts:selectedProductIds})
-    }
-    if(selectedProductIds.length){
-      setEventHandler({...eventHandler, deleteProductsBtn:true, selectedProducts:selectedProductIds})
-    }
-},[selectedProductIds])
-
-
-  useEffect(() => {
-  },[selectedProductIds])
+    setProducts(allProducts.filter(products => products.state))
+  }, [allProducts])
+  
 
   const handleSelectAll = (event) => {
     let newSelectedProductId
@@ -129,7 +116,7 @@ const ProductListResults = ({ allProducts, eventHandler, setEventHandler, ...res
               </TableRow>
             </TableHead>
             <TableBody>
-              {products.slice(page, page + limit).map((product) =>  (
+              {products.slice(page, page + limit).map((product) => (
                 <TableRow
                   hover
                   key={product.id}

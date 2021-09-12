@@ -1,26 +1,26 @@
 import { GET_ALL_PRODUCTS, GET_BESTS, GET_PRODUCT_DETAIL, POST_PRODUCT, DELETE_PRODUCTS } from '../constants'
 import axios from 'axios'
 import { ApiURL } from '../../config'
-export const getProducts = () => async (dispatch) => {
-  try{
+export const getProducts = (products) => async (dispatch) => {
+  try {
     const products = await axios.get(`${ApiURL}/products`, { withCredentials: true })
     return dispatch({
       type: GET_ALL_PRODUCTS,
       payload: products.data
     })
-  }catch(error){
+  } catch (error) {
     console.log(error)
   }
 }
 
 export const getProductsDetails = (id) => async (dispatch) => {
-  try{
-  const product = await axios.get(`${ApiURL}/products/${id}`, { withCredentials: true })
-  return dispatch({
-    type: GET_PRODUCT_DETAIL,
-    payload: product.data
-  })
-  }catch(error){
+  try {
+    const product = await axios.get(`${ApiURL}/products/${id}`, { withCredentials: true })
+    return dispatch({
+      type: GET_PRODUCT_DETAIL,
+      payload: product.data
+    })
+  } catch (error) {
     console.log(error)
   }
 }

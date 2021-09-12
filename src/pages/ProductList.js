@@ -4,14 +4,21 @@ import ProductListResult from '../components/product/ProductListResult'
 import ProductListToolbar from '../components/product/ProductListToolbar'
 import products from '../__mocks__/products'
 import { FakeContext } from '../FakeContext'
-import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-const ProductList = ({...rest}) => {
-  const allProducts = useSelector(store => store.products.allProducts)
-  const { eventHandler, setEventHandler } = FakeContext()
+import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { getProducts } from '../redux/actions/products'
+
+const ProductList = ({ ...rest }) => {
+
+  const {dispatch, eventHandler, setEventHandler, allProducts} = FakeContext()
+
+
   useEffect(() => {
-    console.log(eventHandler)
-  },[eventHandler])
+      dispatch(getProducts())
+      console.log('asdasd')
+  }, [dispatch])
+
+
   return (
 
     <>
@@ -26,17 +33,18 @@ const ProductList = ({...rest}) => {
         }}
       >
         <Container maxWidth={false}>
-          <ProductListToolbar 
-            products={products} 
-            eventHandler={eventHandler} 
-            setEventHandler={setEventHandler} 
-            allProducts={allProducts}
+          <ProductListToolbar
+            allProducts = {allProducts}
+            eventHandler = {eventHandler}
+            setEventHandler = {setEventHandler}
+            dispatch = {dispatch}
           />
           <Box sx={{ pt: 3 }}>
-            <ProductListResult 
-              eventHandler={eventHandler} 
-              setEventHandler={setEventHandler} 
-              allProducts={allProducts}
+            <ProductListResult
+              eventHandler = {eventHandler}
+              setEventHandler = {setEventHandler}
+              allProducts = {allProducts}
+              dispatch = {dispatch}
             />
           </Box>
         </Container>
