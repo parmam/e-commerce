@@ -8,8 +8,7 @@ import {
   CardHeader,
   Divider,
   Grid,
-  TextField,
-  Typography
+  TextField
 } from '@material-ui/core'
 
 const states = [
@@ -47,7 +46,6 @@ const AddPorductsDetails = (props) => {
   return (
     <>
 
-
       <form
         autoComplete='off'
         noValidate
@@ -64,7 +62,7 @@ const AddPorductsDetails = (props) => {
               container
               spacing={3}
             >
-            <Grid
+              <Grid
                 item
                 md={6}
                 xs={12}
@@ -188,7 +186,7 @@ const AddPorductsDetails = (props) => {
                   variant='outlined'
                 />
               </Grid>
-  
+
               <Grid
                 item
                 md={12}

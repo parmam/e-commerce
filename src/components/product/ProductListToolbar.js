@@ -8,21 +8,28 @@ import {
   SvgIcon
 } from '@material-ui/core'
 import { Search as SearchIcon } from 'react-feather'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { removeProducts, getProducts } from '../../redux/actions/products'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 
-const ProductListToolbar = ({eventHandler, setEventHandler, props, allProducts}) => {
-const dispatch = useDispatch()
-
+const ProductListToolbar = ({eventHandler, setEventHandler, props, allProducts, dispatch}) => {
+const [deleter, setDeleter] = useState([])
 const onClickDelete = () => {
-  let idsArr = eventHandler.selectedProducts
-  dispatch(removeProducts(idsArr))
-  dispatch(getProducts())
+  setDeleter(eventHandler.selectedProducts) 
+
 }
 
+useEffect(() => {
+  console.log(eventHandler.selectedProducts)
+  if(deleter.length){
+    dispatch(removeProducts(deleter))
+    setEventHandler({...eventHandler, selectedProducts:[]})
+    setDeleter([])
+  }
+  dispatch(getProducts())
+},[dispatch, deleter])
 
 
   return  (
