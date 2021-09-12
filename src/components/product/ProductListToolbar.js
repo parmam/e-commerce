@@ -25,8 +25,9 @@ useEffect(() => {
   console.log(eventHandler.selectedProducts)
   if(deleter.length){
     dispatch(removeProducts(deleter))
-    setEventHandler({...eventHandler, selectedProducts:[]})
+    setEventHandler({...eventHandler, selectedProducts:[], deleteProductsBtn: false})
     setDeleter([])
+
   }
   dispatch(getProducts())
 },[dispatch, deleter])

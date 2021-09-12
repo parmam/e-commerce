@@ -28,7 +28,11 @@ const ProductListResults = ({dispatch, allProducts ,eventHandler, setEventHandle
   if (selectedProductIds.length && selectedProductIds !== eventHandler.selectedProducts) {
     setEventHandler({ ...eventHandler, deleteProductsBtn: true, selectedProducts: selectedProductIds })
   }
-  
+  useEffect(() => {
+    if(!eventHandler.deleteProductsBtn){
+      setSelectedProductIds([])
+    }
+  },[eventHandler.deleteProductsBtn])
   
   useEffect(() => {
     setProducts(allProducts.filter(products => products.state))
