@@ -13,8 +13,6 @@ import {
 } from '@material-ui/core'
 
 import React, { useEffect, useState } from 'react'
-import { getProducts } from 'src/redux/actions/products'
-
 
 const ProductListResults = ({dispatch, allProducts ,eventHandler, setEventHandler, ...rest }) => {
   const [selectedProductIds, setSelectedProductIds] = useState([])
