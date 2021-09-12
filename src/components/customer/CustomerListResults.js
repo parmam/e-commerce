@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import GroupButtons from 'src/Resourses/GroupButtons'
-import { ButtonStateGreen, ButtonStateGrey } from 'src/Resourses/ButtonState'
+import GroupButtons from 'src/Resources/GroupButtons'
+import { ButtonStateGreen, ButtonStateGrey } from 'src/Resources/ButtonState'
 import {
   Avatar,
   Box,
@@ -117,7 +117,6 @@ const CustomerListResults = ({ userType, ...rest }) => {
             </TableHead>
             <TableBody>
               {users && users.slice(page, page + 10).map((user, i) => (
-                // <Link key={user.id + i}>
                 <TableRow hover key={user.id} selected={selectedUsersIds.indexOf(user.id) !== -1}>
                   <TableCell padding='checkbox'>
                     <Checkbox
@@ -143,12 +142,16 @@ const CustomerListResults = ({ userType, ...rest }) => {
                         color='textPrimary'
                         variant='body1'
                       >
-                        {user.name && user.name}
+                        <Link key={user.id + i} href='http://localhost:3000/app/account/:id'>
+                          {user.name && user.name}
+                        </Link>
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {user.email && user.email}
+                    <Link key={user.id + i} href='http://localhost:3000/app/account'>
+                      {user.email && user.email}
+                    </Link>
                   </TableCell>
                   <TableCell>
                     {user.address && user.cp ? (user.address + ' - ' + '(' + user.cp + ')') : null}
@@ -163,7 +166,6 @@ const CustomerListResults = ({ userType, ...rest }) => {
                       : <ButtonStateGrey />}
                   </TableCell>
                 </TableRow>
-                // </Link>
               ))}
             </TableBody>
           </Table>
