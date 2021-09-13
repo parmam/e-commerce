@@ -11,8 +11,17 @@ import React, { useState } from 'react'
 
 import AddCategoriesTab from '../components/addProducts/Tabs/AddCategoriesTab'
 import AddProductsTab from '../components/addProducts/Tabs/AddProductsTab'
-
+import { FakeContext } from '../FakeContext'
 const AddProductsPage = () => {
+  const {
+    dispatch,
+    eventHandler,
+    setEventHandler,
+    allProducts,
+    allSubCategories,
+    allCategories,
+    subCategoriesOf} = FakeContext()
+  
   const [selectedTab, setSelectedTab] = useState(0)
 
   const handleView = (event, newValue) => {
@@ -41,8 +50,17 @@ const AddProductsPage = () => {
           <Divider />
           <Container maxWidth='lg' style={{ marginTop: 25, padding: 0 }}>
 
-            {selectedTab === 0 && <AddProductsTab />}
-            {selectedTab === 1 && <AddCategoriesTab />}
+            
+            {selectedTab === 0 && <AddProductsTab dispatch={dispatch}
+                                                  allCategories={allCategories}
+                                                  allSubCategories={allSubCategories}
+                                                  allProducts={allProducts}
+                                                  subCategoriesOf={subCategoriesOf}/>}
+            {selectedTab === 1 && <AddCategoriesTab dispatch={dispatch}
+                                                    allCategories={allCategories}
+                                                    allSubCategories={allSubCategories}
+                                                    allProducts={allProducts}
+                                                    subCategoriesOf={subCategoriesOf}/>}
           </Container>
         </Paper>
       </Box>

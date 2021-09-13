@@ -54,6 +54,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "standard": "^16.0.3",
+    "sweetalert2": "^11.1.5",
     "uuid": "^8.3.0",
     "yup": "^0.32.9"
   }

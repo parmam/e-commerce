@@ -22,7 +22,6 @@ const onClickDelete = () => {
 }
 
 useEffect(() => {
-  console.log(eventHandler.selectedProducts)
   if(deleter.length){
     dispatch(removeProducts(deleter))
     setEventHandler({...eventHandler, selectedProducts:[], deleteProductsBtn: false})

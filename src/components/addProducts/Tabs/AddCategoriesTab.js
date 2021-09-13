@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Box,
   Grid,
@@ -11,7 +11,8 @@ import {
   Container
 
 } from '@material-ui/core'
-
+import  { DeleteAlertCategory }  from 'src/Tools/Swal2/DeleteAlert'
+import { addCategory, addSubCategory, getSubCategoriesOf } from 'src/redux/actions/categories'
 const states = [
   {
     value: 'alabama',
@@ -26,7 +27,8 @@ const states = [
     label: 'San Francisco'
   }
 ]
-const AddCategoriesTab = () => {
+
+const AddCategoriesTab = ({dispatch, allProducts, allSubCategories, allCategories, subCategoriesOf}) => {
   const [values, setValues] = useState({
     firstName: 'Katarina',
     lastName: 'Smith',
@@ -35,13 +37,61 @@ const AddCategoriesTab = () => {
     state: 'Alabama',
     country: 'USA'
   })
+  const [newBrand, setNewBrand] = useState('')
+  const [newCategory, setNewCategory] = useState('')
+  const [categoryRemover, setCategoryRemover] = useState('')
+  const [categoryOfSubcategory, setCategoryOfSubcategory] = useState('')
+  const [newSubCategory, setNewSubcategory] = useState({
+    category:'',
+    subCategory:''
+  })
 
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    })
+  useEffect(() => {
+    if(categoryRemover !== ''){
+      DeleteAlertCategory(categoryRemover, dispatch)
+    }
+  },[categoryRemover])
+
+  useEffect(() => {
+    console.log(categoryOfSubcategory, '  en componente')
+    dispatch(getSubCategoriesOf(categoryOfSubcategory))  
+  },[categoryOfSubcategory])
+  
+
+  const submitCategory = (e) => {
+    dispatch(addCategory(newCategory)) 
   }
+
+  const handleChangeCategory = (e) => {
+    setNewCategory(e.target.value)
+  }
+
+
+  const handleDeleteCategory = (e) => {
+    setCategoryRemover(e.target.value)
+
+  }
+
+
+  const handleChangeSubCategory = (e) => {
+    setNewSubcategory({...newSubCategory, subCategory:e.target.value})
+  }
+
+  const handleSetCategoryOfSubCategory = (e) => {
+    setCategoryOfSubcategory(e.target.value)
+
+  }
+
+  const submitSubCategory = () => {
+    dispatch(addSubCategory(newSubCategory))
+  }
+ 
+const submitBrand = () => {
+  console.log()
+}
+
+
+
 
   return (
     <>
@@ -65,10 +115,7 @@ const AddCategoriesTab = () => {
                   md={6}
                   xs={12}
                 >
-                  <form
-                    autoComplete='off'
-                    noValidate
-                  >
+
                     <Box
                       display='flex'
                       flexDirection='colums'
@@ -83,9 +130,9 @@ const AddCategoriesTab = () => {
                           helperText=''
                           label='Categoria'
                           name='category'
-                          onChange={handleChange}
+                          onChange={(e) => handleChangeCategory(e)}
                           required
-                          value={values.firstName}
+                          value={newCategory.value}
                           variant='outlined'
                         />
                       </Box>
@@ -96,12 +143,12 @@ const AddCategoriesTab = () => {
                         <Button
                           color='primary'
                           variant='contained'
+                          onClick={(e) => submitCategory(e)}
                         >
                           +
                         </Button>
                       </Box>
                     </Box>
-                  </form>
                 </Grid>
                 <Grid
                   item
@@ -112,19 +159,19 @@ const AddCategoriesTab = () => {
                     fullWidth
                     label='Categorias registradas'
                     name='allCategories'
-                    onChange={handleChange}
+                    value={categoryRemover.value}
+                    onChange={(e) => handleDeleteCategory(e)}
                     select
                     helperText='Haga click sobre la categoria que desea eliminar'
                     SelectProps={{ native: true }}
-                    value={values.state}
                     variant='outlined'
                   >
-                    {states.map((option) => (
+                    {allCategories && allCategories.sort().map((cat, index) => (
                       <option
-                        key={option.value}
-                        value={option.value}
+                        key={index}
+                        value={cat}
                       >
-                        {option.label}
+                        {cat}
                       </option>
                     ))}
                   </TextField>
@@ -135,10 +182,7 @@ const AddCategoriesTab = () => {
                   md={6}
                   xs={12}
                 >
-                  <form
-                    autoComplete='off'
-                    noValidate
-                  >
+
                     <Box
                       heigth='100%'
                       display='flex'
@@ -153,9 +197,9 @@ const AddCategoriesTab = () => {
                           fullWidth primary
                           label='Nombre de la sub categoria'
                           name='subCategory'
-                          onChange={handleChange}
+                          onChange={(e) => handleChangeSubCategory(e)}
                           required
-                          value={values.firstName}
+                          value={newSubCategory.subCategory.value}
                           variant='outlined'
                         />
                       </Box>
@@ -166,12 +210,13 @@ const AddCategoriesTab = () => {
                         <Button
                           color='primary'
                           variant='contained'
+                          onClick={(e) => submitSubCategory(e)}
                         >
                           +
                         </Button>
                       </Box>
                     </Box>
-                  </form>
+            
                 </Grid>
                 <Grid
                   item
@@ -180,21 +225,21 @@ const AddCategoriesTab = () => {
                 >
                   <TextField
                     fullWidth
+                    value={categoryOfSubcategory.value}
+                    select
+                    onChange={(e) => handleSetCategoryOfSubCategory(e)}
+                    SelectProps={{ native: true }}
+                    variant='outlined'
                     label='Categorias'
                     name='allSubCategories'
-                    onChange={handleChange}
-                    select
                     helperText='Seleccione una categoria para asociarla con una sub categoria'
-                    SelectProps={{ native: true }}
-                    value={values.state}
-                    variant='outlined'
                   >
-                    {states.map((option) => (
+                    {allCategories && allCategories.sort().map((cat, index) => (
                       <option
-                        key={option.value}
-                        value={option.value}
+                        key={index}
+                        value={cat}
                       >
-                        {option.label}
+                        {cat}
                       </option>
                     ))}
                   </TextField>
@@ -221,24 +266,22 @@ const AddCategoriesTab = () => {
                   xs={12}
                 >
                   <Box>
-                    <Button variant='outlined' color='primary' style={{ heigth: 5, fontSize: 12, marginRight: 1, margin: 1.5 }}>
-                      - Primaryasdasdsa
-                    </Button>
-                    <Button variant='outlined' color='primary' style={{ heigth: 5, fontSize: 12, marginRight: 1, margin: 1.5 }}>
-                      - Primary
-                    </Button>
-                    <Button variant='outlined' color='primary' style={{ heigth: 5, fontSize: 12, marginRight: 1, margin: 1.5 }}>
-                      - Primary
-                    </Button>
-                    <Button variant='outlined' color='primary' style={{ heigth: 5, fontSize: 12, marginRight: 1, margin: 1.5 }}>
-                      - Pri
-                    </Button>
-                    <Button variant='outlined' color='primary' style={{ heigth: 5, fontSize: 12, marginRight: 1, margin: 1.5 }}>
-                      - Psdasddrimary
-                    </Button>
-                    <Button variant='outlined' color='primary' style={{ heigth: 5, fontSize: 12, marginRight: 1, margin: 1.5 }}>
-                      - Primary
-                    </Button>
+                    {subCategoriesOf && subCategoriesOf
+                      .map((subCat, index) => {
+                          return (
+                            <Button 
+                            variant='outlined' 
+                            color='primary'
+                            style={{ heigth: 5,
+                                    fontSize: 12,
+                                    marginRight: 1,
+                                    margin: 1.5 
+                                    }}
+                            key={index}
+                          >
+                            {subCat}
+                          </Button>
+                     )})}
                   </Box>
                 </Grid>
                 <Grid
@@ -264,7 +307,7 @@ const AddCategoriesTab = () => {
                           helperText=''
                           label='Marcas'
                           name='brand'
-                          onChange={handleChange}
+                 
                           required
                           value={values.firstName}
                           variant='outlined'
@@ -293,7 +336,7 @@ const AddCategoriesTab = () => {
                     fullWidth
                     label='Marcas registradas'
                     name='allBrands'
-                    onChange={handleChange}
+             
                     select
                     helperText='Haga click sobre la marca que desea eliminar'
                     SelectProps={{ native: true }}
