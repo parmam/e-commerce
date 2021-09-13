@@ -48,7 +48,7 @@ export const addCategory = (newCategory) => async (dispatch) => {
 export const addSubCategory = (newSubCategory) => async (dispatch) => {
   const response = await axios.post(`${ApiURL}/categories/addSub`, newSubCategory, { withCredentials: true })
   if(response.request.status === 200){
-    const subCategoriesOf = await axios.get(`${ApiURL}/categories/getSubParams:${newSubCategory.category}`, { withCredentials: true })
+    const subCategoriesOf = await axios.get(`${ApiURL}/categories/getSubParams/:${newSubCategory.category}`, { withCredentials: true })
     console.log(subCategoriesOf.data, 'llegan las subcat')
   }
   return dispatch({
