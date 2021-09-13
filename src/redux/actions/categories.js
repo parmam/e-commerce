@@ -17,7 +17,7 @@ export const getCategories = () => async (dispatch) => {
 }
 
 export const getSubCategories = () => async (dispatch) => {
-  const subCategories = await axios.get(`${ApiURL}/categories/getSub/All`, { withCredentials: true })
+  const subCategories = await axios.get(`${ApiURL}/categories/getSub`, { withCredentials: true })
   return dispatch({
     type: GET_ALL_SUBCATEGORIES,
     payload: subCategories.data
@@ -25,7 +25,7 @@ export const getSubCategories = () => async (dispatch) => {
 }
 
 export const getSubCategoriesOf = (categoryOfSubcategory) => async (dispatch) => {
-  const subCategoriesOf = await axios.get(`${ApiURL}/categories/getSub:${categoryOfSubcategory}`, { withCredentials: true })
+  const subCategoriesOf = await axios.get(`${ApiURL}/categories/getSubParams/:${categoryOfSubcategory}`, { withCredentials: true })
   console.log(categoryOfSubcategory, ' actions subcategoryof actions')
   console.log(subCategoriesOf, '  ', categoryOfSubcategory )
   return dispatch({
