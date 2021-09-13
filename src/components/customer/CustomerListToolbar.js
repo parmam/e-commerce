@@ -17,17 +17,17 @@ const CustomerListToolbar = (props) => (
         justifyContent: 'flex-end'
       }}
     >
-      <Button>
+      {/* <Button>
         Import
       </Button>
       <Button sx={{ mx: 1 }}>
         Export
-      </Button>
+      </Button> */}
       <Button
         color='primary'
         variant='contained'
       >
-        Add customer
+        Agregar Usuario
       </Button>
     </Box>
     <Box sx={{ mt: 3 }}>

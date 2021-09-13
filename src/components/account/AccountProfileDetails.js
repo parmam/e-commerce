@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Box,
   Button,
@@ -9,39 +9,52 @@ import {
   Grid,
   TextField
 } from '@material-ui/core'
-
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-]
+import { validate } from '../../Helpers/formValidate'
+import stylex from './AcoountProfileDetails.module.css'
+// const states = [
+//   {
+//     value: 'alabama',
+//     label: 'Alabama'
+//   },
+//   {
+//     value: 'new-york',
+//     label: 'New York'
+//   },
+//   {
+//     value: 'san-francisco',
+//     label: 'San Francisco'
+//   }
+// ]
 
 const AccountProfileDetails = (props) => {
   const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
+    name: 'Katarina',
+    lastname: 'Smith',
     email: 'demo@devias.io',
     phone: '',
-    state: 'Alabama',
-    country: 'USA'
+    province: 'Alabama',
+    cp: 8000,
+    address: '',
+    city: '',
+    picture: '',
+    changed: false
   })
 
-  const handleChange = (event) => {
+  const [errors, setErrors] = useState({})
+
+  const handleChange = (e) => {
+    validate(e.target.value, e.target.name, setErrors)
     setValues({
       ...values,
-      [event.target.name]: event.target.value
+      changed: true,
+      [e.target.name]: e.target.value
     })
   }
+  useEffect(() => {
 
+  }, [handleChange])
+
+  // console.log(errors)
   return (
     <form
       autoComplete='off'
@@ -50,105 +63,90 @@ const AccountProfileDetails = (props) => {
     >
       <Card>
         <CardHeader
-          subheader='The information can be edited'
-          title='Profile'
+          subheader='Puedes actualizar tu información de perfil'
+          title='PERFIL'
         />
         <Divider />
         <CardContent>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+          <Grid container spacing={3}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 helperText='Please specify the first name'
-                label='First name'
-                name='firstName'
+                label='Nombre'
+                name='name'
                 onChange={handleChange}
                 required
-                value={values.firstName}
+                value={values.name}
                 variant='outlined'
               />
+              {/* ERROR EN NAME */}
+              {errors.name && <h3 className={stylex.error}> -{errors.name}- </h3>}
+
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
-                label='Last name'
-                name='lastName'
+                label='Apellido'
+                name='lastname'
                 onChange={handleChange}
                 required
-                value={values.lastName}
+                value={values.lastname}
                 variant='outlined'
               />
+              {/* ERROR EN LASTNAME */}
+              {errors.lastname && <h3 className={stylex.error}> -{errors.lastname}- </h3>}
+
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
-                label='Email Address'
+                label='Correo Electrónico'
                 name='email'
                 onChange={handleChange}
                 required
                 value={values.email}
                 variant='outlined'
               />
+              {/* ERROR EN email */}
+              {errors.email && <h3 className={stylex.error}> -{errors.email}- </h3>}
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
-                label='Phone Number'
+                label='Número telefónico'
                 name='phone'
                 onChange={handleChange}
                 type='number'
                 value={values.phone}
                 variant='outlined'
               />
+              {/* ERROR EN PHONE */}
+              {errors.phone && <h3 className={stylex.error}> -{errors.phone}- </h3>}
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
-                label='Country'
-                name='country'
+                label='Domicilio'
+                name='address'
                 onChange={handleChange}
-                required
-                value={values.country}
+                value={values.address}
                 variant='outlined'
               />
+              {/* ERROR EN ADDRESS */}
+              {errors.address && <h3 className={stylex.error}> -{errors.address}- </h3>}
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
+
+            {/* <Grid item md={6} xs={12}>
+               <TextField
                 fullWidth
-                label='Select State'
-                name='state'
+                label='Provincia'
+                name='province'
                 onChange={handleChange}
                 required
                 select
                 SelectProps={{ native: true }}
-                value={values.state}
+                value={values.province}
                 variant='outlined'
               >
                 {states.map((option) => (
@@ -160,23 +158,77 @@ const AccountProfileDetails = (props) => {
                   </option>
                 ))}
               </TextField>
+              </Grid> */}
+
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                label='Código Postal'
+                name='cp'
+                onChange={handleChange}
+                type='number'
+                value={values.cp}
+                variant='outlined'
+              />
+              {/* ERROR EN CP */}
+              {errors.cp && <h3 className={stylex.error}> -{errors.cp}- </h3>}
             </Grid>
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                label='Provincia'
+                name='province'
+                onChange={handleChange}
+                value={values.province}
+                variant='outlined'
+              />
+              {/* ERROR EN PROVINCE */}
+              {errors.province && <h3 className={stylex.error}> -{errors.province}- </h3>}
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                label='Google ID'
+                name='googleId'
+                onChange={handleChange}
+                value={values.googleId}
+                variant='outlined'
+              />
+              {/* ERROR EN GOOGLE ID */}
+              {errors.googleId && <h3 className={stylex.error}> -{errors.googleId}- </h3>}
+            </Grid>
+
           </Grid>
         </CardContent>
         <Divider />
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            p: 2
-          }}
-        >
-          <Button
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
+          {!errors.name && !errors.lastname && !errors.email && !errors.phone && !errors.province && !errors.cp && !errors.address && !errors.city && !errors.picture
+            ? (
+              <Button
+                color='primary'
+                variant='contained'
+
+              >
+                GUARDAR CAMBIOS
+              </Button>
+              )
+            : (
+              <Button
+                color='primary'
+                variant='contained'
+                disabled
+              >
+                GUARDAR CAMBIOS
+              </Button>
+
+              )}
+          {/* <Button
             color='primary'
             variant='contained'
           >
-            Save details
-          </Button>
+            GUARDAR CAMBIOS
+          </Button> */}
+
         </Box>
       </Card>
     </form>
