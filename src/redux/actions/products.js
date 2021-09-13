@@ -34,7 +34,6 @@ export const getBestProducts = (n) => async (dispatch) => {
 }
 
 export const addProducts = (newProduct) => async (dispatch) => {
-  console.log(newProduct)
   const product = await axios.post(`${ApiURL}/products/add`, newProduct, { withCredentials: true })
   return dispatch({
     type: POST_PRODUCT,
@@ -48,7 +47,6 @@ export const removeProducts = (idsArr) => async (dispatch) => {
   }
   JSON.stringify(product)
   const deletedProducts = await axios.put(`${ApiURL}/products/deleteproducts`, product, { withCredentials: true })
-  console.log(deletedProducts)
   return dispatch({
     type: DELETE_PRODUCTS,
     payload: deletedProducts.data

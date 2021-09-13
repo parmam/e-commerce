@@ -4,7 +4,8 @@ import {
   GET_ALL_SUBCATEGORIES,
   GET_SUBCATEGORIES_OF,
   POST_SUBCATEGORY,
-  POST_CATEGORY
+  POST_CATEGORY,
+  DELETE_CATEGORY
 } from '../constants'
 import { ApiURL } from '../../config'
 export const getCategories = () => async (dispatch) => {
@@ -23,8 +24,10 @@ export const getSubCategories = () => async (dispatch) => {
   })
 }
 
-export const getSubCategoriesOf = (categorie) => async (dispatch) => {
-  const subCategoriesOf = await axios.get(`${ApiURL}/categories/getSub/${categorie}`, { withCredentials: true })
+export const getSubCategoriesOf = (categoryOfSubcategory) => async (dispatch) => {
+  const subCategoriesOf = await axios.get(`${ApiURL}/categories/getSub:${categoryOfSubcategory}`, { withCredentials: true })
+  console.log(categoryOfSubcategory, ' actions subcategoryof actions')
+  console.log(subCategoriesOf, '  ', categoryOfSubcategory )
   return dispatch({
     type: GET_SUBCATEGORIES_OF,
     payload: subCategoriesOf.data
@@ -32,21 +35,35 @@ export const getSubCategoriesOf = (categorie) => async (dispatch) => {
 }
 
 export const addCategory = (newCategory) => async (dispatch) => {
-  console.log(newCategory)
-  const category = await axios.post(`${ApiURL}/categories/add/`, newCategory, { withCredentials: true })
-  console.log(category)
-  return dispatch({
-    type: POST_CATEGORY,
-    payload: category.data
-  })
+  const response = await axios.post(`${ApiURL}/categories/add/`, {name:newCategory}, { withCredentials: true })
+  if(response.request.status === 200){
+    const categories = await axios.get(`${ApiURL}/categories`, { withCredentials: true })
+    return dispatch({
+      type: POST_CATEGORY,
+      payload: categories.data
+    })
+  }
 }
 
 export const addSubCategory = (newSubCategory) => async (dispatch) => {
-  console.log(newSubCategory)
-  const subCategory = await axios.post(`${ApiURL}/categories/addSub`, newSubCategory, { withCredentials: true })
-  console.log(newSubCategory)
+  const response = await axios.post(`${ApiURL}/categories/addSub`, newSubCategory, { withCredentials: true })
+  if(response.request.status === 200){
+    const subCategoriesOf = await axios.get(`${ApiURL}/categories/getSubParams:${newSubCategory.category}`, { withCredentials: true })
+    console.log(subCategoriesOf.data, 'llegan las subcat')
+  }
   return dispatch({
     type: POST_SUBCATEGORY,
-    payload: subCategory.data
+    payload: response.data
   })
 }
+
+export const removeCategory = (categoryRemover) => async (dispatch) => {
+  const categoryDeleted = await axios.delete(`${ApiURL}`, {name: categoryRemover},{ withCredentials: true })
+  if(categoryDeleted.request.status === 200){
+    const categories = await axios.get(`${ApiURL}`, { withCredentials: true })
+    return dispatch({
+      type: DELETE_CATEGORY,
+      payload: categories.data
+    })
+  }
+0}

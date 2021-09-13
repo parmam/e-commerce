@@ -7,15 +7,23 @@ import { FakeContext } from '../FakeContext'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getProducts } from '../redux/actions/products'
+import { getCategories, getSubCategories } from '../redux/actions/categories'
 
 const ProductList = ({ ...rest }) => {
 
-  const {dispatch, eventHandler, setEventHandler, allProducts} = FakeContext()
+  const {
+      dispatch,
+      eventHandler,
+      setEventHandler,
+      allProducts,
+      allCategories,
+      allSubCategories } = FakeContext()
 
 
   useEffect(() => {
       dispatch(getProducts())
-      console.log('asdasd')
+      dispatch(getCategories())
+      dispatch(getSubCategories())
   }, [dispatch])
 
 

@@ -19,8 +19,8 @@ const user = {
   timezone: 'GTM-7'
 }
 
-const ProductPreview = (props) => (
-  <Card {...props}>
+const ProductPreview = () => (
+  <Card>
     <CardContent>
       <Box
         sx={{
