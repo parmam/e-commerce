@@ -1,4 +1,4 @@
-function validate (value, target, setErrors) {
+export function validate (value, target, setErrors) {
   if (target === 'name' || target === 'lastname') {
     setErrors((prev) => ({ ...prev, [target]: null }))
     const nameformat = /^[a-zA-Z ]{3,15}$/
@@ -63,5 +63,3 @@ function validate (value, target, setErrors) {
     }
   }
 }
-
-module.exports = { validate }
