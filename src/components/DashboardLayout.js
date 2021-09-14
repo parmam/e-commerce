@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom'
 import { styled } from '@material-ui/core/styles'
 import DashboardNavbar from './DashboardNavbar'
 import DashboardSidebar from './DashboardSidebar'
+import { useSelector } from 'react-redux'
 
 const DashboardLayoutRoot = styled('div')(
   ({ theme }) => ({
@@ -40,6 +41,16 @@ const DashboardLayoutContent = styled('div')({
 
 const DashboardLayout = () => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
+  const user = useSelector(store => store.user.logged.user)
+
+  if (!user || user.type === 'User') {
+    // console.log(user.type)
+    return (
+      <div>
+        NO PODÉS ESTAR ACÁ
+      </div>
+    )
+  }
 
   return (
     <DashboardLayoutRoot>

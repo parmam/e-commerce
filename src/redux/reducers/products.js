@@ -4,7 +4,7 @@ const initialState = {
   allProducts: [],
   productDetail: {},
   newProduct: {},
-  messages:{}
+  messages: {}
 }
 
 const products = (state = initialState, action) => {
@@ -31,9 +31,9 @@ const products = (state = initialState, action) => {
       }
     case DELETE_PRODUCTS:
       return {
-      ...state,
-      messages: action.payload
-    }
+        ...state,
+        messages: action.payload
+      }
     default:
       return state
   }

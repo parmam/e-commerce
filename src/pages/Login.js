@@ -1,4 +1,7 @@
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
 import { Helmet } from 'react-helmet'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
@@ -11,12 +14,59 @@ import {
   TextField,
   Typography
 } from '@material-ui/core'
-import FacebookIcon from '../icons/Facebook'
+// import FacebookIcon from '../icons/Facebook'
 import GoogleIcon from '../icons/Google'
+import { ApiURL } from 'src/config'
+import { setLogged } from 'src/redux/actions/user'
+import { toastCustom } from 'src/Tools/Toastify'
 
 const Login = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const user = useSelector(store => store.user.logged.user)
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  })
 
+  const [errors, setErrors] = useState({
+    email: true,
+    password: true
+  })
+
+  useEffect(() => {
+    if (user && (user.type === 'Admin' || user.type === 'Super')) {
+      navigate('/app/dashboard', { replace: true })
+    }
+  }, [])
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await axios.post(`${ApiURL}/login`, formData)
+      dispatch(setLogged(response.data))
+      toastCustom(`Bienvenidx nuevamente ${response.data.user.name}!`, 'success', 4000, 'bottom-right')
+      navigate('/app/dashboard', { replace: true })
+    } catch (error) {
+      toastCustom('Datos incorrectos, intentalo nuevamente!', 'warning', 4000, 'bottom-right')
+    }
+  }
+
+  const handleChange = (e) => {
+    setErrors(prev => ({ ...prev, [e.target.name]: null }))
+    const emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    if (e.target.name === 'email') {
+      if (!e.target.value) setErrors(prev => ({ ...prev, [e.target.name]: 'Ingresa tu dirección de correo electrónico' }))
+      if (!e.target.value.match(emailFormat)) setErrors(prev => ({ ...prev, [e.target.name]: 'Ingresa un e-mail válido' }))
+    }
+
+    if (e.target.name === 'password') {
+      if (!e.target.value) setErrors(prev => ({ ...prev, [e.target.name]: 'Ingresa tu contraseña' }))
+      if (e.target.value.length < 5) setErrors(prev => ({ ...prev, [e.target.name]: 'Ingresa tu contraseña' }))
+    }
+
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
   return (
     <>
       <Helmet>
@@ -34,27 +84,15 @@ const Login = () => {
         <Container maxWidth='sm'>
           <Formik
             initialValues={{
-              email: 'demo@devias.io',
-              password: 'Password123'
-            }}
-            validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-              password: Yup.string().max(255).required('Password is required')
-            })}
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true })
+              email: '',
+              password: ''
             }}
           >
             {({
-              errors,
               handleBlur,
-              handleChange,
-              handleSubmit,
-              isSubmitting,
-              touched,
-              values
+              touched
             }) => (
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={onSubmit}>
                 <Box sx={{ mb: 3 }}>
                   <Typography
                     color='textPrimary'
@@ -80,25 +118,9 @@ const Login = () => {
                     md={6}
                   >
                     <Button
-                      color='primary'
-                      fullWidth
-                      startIcon={<FacebookIcon />}
-                      onClick={handleSubmit}
-                      size='large'
-                      variant='contained'
-                    >
-                      Login with Facebook
-                    </Button>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                  >
-                    <Button
                       fullWidth
                       startIcon={<GoogleIcon />}
-                      onClick={handleSubmit}
+                      onClick={onSubmit}
                       size='large'
                       variant='contained'
                     >
@@ -121,7 +143,6 @@ const Login = () => {
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
                   label='Email Address'
@@ -130,11 +151,10 @@ const Login = () => {
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type='email'
-                  value={values.email}
+                  value={formData.email}
                   variant='outlined'
                 />
                 <TextField
-                  error={Boolean(touched.password && errors.password)}
                   fullWidth
                   helperText={touched.password && errors.password}
                   label='Password'
@@ -143,31 +163,35 @@ const Login = () => {
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type='password'
-                  value={values.password}
+                  value={formData.password}
                   variant='outlined'
                 />
                 <Box sx={{ py: 2 }}>
-                  <Button
-                    color='primary'
-                    disabled={isSubmitting}
-                    fullWidth
-                    size='large'
-                    type='submit'
-                    variant='contained'
-                  >
-                    Sign in now
-                  </Button>
+                  {!errors.email && !errors.password
+                    ? (
+                      <Button
+                        color='primary'
+                        fullWidth
+                        size='large'
+                        type='submit'
+                        variant='contained'
+                      >
+                        Sign in now
+                      </Button>
+                      )
+                    : (
+                      <Button
+                        color='primary'
+                        fullWidth
+                        size='large'
+                        type='submit'
+                        variant='contained'
+                        disabled
+                      >
+                        Sign in now
+                      </Button>
+                      )}
                 </Box>
-                <Typography
-                  color='textSecondary'
-                  variant='body1'
-                >
-                  Don&apos;t have an account?
-                  {' '}
-                  <Link component={RouterLink} to='/register' variant='h6' underline='hover'>
-                    Sign up
-                  </Link>
-                </Typography>
               </form>
             )}
           </Formik>

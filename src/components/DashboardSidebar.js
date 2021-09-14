@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {
   Avatar,
   Box,
-  Button,
+  // Button,
   Divider,
   Drawer,
   Hidden,
@@ -12,16 +12,17 @@ import {
   Typography
 } from '@material-ui/core'
 import {
-  AlertCircle as AlertCircleIcon,
+  // AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
-  Lock as LockIcon,
+  // Lock as LockIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
-  UserPlus as UserPlusIcon,
+  // UserPlus as UserPlusIcon,
   Users as UsersIcon
 } from 'react-feather'
 import NavItem from './NavItem'
+import { useSelector } from 'react-redux'
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
@@ -29,42 +30,11 @@ const user = {
   name: 'Katarina Smith'
 }
 
-const items = [
-  {
-    href: '/app/dashboard',
-    icon: BarChartIcon,
-    title: 'Dashboard'
-  },
-  {
-    href: '/app/customers',
-    icon: UsersIcon,
-    title: 'Usuarios'
-  },
-  {
-    href: '/app/Admins',
-    icon: UsersIcon,
-    title: 'Admins'
-  },
-  {
-    href: '/app/products',
-    icon: ShoppingBagIcon,
-    title: 'Productos'
-  },
-  {
-    href: '/app/account',
-    icon: UserIcon,
-    title: 'Cuenta'
-  },
-  {
-    href: '/app/settings',
-    icon: SettingsIcon,
-    title: 'Configuración'
-  }
-]
-
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation()
 
+  const user = useSelector(store => store.user.logged.user)
+  console.log(user, 'user')
   useEffect(() => {
     if (openMobile && onMobileClose) {
       onMobileClose()
@@ -113,14 +83,45 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
       <Divider />
       <Box sx={{ p: 2 }}>
         <List>
-          {items.map((item) => (
-            <NavItem
-              href={item.href}
-              key={item.title}
-              title={item.title}
-              icon={item.icon}
-            />
-          ))}
+          <NavItem
+            href='/app/dashboard'
+            key='Dashboard'
+            title='Dashboard'
+            icon={BarChartIcon}
+          />
+
+          <NavItem
+            href='/app/customers'
+            key='Usuarios'
+            title='Usuarios'
+            icon={UsersIcon}
+          />
+          {user && user.type === 'Super'
+            ? <NavItem
+                href='/app/Admins'
+                key='Admins'
+                title='Admins'
+                icon={UsersIcon}
+              />
+            : null}
+          <NavItem
+            href='/app/products'
+            key='Productos'
+            title='Productos'
+            icon={ShoppingBagIcon}
+          />
+          <NavItem
+            href='/app/account'
+            key='Cuenta'
+            title='Cuenta'
+            icon={UserIcon}
+          />
+          <NavItem
+            href='/app/settings'
+            key='Configuración'
+            title='Configuración'
+            icon={SettingsIcon}
+          />
         </List>
       </Box>
       <Box sx={{ flexGrow: 1 }} />

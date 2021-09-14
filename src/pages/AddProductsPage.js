@@ -20,8 +20,9 @@ const AddProductsPage = () => {
     allProducts,
     allSubCategories,
     allCategories,
-    subCategoriesOf} = FakeContext()
-  
+    subCategoriesOf
+  } = FakeContext()
+
   const [selectedTab, setSelectedTab] = useState(0)
 
   const handleView = (event, newValue) => {
@@ -50,17 +51,20 @@ const AddProductsPage = () => {
           <Divider />
           <Container maxWidth='lg' style={{ marginTop: 25, padding: 0 }}>
 
-            
-            {selectedTab === 0 && <AddProductsTab dispatch={dispatch}
-                                                  allCategories={allCategories}
-                                                  allSubCategories={allSubCategories}
-                                                  allProducts={allProducts}
-                                                  subCategoriesOf={subCategoriesOf}/>}
-            {selectedTab === 1 && <AddCategoriesTab dispatch={dispatch}
-                                                    allCategories={allCategories}
-                                                    allSubCategories={allSubCategories}
-                                                    allProducts={allProducts}
-                                                    subCategoriesOf={subCategoriesOf}/>}
+            {selectedTab === 0 && <AddProductsTab
+              dispatch={dispatch}
+              allCategories={allCategories}
+              allSubCategories={allSubCategories}
+              allProducts={allProducts}
+              subCategoriesOf={subCategoriesOf}
+                                  />}
+            {selectedTab === 1 && <AddCategoriesTab
+              dispatch={dispatch}
+              allCategories={allCategories}
+              allSubCategories={allSubCategories}
+              allProducts={allProducts}
+              subCategoriesOf={subCategoriesOf}
+                                  />}
           </Container>
         </Paper>
       </Box>

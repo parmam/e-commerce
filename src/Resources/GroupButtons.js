@@ -1,17 +1,18 @@
 import { Button } from '@material-ui/core'
 import { ButtonAdmin, ButtonDesactivar, ButtonActivar } from './ButtonsColors'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setStatusUser, setUserType } from '../redux/actions/user'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { toastCustom } from '../Tools/Toastify'
-
+import { ApiURL } from 'src/config'
 const GroupButtons = ({ id, type, status }) => {
   const dispatch = useDispatch()
-  console.log(type)
   const [userStatus, setUserStatus] = useState(status)
   const [userType, setUserTypes] = useState(type)
 
+  const user = useSelector(store => store.user.logged.user)
+  console.log(user)
   useEffect(() => {
   }, [userType, userStatus])
 
@@ -28,12 +29,11 @@ const GroupButtons = ({ id, type, status }) => {
   }
 
   const handleReset = async () => {
-    await axios.put(`http://localhost:3002/admin/resetpassword/${id}`, { withCredentials: true })
+    await axios.put(`${ApiURL}/admin/resetpassword/${id}`, { withCredentials: true })
     toastCustom('La contraseña ha si restablecida', 'success', 3000, 'top-right')
   }
 
   const handleAdmin = async () => {
-    console.log(type)
     dispatch(setUserType(id, userType))
     if (userType === 'User') {
       setUserTypes('Admin')
@@ -47,17 +47,13 @@ const GroupButtons = ({ id, type, status }) => {
 
   return (
     <>
-      {userType === 'User'
+      {user.type === 'Super'
         ? (
           <ButtonAdmin variant='contained' color='primary' onClick={handleAdmin}>
-            Admin
+            {userType === 'User' ? 'Admin' : 'User'}
           </ButtonAdmin>
           )
-        : (
-          <ButtonAdmin variant='contained' color='primary' onClick={handleAdmin}>
-            User
-          </ButtonAdmin>
-          )}
+        : null}
 
       {userStatus === true
         ? (

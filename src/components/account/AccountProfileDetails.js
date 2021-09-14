@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Dispatch } from 'react'
 import {
   Box,
   Button,
@@ -11,55 +11,76 @@ import {
 } from '@material-ui/core'
 import { validate } from '../../Helpers/formValidate'
 import stylex from './AcoountProfileDetails.module.css'
-// const states = [
-//   {
-//     value: 'alabama',
-//     label: 'Alabama'
-//   },
-//   {
-//     value: 'new-york',
-//     label: 'New York'
-//   },
-//   {
-//     value: 'san-francisco',
-//     label: 'San Francisco'
-//   }
-// ]
-
+import { useSelector, useDispatch } from 'react-redux'
+import { ApiURL } from 'src/config'
+import { editUser } from 'src/redux/actions/user'
+import { toastCustom } from '../../Tools/Toastify'
 const AccountProfileDetails = (props) => {
   const [values, setValues] = useState({
-    name: 'Katarina',
-    lastname: 'Smith',
-    email: 'demo@devias.io',
+    name: '',
+    lastName: '',
+    email: '',
     phone: '',
-    province: 'Alabama',
+    province: '',
     cp: 8000,
     address: '',
     city: '',
     picture: '',
-    changed: false
+    type: ''
   })
 
   const [errors, setErrors] = useState({})
+
+  const dispatch = useDispatch()
+  const user = useSelector(store => store.user.logged)
+  // const id = useParams()
+  // const user = usersRedux.filter(us => us.id === id.id)
+  // console.log(usersRedux[0])
+  console.log(user, 'user')
 
   const handleChange = (e) => {
     validate(e.target.value, e.target.name, setErrors)
     setValues({
       ...values,
+      type: user.user.type,
       changed: true,
       [e.target.name]: e.target.value
     })
   }
   useEffect(() => {
+    setValues({
+      name: user.user.name,
+      lastName: user.user.lastName,
+      email: user.user.email,
+      phone: user.user.phone,
+      province: user.user.province,
+      cp: user.user.cp,
+      address: user.user.address,
+      city: user.user.city,
+      picture: user.user.picture,
+      type: user.user.type
+    })
+  }, [])
+  console.log(values, 'VALUES')
 
-  }, [handleChange])
+  const onSubmit = (e) => {
+    console.log(values, 'values submit')
+    e.preventDefault()
+    console.log(values.type)
+    try {
+      dispatch(editUser(user.user.id, values, user.tokken))
+      toastCustom('Los datos han sido modificados', 'success', 4000, 'bottom-right')
+    } catch (e) {
+      toastCustom('No se pudieron modificar los datos', 'error', 4000, 'bottom-right')
+    }
+  }
 
-  // console.log(errors)
   return (
     <form
       autoComplete='off'
       noValidate
       {...props}
+      onSubmit={onSubmit}
     >
       <Card>
         <CardHeader
@@ -88,14 +109,14 @@ const AccountProfileDetails = (props) => {
               <TextField
                 fullWidth
                 label='Apellido'
-                name='lastname'
+                name='lastName'
                 onChange={handleChange}
                 required
-                value={values.lastname}
+                value={values.lastName}
                 variant='outlined'
               />
               {/* ERROR EN LASTNAME */}
-              {errors.lastname && <h3 className={stylex.error}> -{errors.lastname}- </h3>}
+              {errors.lastName && <h3 className={stylex.error}> -{errors.lastName}- </h3>}
 
             </Grid>
             <Grid item md={6} xs={12}>
@@ -202,12 +223,12 @@ const AccountProfileDetails = (props) => {
         </CardContent>
         <Divider />
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
-          {!errors.name && !errors.lastname && !errors.email && !errors.phone && !errors.province && !errors.cp && !errors.address && !errors.city && !errors.picture
+          {!errors.name && !errors.lastName && !errors.email && !errors.phone && !errors.province && !errors.cp && !errors.address && !errors.city && !errors.picture
             ? (
               <Button
                 color='primary'
                 variant='contained'
-
+                onClick={onSubmit}
               >
                 GUARDAR CAMBIOS
               </Button>

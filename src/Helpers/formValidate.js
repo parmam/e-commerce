@@ -1,7 +1,7 @@
-function validate (value, target, setErrors) {
+export function validate (value, target, setErrors) {
   if (target === 'name' || target === 'lastname') {
     setErrors((prev) => ({ ...prev, [target]: null }))
-    const nameformat = /^[a-zA-Z ]{3,15}$/
+    const nameformat = /^[a-zA-Z-áéíóú ]{3,15}$/
     if (!value) {
       // errors.name = 'Name is required'; // errors = { username: 'Username is required' }
       setErrors((prev) => ({ ...prev, [target]: `${target} is required` }))
@@ -63,5 +63,3 @@ function validate (value, target, setErrors) {
     }
   }
 }
-
-module.exports = { validate }

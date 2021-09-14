@@ -33,7 +33,7 @@ const AddPorductsDetails = (props) => {
     email: '',
     phone: '',
     state: '',
-    country: ""
+    country: ''
   })
 
   const handleChange = (event) => {
