@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-
+import React, { useEffect } from 'react'
+import { getSubCategoriesOf } from '../../redux/actions/categories'
+import { addProducts } from '../../redux/actions/products'
 import {
   Box,
   Button,
@@ -8,39 +9,40 @@ import {
   CardHeader,
   Divider,
   Grid,
-  TextField
+  TextField,
+  ImageList,
+  ImageListItem
 } from '@material-ui/core'
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-]
+const AddPorductsDetails = ({
+  dispatch,
+  eventHandler,
+  setEventHandler,
+  allProducts,
+  allSubCategories,
+  allCategories,
+  subCategoriesOf,
+  allBrands,
+  productInfo,
+  setProductInfo
 
-const AddPorductsDetails = (props) => {
-  const [values, setValues] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    state: '',
-    country: ""
-  })
-
+}) => {
   const handleChange = (event) => {
-    setValues({
-      ...values,
+    setProductInfo({
+      ...productInfo,
       [event.target.name]: event.target.value
     })
+  }
+
+  useEffect(() => {
+    if (productInfo.category !== '') {
+      dispatch(getSubCategoriesOf(productInfo.category))
+    }
+  }, [dispatch, productInfo.category])
+
+  const submitAddProducts = (e) => {
+    e.preventDefault()
+    dispatch(addProducts(productInfo))
   }
 
   return (
@@ -49,7 +51,7 @@ const AddPorductsDetails = (props) => {
       <form
         autoComplete='off'
         noValidate
-        {...props}
+        onSubmit={submitAddProducts}
       >
         <Card>
           <CardHeader
@@ -75,15 +77,15 @@ const AddPorductsDetails = (props) => {
                   required
                   select
                   SelectProps={{ native: true }}
-                  value={values.state}
+                  value={productInfo.brand}
                   variant='outlined'
                 >
-                  {states.map((option) => (
+                  {allBrands && allBrands.map((brand) => (
                     <option
-                      key={option.value}
-                      value={option.value}
+                      key={brand.id}
+                      value={brand.name}
                     >
-                      {option.label}
+                      {brand.name}
                     </option>
                   ))}
                 </TextField>
@@ -97,10 +99,10 @@ const AddPorductsDetails = (props) => {
                   fullWidth
                   helperText=''
                   label='Modelo'
-                  name='firstName'
+                  name='model'
                   onChange={handleChange}
                   required
-                  value={values.firstName}
+                  value={productInfo.model}
                   variant='outlined'
                 />
               </Grid>
@@ -117,15 +119,15 @@ const AddPorductsDetails = (props) => {
                   required
                   select
                   SelectProps={{ native: true }}
-                  value={values.state}
+                  value={productInfo.category}
                   variant='outlined'
                 >
-                  {states.map((option) => (
+                  {allCategories && allCategories.map((category, index) => (
                     <option
-                      key={option.value}
-                      value={option.value}
+                      key={index}
+                      value={category}
                     >
-                      {option.label}
+                      {category}
                     </option>
                   ))}
                 </TextField>
@@ -137,21 +139,21 @@ const AddPorductsDetails = (props) => {
               >
                 <TextField
                   fullWidth
-                  label='Sub categoria'
-                  name='subcategory'
+                  label='Subcategoria'
+                  name='subCategory'
                   onChange={handleChange}
                   required
                   select
                   SelectProps={{ native: true }}
-                  value={values.state}
+                  value={productInfo.subCategory}
                   variant='outlined'
                 >
-                  {states.map((option) => (
+                  {subCategoriesOf && subCategoriesOf.map((subCat, index) => (
                     <option
-                      key={option.value}
-                      value={option.value}
+                      key={index}
+                      value={subCat}
                     >
-                      {option.label}
+                      {subCat}
                     </option>
                   ))}
                 </TextField>
@@ -167,7 +169,7 @@ const AddPorductsDetails = (props) => {
                   name='price'
                   onChange={handleChange}
                   required
-                  value={values.lastName}
+                  value={productInfo.price}
                   variant='outlined'
                 />
               </Grid>
@@ -182,7 +184,7 @@ const AddPorductsDetails = (props) => {
                   name='discount'
                   onChange={handleChange}
                   required
-                  value={values.email}
+                  value={productInfo.discount}
                   variant='outlined'
                 />
               </Grid>
@@ -199,10 +201,55 @@ const AddPorductsDetails = (props) => {
                   onChange={handleChange}
                   required
                   multiline
-                  value={values.country}
+                  value={productInfo.description}
                   variant='outlined'
 
                 />
+              </Grid>
+
+              <Grid
+                item
+                md={12}
+                xs={12}
+              >
+                <Box>
+                  <ImageList
+                    style={{
+                      display: 'flex',
+                      flexWrap: 'no-wrap',
+                      flexDirection: 'row',
+                      overflowX: 'scroll'
+                    }}
+                  >
+                    <ImageListItem>
+                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
+                    </ImageListItem>
+                    <ImageListItem>
+                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
+                    </ImageListItem>
+                    <ImageListItem>
+                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
+                    </ImageListItem>
+                    <ImageListItem>
+                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
+                    </ImageListItem>
+                    <ImageListItem>
+                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
+                    </ImageListItem>
+                    <ImageListItem>
+                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
+                    </ImageListItem>
+                    <ImageListItem>
+                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
+                    </ImageListItem>
+                    <ImageListItem>
+                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
+                    </ImageListItem>
+                    <ImageListItem>
+                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
+                    </ImageListItem>
+                  </ImageList>
+                </Box>
               </Grid>
             </Grid>
           </CardContent>
@@ -210,15 +257,29 @@ const AddPorductsDetails = (props) => {
           <Box
             sx={{
               display: 'flex',
-              justifyContent: 'flex-end',
+              justifyContent: 'space-evenly',
               p: 2
             }}
           >
+            <input
+              accept='image/*'
+              // className={classes.input}
+              style={{ display: 'none' }}
+              id='raised-button-file'
+              multiple
+              type='file'
+            />
+            <label htmlFor='raised-button-file'>
+              <Button variant='contained' color='primary' component='span'>
+                Agregar imagen
+              </Button>
+            </label>
             <Button
               color='primary'
               variant='contained'
+              type='submit'
             >
-              Save details
+              Guardar producto
             </Button>
           </Box>
         </Card>

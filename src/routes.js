@@ -24,8 +24,8 @@ const routes = [
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'products', element: <ProductList /> },
       { path: 'settings', element: <Settings /> },
-      { path: '/products/add', element: <AddProductsPage /> },
-      { path: '/products/edit', element: <EditProducts /> },
+      { path: 'products/add', element: <AddProductsPage /> },
+      { path: 'products/edit', element: <EditProducts /> },
       { path: '*', element: <Navigate to='/404' /> }
     ]
   },

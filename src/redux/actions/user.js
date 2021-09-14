@@ -18,7 +18,7 @@ export const setStatusUser = (id, status) => async (dispatch) => {
     : (
         await axios.put(`${ApiURL}/admin/${id}`, { withCredentials: true })
       )
-  const users = await axios.get('${ApiURL}/admin', { withCredentials: true })
+  const users = await axios.get(`${ApiURL}/admin`, { withCredentials: true })
   return dispatch({
     type: GET_USERS,
     payload: users.data
