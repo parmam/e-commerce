@@ -13,26 +13,22 @@ import { removeProducts, getProducts } from '../../redux/actions/products'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-
-const ProductListToolbar = ({eventHandler, setEventHandler, props, allProducts, dispatch}) => {
-const [deleter, setDeleter] = useState([])
-const onClickDelete = () => {
-  setDeleter(eventHandler.selectedProducts) 
-
-}
-
-useEffect(() => {
-  if(deleter.length){
-    dispatch(removeProducts(deleter))
-    setEventHandler({...eventHandler, selectedProducts:[], deleteProductsBtn: false})
-    setDeleter([])
-
+const ProductListToolbar = ({ eventHandler, setEventHandler, props, allProducts, dispatch }) => {
+  const [deleter, setDeleter] = useState([])
+  const onClickDelete = () => {
+    setDeleter(eventHandler.selectedProducts)
   }
-  dispatch(getProducts())
-},[dispatch, deleter])
 
+  useEffect(() => {
+    if (deleter.length) {
+      dispatch(removeProducts(deleter))
+      setEventHandler({ ...eventHandler, selectedProducts: [], deleteProductsBtn: false })
+      setDeleter([])
+    }
+    dispatch(getProducts())
+  }, [dispatch, deleter])
 
-  return  (
+  return (
     <Box {...props}>
       <Box
         sx={{ mt: 0 }}
@@ -93,15 +89,15 @@ useEffect(() => {
           BORRAR
         </Button>
         <Link to='/app/products/edit'>
-        <Button
-          color='primary'
-          variant='contained'
-          style={{
-            marginRight: '5px'
-          }}
-        >
-          EDITAR LISTA
-        </Button>
+          <Button
+            color='primary'
+            variant='contained'
+            style={{
+              marginRight: '5px'
+            }}
+          >
+            EDITAR LISTA
+          </Button>
         </Link>
         <Link to='/app/products/add'>
           <Button

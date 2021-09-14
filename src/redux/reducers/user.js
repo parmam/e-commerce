@@ -1,8 +1,10 @@
-import { LOGIN_USER, GET_USERS } from '../constants'
+import { LOGIN_USER, GET_USERS, SET_LOGGED, LOG_OUT } from '../constants'
 
 const initialState = {
   user: {},
-  users: []
+  users: [],
+  logged: false
+
 }
 
 const user = (state = initialState, action) => {
@@ -17,6 +19,11 @@ const user = (state = initialState, action) => {
         ...state,
         users: action.payload
       }
+    case SET_LOGGED:
+      console.log(action.payload)
+      return { ...state, logged: action.payload }
+    case LOG_OUT:
+      return { ...state, logged: false }
     default:
       return state
   }

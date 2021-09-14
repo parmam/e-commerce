@@ -21,6 +21,7 @@ import getInitials from '../../utils/getInitials'
 import { useSelector, useDispatch } from 'react-redux'
 import { getUsers } from 'src/redux/actions/user'
 import { UserMinus } from 'react-feather'
+import { ApiURL } from 'src/config'
 // import { Users } from 'react-feather'
 const CustomerListResults = ({ userType, ...rest }) => {
   const [selectedUsersIds, setSelectedUsersIds] = useState([])
@@ -28,7 +29,7 @@ const CustomerListResults = ({ userType, ...rest }) => {
 
   const dispatch = useDispatch()
   const usersRedux = useSelector(store => store.user.users)
-  const users = usersRedux.filter(user => user.type !== userType)
+  const users = usersRedux.filter(user => user.type !== userType && user.type !== 'Super')
 
   users.sort(function (a, b) {
     if (a.name < b.name) {
@@ -117,6 +118,7 @@ const CustomerListResults = ({ userType, ...rest }) => {
             </TableHead>
             <TableBody>
               {users && users.slice(page, page + 10).map((user, i) => (
+
                 <TableRow hover key={user.id} selected={selectedUsersIds.indexOf(user.id) !== -1}>
                   <TableCell padding='checkbox'>
                     <Checkbox
@@ -142,16 +144,12 @@ const CustomerListResults = ({ userType, ...rest }) => {
                         color='textPrimary'
                         variant='body1'
                       >
-                        <Link key={user.id + i} href='http://localhost:3000/app/account/:id'>
-                          {user.name && user.name}
-                        </Link>
+                        {user.name && user.name}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    <Link key={user.id + i} href='http://localhost:3000/app/account'>
-                      {user.email && user.email}
-                    </Link>
+                    {user.email && user.email}
                   </TableCell>
                   <TableCell>
                     {user.address && user.cp ? (user.address + ' - ' + '(' + user.cp + ')') : null}
@@ -166,6 +164,7 @@ const CustomerListResults = ({ userType, ...rest }) => {
                       : <ButtonStateGrey />}
                   </TableCell>
                 </TableRow>
+
               ))}
             </TableBody>
           </Table>
