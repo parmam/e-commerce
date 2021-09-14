@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { styled } from '@material-ui/core/styles'
 import DashboardNavbar from './DashboardNavbar'
 import DashboardSidebar from './DashboardSidebar'
 import { useSelector } from 'react-redux'
-
+import { Error } from '../pages/Error'
 const DashboardLayoutRoot = styled('div')(
   ({ theme }) => ({
     backgroundColor: theme.palette.background.default,
@@ -42,13 +42,13 @@ const DashboardLayoutContent = styled('div')({
 const DashboardLayout = () => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
   const user = useSelector(store => store.user.logged.user)
+  const navigate = useNavigate()
 
   if (!user || user.type === 'User') {
-    // console.log(user.type)
     return (
-      <div>
-        NO PODÉS ESTAR ACÁ
-      </div>
+      <>
+        <Error />
+      </>
     )
   }
 
