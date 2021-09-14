@@ -12,7 +12,7 @@ export const Error = () => {
   return (
     <div className={error.fondo}>
       <h1 className={error.msg}>
-        🤡NO PODÉS ESTAR ACÁ🤡
+        👾 NO PODÉS ESTAR ACÁ 👾
       </h1>
     </div>
   )
