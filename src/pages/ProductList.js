@@ -10,22 +10,20 @@ import { getProducts } from '../redux/actions/products'
 import { getCategories, getSubCategories } from '../redux/actions/categories'
 
 const ProductList = ({ ...rest }) => {
-
   const {
-      dispatch,
-      eventHandler,
-      setEventHandler,
-      allProducts,
-      allCategories,
-      allSubCategories } = FakeContext()
-
+    dispatch,
+    eventHandler,
+    setEventHandler,
+    allProducts,
+    allCategories,
+    allSubCategories
+  } = FakeContext()
 
   useEffect(() => {
-      dispatch(getProducts())
-      dispatch(getCategories())
-      dispatch(getSubCategories())
+    dispatch(getProducts())
+    dispatch(getCategories())
+    dispatch(getSubCategories())
   }, [dispatch])
-
 
   return (
 
@@ -42,17 +40,17 @@ const ProductList = ({ ...rest }) => {
       >
         <Container maxWidth={false}>
           <ProductListToolbar
-            allProducts = {allProducts}
-            eventHandler = {eventHandler}
-            setEventHandler = {setEventHandler}
-            dispatch = {dispatch}
+            allProducts={allProducts}
+            eventHandler={eventHandler}
+            setEventHandler={setEventHandler}
+            dispatch={dispatch}
           />
           <Box sx={{ pt: 3 }}>
             <ProductListResult
-              eventHandler = {eventHandler}
-              setEventHandler = {setEventHandler}
-              allProducts = {allProducts}
-              dispatch = {dispatch}
+              eventHandler={eventHandler}
+              setEventHandler={setEventHandler}
+              allProducts={allProducts}
+              dispatch={dispatch}
             />
           </Box>
         </Container>

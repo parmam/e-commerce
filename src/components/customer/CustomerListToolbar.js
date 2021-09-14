@@ -17,24 +17,18 @@ const CustomerListToolbar = (props) => (
         justifyContent: 'flex-end'
       }}
     >
-      {/* <Button>
-        Import
-      </Button>
-      <Button sx={{ mx: 1 }}>
-        Export
-      </Button> */}
-      <Button
+      {/* <Button
         color='primary'
         variant='contained'
       >
         Agregar Usuario
-      </Button>
+      </Button> */}
     </Box>
     <Box sx={{ mt: 3 }}>
       <Card>
         <CardContent>
           <Box sx={{ maxWidth: 500 }}>
-            <TextField
+            {/* <TextField
               fullWidth
               InputProps={{
                 startAdornment: (
@@ -50,7 +44,7 @@ const CustomerListToolbar = (props) => (
               }}
               placeholder='Search customer'
               variant='outlined'
-            />
+            /> */}
           </Box>
         </CardContent>
       </Card>

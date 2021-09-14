@@ -14,12 +14,12 @@ import {
 
 import React, { useEffect, useState } from 'react'
 
-const ProductListResults = ({dispatch, allProducts ,eventHandler, setEventHandler, ...rest }) => {
+const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandler, ...rest }) => {
   const [selectedProductIds, setSelectedProductIds] = useState([])
   const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(0)
   const [products, setProducts] = useState([])
-  
+
   if (!selectedProductIds.length && selectedProductIds !== eventHandler.selectedProducts) {
     setEventHandler({ ...eventHandler, deleteProductsBtn: false, selectedProducts: selectedProductIds })
   }
@@ -27,15 +27,14 @@ const ProductListResults = ({dispatch, allProducts ,eventHandler, setEventHandle
     setEventHandler({ ...eventHandler, deleteProductsBtn: true, selectedProducts: selectedProductIds })
   }
   useEffect(() => {
-    if(!eventHandler.deleteProductsBtn){
+    if (!eventHandler.deleteProductsBtn) {
       setSelectedProductIds([])
     }
-  },[eventHandler.deleteProductsBtn])
-  
+  }, [eventHandler.deleteProductsBtn])
+
   useEffect(() => {
     setProducts(allProducts.filter(products => products.state))
   }, [allProducts])
-  
 
   const handleSelectAll = (event) => {
     let newSelectedProductId

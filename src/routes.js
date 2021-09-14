@@ -13,12 +13,14 @@ import Settings from './pages/Settings'
 import Test from './pages/Test'
 import AddProductsPage from './pages/AddProductsPage'
 import EditProducts from './pages/EditProducts'
+import { Error } from './pages/Error'
 const routes = [
   {
     path: 'app',
     element: <DashboardLayout />,
     children: [
       { path: 'account', element: <Account /> },
+      { path: 'account/:id', element: <Account /> },
       { path: 'customers', element: <CustomerList userType='Admin' /> },
       { path: 'admins', element: <AdminList userType='User' /> },
       { path: 'dashboard', element: <Dashboard /> },
@@ -34,9 +36,11 @@ const routes = [
     element: <MainLayout />,
     children: [
       { path: 'login', element: <Login /> },
+      { path: 'error', element: <Error /> },
       { path: 'register', element: <Register /> },
       { path: '404', element: <NotFound /> },
-      { path: '/', element: <Navigate to='/app/dashboard' /> },
+      { path: '/', element: <Login /> },
+      // { path: '/', element: <Navigate to='/app/dashboard' /> },
       { path: '/test', element: <Test to='/test' /> },
       { path: '*', element: <Navigate to='/404' /> }
 

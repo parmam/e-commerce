@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   AppBar,
@@ -13,10 +13,20 @@ import MenuIcon from '@material-ui/icons/Menu'
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined'
 import InputIcon from '@material-ui/icons/Input'
 import Logo from './Logo'
+import { useDispatch } from 'react-redux'
+import { logOut } from 'src/redux/actions/user'
+import { toastCustom } from '../Tools/Toastify'
 
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([])
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
+  const unLog = () => {
+    dispatch(logOut())
+    navigate('/', { replace: true })
+    toastCustom('Tu sesión ha sido cerrada!', 'warning', 4000, 'bottom-right')
+  }
   return (
     <AppBar
       elevation={0}
@@ -37,7 +47,7 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <IconButton color='inherit' size='large'>
+          <IconButton color='inherit' size='large' onClick={unLog}>
             <InputIcon />
           </IconButton>
         </Hidden>
