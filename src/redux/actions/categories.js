@@ -67,6 +67,4 @@ export const removeCategory = (categoryRemover) => async (dispatch) => {
       payload: categories.data
     })
   }
-
 }
-

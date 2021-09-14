@@ -15,7 +15,7 @@ export const getProducts = (products) => async (dispatch) => {
 
 export const getProductsDetails = (id) => async (dispatch) => {
   try {
-    const product = await axios.get(`${ApiURL}/products/${id}`, { withCredentials: true })
+    const product = await axios.get(`${ApiURL}/products/detail/${id}`, { withCredentials: true })
     return dispatch({
       type: GET_PRODUCT_DETAIL,
       payload: product.data

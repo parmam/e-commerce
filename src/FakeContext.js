@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+
 export const FakeContext = () => {
   const dispatch = useDispatch()
   const allProducts = useSelector(store => store.products.allProducts)
+  const productDetails = useSelector(store => store.products.productDetail)
   const allCategories = useSelector(store => store.categories.allCategories)
   const allSubCategories = useSelector(store => store.categories.allSubCategories)
   const subCategoriesOf = useSelector(store => store.categories.subCategoriesOf)
@@ -11,11 +13,12 @@ export const FakeContext = () => {
     selectedProducts: [],
     setSearch: ''
   })
-  console.log(subCategoriesOf, ' subcategories of en fake')
+
   return {
     eventHandler,
     setEventHandler,
     allProducts,
+    productDetails,
     dispatch,
     allCategories,
     allSubCategories,

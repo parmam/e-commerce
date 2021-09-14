@@ -88,7 +88,7 @@ const ProductListToolbar = ({ eventHandler, setEventHandler, props, allProducts,
         >
           BORRAR
         </Button>
-        <Link to='/app/products/edit'>
+        <Link to={`/app/products/edit/${eventHandler.selectedProducts}`}>
           <Button
             color='primary'
             variant='contained'

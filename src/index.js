@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 
 const { persistor, store } = Store
+
 ReactDOM.render(
   (
     <>
@@ -26,5 +27,3 @@ ReactDOM.render(
   ),
   document.getElementById('root')
 )
-
-
