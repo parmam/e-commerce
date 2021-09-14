@@ -9,93 +9,118 @@ import {
   TextField,
   Typography,
   Container
-
 } from '@material-ui/core'
-import  { DeleteAlertCategory }  from 'src/Tools/Swal2/DeleteAlert'
+import { DeleteAlertCategory } from 'src/Tools/Swal2/DeleteAlert'
 import { addCategory, addSubCategory, getSubCategoriesOf } from 'src/redux/actions/categories'
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-]
+import { addNewBrand } from 'src/redux/actions/brands'
 
-const AddCategoriesTab = ({dispatch, allProducts, allSubCategories, allCategories, subCategoriesOf}) => {
-  const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
-    email: 'demo@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
-  })
+const AddCategoriesTab = (
+  {
+    dispatch,
+    allProducts,
+    allSubCategories,
+    allCategories,
+    subCategoriesOf,
+    allBrands
+  }) => {
+  const [flag, setFlag] = useState(0)
   const [newBrand, setNewBrand] = useState('')
   const [newCategory, setNewCategory] = useState('')
   const [categoryRemover, setCategoryRemover] = useState('')
-  const [categoryOfSubcategory, setCategoryOfSubcategory] = useState('')
-  const [newSubCategory, setNewSubcategory] = useState({
-    category:'',
-    subCategory:''
+  const [selectedCategory, setSelectedCategory] = useState('')
+  const [subCategoryName, setSubCategoryName] = useState('')
+  const [key, setKey] = useState(0)
+  const [newSubCategory, setNewSubCategory] = useState({
+    category: '',
+    subCategory: ''
   })
 
   useEffect(() => {
-    if(categoryRemover !== ''){
+    if (categoryRemover !== '') {
       DeleteAlertCategory(categoryRemover, dispatch)
     }
-  },[categoryRemover])
+  }, [categoryRemover])
 
   useEffect(() => {
-    console.log(categoryOfSubcategory, '  en componente')
-    dispatch(getSubCategoriesOf(categoryOfSubcategory))  
-  },[categoryOfSubcategory])
-  
+    if (selectedCategory !== '') {
+      dispatch(getSubCategoriesOf(selectedCategory))
+    }
+  }, [selectedCategory, dispatch])
 
-  const submitCategory = (e) => {
-    dispatch(addCategory(newCategory)) 
+  useEffect(() => {
+    if (flag === 1) {
+      setNewSubCategory({
+        ...newSubCategory,
+        category: selectedCategory,
+        subCategory: subCategoryName
+      })
+      setFlag(2)
+    }
+    if (flag === 2) {
+      if (selectedCategory && newSubCategory !== '') {
+        dispatch(addSubCategory(newSubCategory))
+        setFlag(0)
+      }
+      setFlag(0)
+    }
+    if (flag === 3) {
+      dispatch(addNewBrand(newBrand))
+      setFlag(0)
+    }
+  }, [flag])
+
+  const submitCategory = () => {
+    if (newCategory !== '') {
+      dispatch(addCategory(newCategory))
+    }
+    setKey(key + 1)
   }
 
   const handleChangeCategory = (e) => {
     setNewCategory(e.target.value)
   }
 
-
   const handleDeleteCategory = (e) => {
     setCategoryRemover(e.target.value)
-
   }
 
-
-  const handleChangeSubCategory = (e) => {
-    setNewSubcategory({...newSubCategory, subCategory:e.target.value})
+  const handleSelectedCategory = (e) => {
+    setSelectedCategory(e.target.value)
   }
 
-  const handleSetCategoryOfSubCategory = (e) => {
-    setCategoryOfSubcategory(e.target.value)
-
+  const submitAddSubCategory = () => {
+    if (selectedCategory) {
+      setFlag(1)
+      setKey(key + 1)
+    }
   }
 
-  const submitSubCategory = () => {
-    dispatch(addSubCategory(newSubCategory))
+  const handleSubCategoryName = (e) => {
+    setSubCategoryName(e.target.value)
   }
- 
-const submitBrand = () => {
-  console.log()
-}
 
+  const handleChangeBrand = (e) => {
+    setNewBrand(e.target.value)
+  }
 
-
+  const submitBrand = () => {
+    if (newBrand !== '') {
+      setFlag(3)
+      setKey(key + 1)
+    }
+  }
 
   return (
     <>
-      <Container maxWidth='lg' style={{ marginLeft: 12, marginTop: 49, paddingLeft: 24, paddingRight: 24 }}>
+      <Container
+        maxWidth='lg'
+        style={{
+          marginLeft: 12,
+          marginTop: 49,
+          paddingLeft: 24,
+          paddingRight: 24
+        }}
+      >
         <Grid
           container
           spacing={3}
@@ -116,39 +141,40 @@ const submitBrand = () => {
                   xs={12}
                 >
 
+                  <Box
+                    display='flex'
+                    flexDirection='colums'
+                    width={1}
+                    justifyContent='space-between'
+                  >
+                    <Box
+                      width='85%'
+                    >
+                      <TextField
+                        fullWidth
+                        helperText=''
+                        label='Categoria'
+                        name='category'
+                        onChange={(e) => handleChangeCategory(e)}
+                        required
+                        value={newCategory.value}
+                        variant='outlined'
+                        key={key}
+                      />
+                    </Box>
                     <Box
                       display='flex'
-                      flexDirection='colums'
-                      width={1}
-                      justifyContent='space-between'
+                      alignSelf='center'
                     >
-                      <Box
-                        width='85%'
+                      <Button
+                        color='primary'
+                        variant='contained'
+                        onClick={(e) => submitCategory(e)}
                       >
-                        <TextField
-                          fullWidth
-                          helperText=''
-                          label='Categoria'
-                          name='category'
-                          onChange={(e) => handleChangeCategory(e)}
-                          required
-                          value={newCategory.value}
-                          variant='outlined'
-                        />
-                      </Box>
-                      <Box
-                        display='flex'
-                        alignSelf='center'
-                      >
-                        <Button
-                          color='primary'
-                          variant='contained'
-                          onClick={(e) => submitCategory(e)}
-                        >
-                          +
-                        </Button>
-                      </Box>
+                        +
+                      </Button>
                     </Box>
+                  </Box>
                 </Grid>
                 <Grid
                   item
@@ -183,56 +209,58 @@ const submitBrand = () => {
                   xs={12}
                 >
 
+                  <Box
+                    heigth='100%'
+                    display='flex'
+                    flexDirection='colums'
+                    width={1}
+                    justifyContent='space-between'
+                  >
                     <Box
-                      heigth='100%'
-                      display='flex'
-                      flexDirection='colums'
-                      width={1}
-                      justifyContent='space-between'
+                      width='85%'
                     >
-                      <Box
-                        width='85%'
-                      >
-                        <TextField
-                          fullWidth primary
-                          label='Nombre de la sub categoria'
-                          name='subCategory'
-                          onChange={(e) => handleChangeSubCategory(e)}
-                          required
-                          value={newSubCategory.subCategory.value}
-                          variant='outlined'
-                        />
-                      </Box>
-                      <Box
-                        display='flex'
-                        alignSelf='center'
-                      >
-                        <Button
-                          color='primary'
-                          variant='contained'
-                          onClick={(e) => submitSubCategory(e)}
-                        >
-                          +
-                        </Button>
-                      </Box>
+                      <TextField
+                        fullWidth primary
+                        label='Nombre de la sub categoria'
+                        name='subCategory'
+                        onChange={(e) => handleSubCategoryName(e)}
+                        required
+                        value={subCategoryName.value}
+                        variant='outlined'
+                        key={key}
+                      />
                     </Box>
-            
+                    <Box
+                      display='flex'
+                      alignSelf='center'
+                    >
+                      <Button
+                        color='primary'
+                        variant='contained'
+                        onClick={(e) => submitAddSubCategory(e)}
+                      >
+                        +
+                      </Button>
+                    </Box>
+                  </Box>
+
                 </Grid>
                 <Grid
                   item
                   md={6}
                   xs={12}
                 >
+
                   <TextField
                     fullWidth
-                    value={categoryOfSubcategory.value}
+                    label='Categorias asociada a la subcategoria'
+                    name='selectedSubcategory'
+                    value={selectedCategory.value}
+                    onChange={(e) => handleSelectedCategory(e)}
                     select
-                    onChange={(e) => handleSetCategoryOfSubCategory(e)}
+                    helperText='Seleccione una para luego asignar la subcategoria'
                     SelectProps={{ native: true }}
                     variant='outlined'
-                    label='Categorias'
-                    name='allSubCategories'
-                    helperText='Seleccione una categoria para asociarla con una sub categoria'
                   >
                     {allCategories && allCategories.sort().map((cat, index) => (
                       <option
@@ -266,22 +294,29 @@ const submitBrand = () => {
                   xs={12}
                 >
                   <Box>
-                    {subCategoriesOf && subCategoriesOf
-                      .map((subCat, index) => {
+                    {(subCategoriesOf && subCategoriesOf)
+                      ? ((subCategoriesOf && subCategoriesOf.map((subCat, index) => {
                           return (
-                            <Button 
-                            variant='outlined' 
-                            color='primary'
-                            style={{ heigth: 5,
-                                    fontSize: 12,
-                                    marginRight: 1,
-                                    margin: 1.5 
-                                    }}
-                            key={index}
-                          >
-                            {subCat}
-                          </Button>
-                     )})}
+                            <Button
+                              variant='outlined'
+                              color='primary'
+                              style={{
+                                heigth: 5,
+                                fontSize: 12,
+                                marginRight: 1,
+                                margin: 1.5
+                              }}
+                              key={index}
+                            >
+                              {subCat}
+                            </Button>
+                          )
+                        })))
+                      : (
+                        <Typography>
+                          Debe seleccionar una categoria
+                        </Typography>
+                        )}
                   </Box>
                 </Grid>
                 <Grid
@@ -289,43 +324,41 @@ const submitBrand = () => {
                   md={6}
                   xs={12}
                 >
-                  <form
-                    autoComplete='off'
-                    noValidate
+
+                  <Box
+                    display='flex'
+                    flexDirection='colums'
+                    width={1}
+                    justifyContent='space-between'
                   >
                     <Box
-                      display='flex'
-                      flexDirection='colums'
-                      width={1}
-                      justifyContent='space-between'
+                      width='85%'
                     >
-                      <Box
-                        width='85%'
-                      >
-                        <TextField
-                          fullWidth
-                          helperText=''
-                          label='Marcas'
-                          name='brand'
-                 
-                          required
-                          value={values.firstName}
-                          variant='outlined'
-                        />
-                      </Box>
-                      <Box
-                        display='flex'
-                        alignSelf='center'
-                      >
-                        <Button
-                          color='primary'
-                          variant='contained'
-                        >
-                          +
-                        </Button>
-                      </Box>
+                      <TextField
+                        fullWidth
+                        helperText=''
+                        label='Marcas'
+                        name='brand'
+                        onChange={(e) => handleChangeBrand(e)}
+                        required
+                        key={key}
+                        value={newBrand.value}
+                        variant='outlined'
+                      />
                     </Box>
-                  </form>
+                    <Box
+                      display='flex'
+                      alignSelf='center'
+                    >
+                      <Button
+                        color='primary'
+                        variant='contained'
+                        onClick={submitBrand}
+                      >
+                        +
+                      </Button>
+                    </Box>
+                  </Box>
                 </Grid>
                 <Grid
                   item
@@ -336,24 +369,25 @@ const submitBrand = () => {
                     fullWidth
                     label='Marcas registradas'
                     name='allBrands'
-             
                     select
                     helperText='Haga click sobre la marca que desea eliminar'
                     SelectProps={{ native: true }}
-                    value={values.state}
                     variant='outlined'
                   >
-                    {states.map((option) => (
-                      <option
-                        key={option.value}
-                        value={option.value}
-                      >
-                        {option.label}
-                      </option>
-                    ))}
+                    {(allBrands && allBrands)
+                      ? (allBrands && allBrands.map((brand) => {
+                          return (
+                            <option
+                              key={brand.id}
+                              value={brand.name}
+                            >
+                              {brand.name}
+                            </option>
+                          )
+                        }))
+                      : ('asd')}
                   </TextField>
                 </Grid>
-
               </Grid>
             </CardContent>
           </Card>

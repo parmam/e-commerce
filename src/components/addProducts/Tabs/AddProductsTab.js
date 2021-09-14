@@ -8,10 +8,30 @@ import {
 import AddProductsDetails from '../AddProductsDetails'
 import ProductPreview from '../ProductPreview'
 
-const AddProductsTab = () => {
+const AddProductsTab = ({
+  dispatch,
+  eventHandler,
+  setEventHandler,
+  allProducts,
+  allSubCategories,
+  allCategories,
+  subCategoriesOf,
+  allBrands,
+  productInfo,
+  setProductInfo
+}) => {
   return (
     <>
-      <Container maxWidth='lg' style={{ marginTop: 0, marginLeft: 0, marginRight: 0, paddingLeft: 12, paddingRight: 12 }}>
+      <Container
+        maxWidth='lg'
+        style={{
+          marginTop: 0,
+          marginLeft: 0,
+          marginRight: 0,
+          paddingLeft: 12,
+          paddingRight: 12
+        }}
+      >
         <Grid
           container
           spacing={1}
@@ -22,7 +42,9 @@ const AddProductsTab = () => {
             md={6}
             xs={12}
           >
-            <ProductPreview />
+            <ProductPreview
+              productInfo={productInfo}
+            />
           </Grid>
           <Grid
             item
@@ -30,7 +52,18 @@ const AddProductsTab = () => {
             md={6}
             xs={12}
           >
-            <AddProductsDetails />
+            <AddProductsDetails
+              dispatch={dispatch}
+              eventHandler={eventHandler}
+              setEventHandler={setEventHandler}
+              allProducts={allProducts}
+              allSubCategories={allSubCategories}
+              allCategories={allCategories}
+              subCategoriesOf={subCategoriesOf}
+              allBrands={allBrands}
+              productInfo={productInfo}
+              setProductInfo={setProductInfo}
+            />
           </Grid>
 
         </Grid>

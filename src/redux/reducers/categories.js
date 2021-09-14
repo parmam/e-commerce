@@ -41,14 +41,14 @@ const categories = (state = initialState, action) => {
     case POST_SUBCATEGORY:
       return {
         ...state,
-        newSubCategorie: action.payload
+        subCategoriesOf: action.payload
       }
     case DELETE_CATEGORY:
       return {
         ...state,
         allCategories: action.payload
       }
-    
+
     default:
       return state
   }
