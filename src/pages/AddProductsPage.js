@@ -20,7 +20,10 @@ const AddProductsPage = () => {
     allProducts,
     allSubCategories,
     allCategories,
-    subCategoriesOf
+    subCategoriesOf,
+    allBrands,
+    productInfo,
+    setProductInfo
   } = FakeContext()
 
   const [selectedTab, setSelectedTab] = useState(0)
@@ -56,7 +59,10 @@ const AddProductsPage = () => {
               allCategories={allCategories}
               allSubCategories={allSubCategories}
               allProducts={allProducts}
+              allBrands={allBrands}
               subCategoriesOf={subCategoriesOf}
+              productInfo={productInfo}
+              setProductInfo={setProductInfo}
                                   />}
             {selectedTab === 1 && <AddCategoriesTab
               dispatch={dispatch}
@@ -64,6 +70,7 @@ const AddProductsPage = () => {
               allSubCategories={allSubCategories}
               allProducts={allProducts}
               subCategoriesOf={subCategoriesOf}
+              allBrands={allBrands}
                                   />}
           </Container>
         </Paper>
