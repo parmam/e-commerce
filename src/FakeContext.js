@@ -13,7 +13,7 @@ export const FakeContext = () => {
     selectedProducts: [],
     setSearch: ''
   })
-  const [imageUrl, setImageUrl] = useState(null)
+  const [imageUrl, setImageUrl] = useState([])
   const [selectedFiles, setSelectedFiles] = useState(null)
   const [productInfo, setProductInfo] = useState({
     brand: '',
