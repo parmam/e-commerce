@@ -25,7 +25,6 @@ export const setStatusUser = (id, status) => async (dispatch) => {
 }
 
 export const setUserType = (id, type) => async (dispatch) => {
-  // console.log(id)
   type === 'Admin'
     ? (
         await axios.put(`${ApiURL}/admin/changetype/${id}`, { type: 'User' }, { withCredentials: true }))
@@ -59,7 +58,6 @@ export const editUser = (id, data, token) => {
   return async function (dispatch) {
     axios.put(`${ApiURL}/user/${id}`, data, { withCredentials: true })
       .then(editUser => {
-        // console.log(editUser.data, 'EDIT USER ACTION')
         const EditedUser = {
           user: {
             id: editUser.data.id,

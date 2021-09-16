@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import {
   Grid,
@@ -18,8 +18,15 @@ const AddProductsTab = ({
   subCategoriesOf,
   allBrands,
   productInfo,
-  setProductInfo
+  setProductInfo,
+  selectedFiles,
+  setSelectedFiles,
+  imageUrl,
+  setImageUrl
 }) => {
+  useEffect(() => {
+    console.log('imageURL en tab', imageUrl)
+  },[imageUrl])
   return (
     <>
       <Container
@@ -44,6 +51,8 @@ const AddProductsTab = ({
           >
             <ProductPreview
               productInfo={productInfo}
+              imageUrl={imageUrl}
+              setImageUrl={setImageUrl}
             />
           </Grid>
           <Grid
@@ -63,6 +72,10 @@ const AddProductsTab = ({
               allBrands={allBrands}
               productInfo={productInfo}
               setProductInfo={setProductInfo}
+              selectedFiles={selectedFiles}
+              setSelectedFiles={setSelectedFiles}
+              imageUrl={imageUrl}
+              setImageUrl={setImageUrl}
             />
           </Grid>
 

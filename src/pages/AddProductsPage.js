@@ -7,7 +7,7 @@ import {
   Tab,
   Divider
 } from '@material-ui/core'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import AddCategoriesTab from '../components/addProducts/Tabs/AddCategoriesTab'
 import AddProductsTab from '../components/addProducts/Tabs/AddProductsTab'
@@ -23,11 +23,17 @@ const AddProductsPage = () => {
     subCategoriesOf,
     allBrands,
     productInfo,
-    setProductInfo
+    setProductInfo,
+    selectedFiles,
+    setSelectedFiles,
+    imageUrl,
+    setImageUrl
   } = FakeContext()
 
+  useEffect(() => {
+    console.log(imageUrl, 'imageUrl en addProductsPage')
+  },[imageUrl])
   const [selectedTab, setSelectedTab] = useState(0)
-
   const handleView = (event, newValue) => {
     setSelectedTab(newValue)
   }
@@ -63,6 +69,10 @@ const AddProductsPage = () => {
               subCategoriesOf={subCategoriesOf}
               productInfo={productInfo}
               setProductInfo={setProductInfo}
+              selectedFiles={selectedFiles}
+              setSelectedFiles={setSelectedFiles}
+              imageUrl={imageUrl}
+              setImageUrl={setImageUrl}
                                   />}
             {selectedTab === 1 && <AddCategoriesTab
               dispatch={dispatch}
