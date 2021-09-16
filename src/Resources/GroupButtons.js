@@ -12,7 +12,6 @@ const GroupButtons = ({ id, type, status }) => {
   const [userType, setUserTypes] = useState(type)
 
   const user = useSelector(store => store.user.logged.user)
-  console.log(user)
   useEffect(() => {
   }, [userType, userStatus])
 
