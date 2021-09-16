@@ -7,25 +7,36 @@ import {
   addCategory,
   addSubCategory
 } from '../redux/actions/categories'
+import axios from 'axios'
+
 const Test = () => {
-  const dispatch = useDispatch()
-  const reduxTester = () => {
+  const pago = async () => {
     const newProduct = {
-      model: 'SX100',
-      brand: 'Canon ',
-      img: 'https://arsonyb2c.vteximg.com.br/arquivos/ids/292451-550-550/ILCE-7M3_Black-1.jpg?v=637123589061300000',
-      description: 'Una cámara linda',
-      price: 800,
-      points: 5,
-      subCategory: 'Semi-Reflex'
+      id: 458044,
+      category_id: '1122',
+      currency_id: 'ARS',
+      description: 'Alta facha',
+      title: 'Una camara Noilan',
+      unit_price: 120,
+      quantity: 2
     }
-    dispatch(addCategory({ name: 'asdasdas' }))
+    const respose = await axios.post('http://localhost:3002/api/v1/mercadopago', newProduct, { withCredentials: true })
+    console.log('RESPOSE', respose)
+    window.open(respose.data, '_blank')
   }
+
   return (
     <>
-      <button onClick={reduxTester}> josetester </button>
-
+      <button onClick={() => pago()}> josetester </button>
     </>
   )
 }
 export default Test
+
+// "id": "458044",
+//           "category_id": "1122",
+//           "currency_id": "ARS",
+//           "description": "Alta facha",
+//           "title": "Una camara Noilan",
+//           "quantity": 5,
+//           "unit_price": 95

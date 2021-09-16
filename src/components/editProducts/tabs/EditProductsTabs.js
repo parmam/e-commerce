@@ -5,16 +5,20 @@ import {
 } from '@material-ui/core'
 import ProductPreview from '../ProductPreview'
 import EditProductsDetails from '../EditProductDetails'
-import { getProductsDetails } from 'src/redux/actions/products'
+import { deleteDetails, getProductsDetails } from 'src/redux/actions/products'
 
 const EditProductsTab = ({
   dispatch,
   productDetails,
   allSubCategories,
   allCategories,
-  productId
+  allBrands,
+  productId,
+  productInfo,
+  setProductInfo
 }) => {
   useEffect(() => {
+    dispatch(deleteDetails())
     dispatch(getProductsDetails(productId))
   }, [productId])
 
@@ -43,6 +47,10 @@ const EditProductsTab = ({
               productDetails={productDetails}
               allSubCategories={allSubCategories}
               allCategories={allCategories}
+              allBrands={allBrands}
+              dispatch={dispatch}
+              productInfo={productInfo}
+              setProductInfo={setProductInfo}
             />
           </Grid>
 

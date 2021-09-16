@@ -40,7 +40,6 @@ export const setUserType = (id, type) => async (dispatch) => {
 }
 
 export const setLogged = (loginInfo) => {
-  console.log(loginInfo, 'SETLOGGED')
   return {
     type: SET_LOGGED,
     payload: loginInfo

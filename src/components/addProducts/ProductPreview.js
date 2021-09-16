@@ -32,8 +32,9 @@ const ProductPreview = () => (
         <Avatar
           src={user.avatar}
           sx={{
-            height: 400,
-            width: 100
+            height: 'auto',
+            width: 'auto',
+            borderRadius: 0
           }}
         />
         <Typography
@@ -59,6 +60,7 @@ const ProductPreview = () => (
     </CardContent>
     <Divider />
     <CardActions>
+
       <Button
         color='primary'
         fullWidth

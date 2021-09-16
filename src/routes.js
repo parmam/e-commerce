@@ -13,6 +13,7 @@ import Settings from './pages/Settings'
 import Test from './pages/Test'
 import AddProductsPage from './pages/AddProductsPage'
 import EditProducts from './pages/EditProducts'
+import { Error } from './pages/Error'
 const routes = [
   {
     path: 'app',
@@ -35,6 +36,7 @@ const routes = [
     element: <MainLayout />,
     children: [
       { path: 'login', element: <Login /> },
+      { path: 'error', element: <Error /> },
       { path: 'register', element: <Register /> },
       { path: '404', element: <NotFound /> },
       { path: '/', element: <Login /> },

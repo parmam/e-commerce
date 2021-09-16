@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-
+import React, { useEffect, useState } from 'react'
 import {
   Box,
   Button,
@@ -8,194 +7,234 @@ import {
   CardHeader,
   Divider,
   Grid,
-  TextField
+  TextField,
+  CircularProgress
 } from '@material-ui/core'
+import { getSubCategoriesOf } from 'src/redux/actions/categories'
+import { editProducts } from 'src/redux/actions/products'
 
 const EditProductsDetails = ({
   productDetails,
-  allSubCategories,
-  allCategories
+  allCategories,
+  dispatch,
+  productInfo,
+  setProductInfo
 }) => {
-  const [values, setValues] = useState({
-    brand: productDetails.brand,
-    model: productDetails.model,
-    category: '',
-    subcategory: productDetails.subcategoryId,
-    price: productDetails.price,
-    discount: '',
-    description: productDetails.description
-  })
-  console.log(productDetails, 'PRODUCT')
+  const [subCategories, setSubCategories] = useState({})
+  const ranking = [1, 2, 3, 4, 5]
+
+  useEffect(async () => {
+    setProductInfo(productDetails)
+    setSubCategories(await dispatch(getSubCategoriesOf(productDetails.category)))
+  }, [productDetails])
+
   const handleChange = (event) => {
-    setValues({
-      ...values,
+    setProductInfo({
+      ...productInfo,
       [event.target.name]: event.target.value
     })
+    // setSubCategories(dispatch(getSubCategoriesOf(productDetails.category)))
   }
 
   return (
     <>
-
-      <form
-        autoComplete='off'
-        noValidate
-      >
-        <Card>
-          <CardHeader
-            subheader='Puede visualizar como va a verse su producto en la seccion de productos en la tarjeta que esta a su izquierda, luego de guardar su producto podra volver a editarlo si asi lo desea.'
-            title='Editar producto'
-          />
-          <Divider />
-          <CardContent>
-            <Grid
-              container
-              spacing={3}
-            >
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
-                <TextField
-                  fullWidth
-                  label='Marca'
-                  name='brand'
-                  onChange={handleChange}
-                  select
-                  value={values.brand}
-                >
-                  {/* {states.map((option) => (
-                    <option
-                      key={option.value}
-                      value={values.brand}
-                    >
-                      {values.brand}
-                    </option>
-                  ))} */}
-                </TextField>
-              </Grid>
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
-                <TextField
-                  fullWidth
-                  label='Modelo'
-                  name='model'
-                  onChange={handleChange}
-                  value={values.model}
-                />
-              </Grid>
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
-                <TextField
-                  fullWidth
-                  label='Categoria'
-                  name='category'
-                  onChange={handleChange}
-                  select
-                  value={values.category}
-                  SelectProps={{ native: true }}
-                >
-                  {allCategories.map(option => (
-                    <option
-                      key={option}
-                      value={option}
-                    >
-                      {option}
-                    </option>
-                  ))}
-                </TextField>
-              </Grid>
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
-                <TextField
-                  fullWidth
-                  label='Sub categoria'
-                  name='subcategory'
-                  onChange={handleChange}
-                  select
-                  SelectProps={{ native: true }}
-                  value={values.subcategory}
-                >
-                  {allSubCategories.map(option => (
-                    <option
-                      key={option}
-                      value={option}
-                    >
-                      {option}
-                    </option>
-                  ))}
-                </TextField>
-              </Grid>
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
-                <TextField
-                  fullWidth
-                  label='Precio'
-                  name='price'
-                  onChange={handleChange}
-                  value={values.price}
-                />
-              </Grid>
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
-                <TextField
-                  fullWidth
-                  label='Descuento'
-                  name='discount'
-                  onChange={handleChange}
-                  value={values.email}
-                />
-              </Grid>
-
-              <Grid
-                item
-                md={12}
-                xs={12}
-              >
-                <TextField
-                  fullWidth
-                  label='Descripcion del producto'
-                  name='description'
-                  onChange={handleChange}
-                  multiline
-                  value={values.description}
-                />
-              </Grid>
-            </Grid>
-          </CardContent>
-          <Divider />
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              p: 2
-            }}
+      {
+      !productInfo.subCategory || !subCategories.payload
+        ? <CircularProgress />
+        : (
+          <form
+            autoComplete='off'
+            noValidate
           >
-            <Button
-              color='primary'
-              variant='contained'
-            >
-              Save details
-            </Button>
-          </Box>
-        </Card>
-      </form>
+            <Card>
+              <CardHeader
+                subheader='Puede visualizar como va a verse su producto en la seccion de productos en la tarjeta que esta a su izquierda, luego de guardar su producto podra volver a editarlo si asi lo desea.'
+                title='Editar producto'
+              />
+              <Divider />
+              <CardContent>
+                <Grid
+                  container
+                  spacing={3}
+                >
+                  <Grid
+                    item
+                    md={6}
+                    xs={12}
+                  >
+                    <TextField
+                      fullWidth
+                      label='Marca'
+                      name='brand'
+                      onChange={handleChange}
+                      select
+                      value=''
+                    >
+                      {/* {subCategories.payload.map((option) => ( */}
+                      <option
+                          // key={option}
+                        value='MARCAS'
+                      >
+                        MARCAS
+                      </option>
+                      {/* ))} */}
+                    </TextField>
+                  </Grid>
+                  <Grid
+                    item
+                    md={6}
+                    xs={12}
+                  >
+                    <TextField
+                      fullWidth
+                      label='Modelo'
+                      name='model'
+                      onChange={handleChange}
+                      value={productInfo.model}
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    md={6}
+                    xs={12}
+                  >
+                    <TextField
+                      fullWidth
+                      label='Categoria'
+                      name='category'
+                      onChange={handleChange}
+                      select
+                      value={productInfo.category}
+                      SelectProps={{ native: true }}
+                    >
+                      {allCategories.map(option => (
+                        <option
+                          key={option}
+                          value={option}
+                        >
+                          {option}
+                        </option>
+                      ))}
+                    </TextField>
+                  </Grid>
+                  <Grid
+                    item
+                    md={6}
+                    xs={12}
+                  >
+                    <TextField
+                      fullWidth
+                      label='Sub categoria'
+                      name='subCategory'
+                      onChange={handleChange}
+                      select
+                      value={productInfo.subCategory}
+                      SelectProps={{ native: true }}
+                    >
+                      {subCategories.payload.map(option => (
+                        <option
+                          key={option}
+                          value={option}
+                        >
+                          {option}
+                        </option>
+                      ))}
+                    </TextField>
+                  </Grid>
+                  <Grid
+                    item
+                    md={6}
+                    xs={12}
+                  >
+                    <TextField
+                      fullWidth
+                      label='Precio'
+                      name='price'
+                      onChange={handleChange}
+                      value={productInfo.price}
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    md={6}
+                    xs={12}
+                  >
+                    <TextField
+                      fullWidth
+                      label='Descuento'
+                      name='discount'
+                      onChange={handleChange}
+                      value={productInfo.discount}
+                    />
+                  </Grid>
+
+                  <Grid
+                    item
+                    md={12}
+                    xs={12}
+                  >
+                    <TextField
+                      fullWidth
+                      label='Descripcion del producto'
+                      name='description'
+                      onChange={handleChange}
+                      multiline
+                      value={productInfo.description}
+                    />
+                  </Grid>
+                </Grid>
+              </CardContent>
+              <Divider />
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-around',
+                  p: 2
+                }}
+              >
+                <Grid
+                  item
+                  md={3}
+                  xs={3}
+                >
+                  <TextField
+                    fullWidth
+                    label='Puntos'
+                    name='points'
+                    onChange={handleChange}
+                    select
+                    value={productInfo.points}
+                    SelectProps={{ native: true }}
+                  >
+                    {ranking.map(option => (
+                      <option
+                        key={option}
+                        value={option}
+                      >
+                        {option}
+                      </option>
+                    ))}
+                  </TextField>
+                </Grid>
+                <Grid
+                  item
+                  md={5}
+                  xs={3}
+                />
+                <Button
+                  color='primary'
+                  variant='contained'
+                  onClick={() => dispatch(editProducts(productInfo))}
+                >
+                  Save details
+                </Button>
+              </Box>
+            </Card>
+          </form>
+          )
+    }
     </>
+
   )
 }
 

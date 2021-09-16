@@ -20,7 +20,7 @@ const user = (state = initialState, action) => {
         users: action.payload
       }
     case SET_LOGGED:
-      console.log(action.payload)
+      // console.log(action.payload)
       return { ...state, logged: action.payload }
     case LOG_OUT:
       return { ...state, logged: false }

@@ -34,7 +34,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation()
 
   const user = useSelector(store => store.user.logged.user)
-  console.log(user, 'user')
+  // console.log(user, 'user')
   useEffect(() => {
     if (openMobile && onMobileClose) {
       onMobileClose()
