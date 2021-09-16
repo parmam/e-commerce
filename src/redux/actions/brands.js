@@ -7,7 +7,6 @@ import {
 import { ApiURL } from 'src/config'
 
 export const addNewBrand = (newBrand) => async (dispatch) => {
-  console.log(newBrand)
   const response = await axios.post(`${ApiURL}/brands`, { name: newBrand }, { withCredentials: true })
   if (response.request.status === 200) {
     const brands = await axios.get(`${ApiURL}/brands`, { withCredentials: true })
