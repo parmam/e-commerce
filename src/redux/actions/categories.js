@@ -27,7 +27,7 @@ export const getSubCategories = () => async (dispatch) => {
 }
 
 export const getSubCategoriesOf = (cat) => async (dispatch) => {
-  console.log(cat)
+  // console.log(cat)
   const subCategoriesOf = await axios.get(`${ApiURL}/categories/getSubParams?name=${cat}`, { withCredentials: true })
   if (subCategoriesOf.request.status === 200) {
     return dispatch({
