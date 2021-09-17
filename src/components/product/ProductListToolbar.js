@@ -96,7 +96,7 @@ const ProductListToolbar = ({ eventHandler, setEventHandler, props, allProducts,
           disabled={eventHandler.selectedProducts.length !== 1}
           href={`/app/products/edit/${eventHandler.selectedProducts}`}
         >
-          EDITAR LISTA
+          EDITAR PRODUCTO
         </Button>
         <Link to='/app/products/add'>
           <Button

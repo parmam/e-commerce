@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import {
   Box,
   Button,
@@ -18,14 +18,14 @@ const EditProductsDetails = ({
   allCategories,
   dispatch,
   productInfo,
-  setProductInfo
+  setProductInfo,
+  subCategoriesOf
 }) => {
-  const [subCategories, setSubCategories] = useState({})
   const ranking = [1, 2, 3, 4, 5]
 
   useEffect(async () => {
-    setProductInfo(productDetails)
-    setSubCategories(await dispatch(getSubCategoriesOf(productDetails.category)))
+    await setProductInfo(productDetails)
+    await dispatch(getSubCategoriesOf(productDetails.category))
   }, [productDetails])
 
   const handleChange = (event) => {
@@ -33,13 +33,20 @@ const EditProductsDetails = ({
       ...productInfo,
       [event.target.name]: event.target.value
     })
-    // setSubCategories(dispatch(getSubCategoriesOf(productDetails.category)))
+  }
+
+  const handleCategories = async (event) => {
+    setProductInfo({
+      ...productInfo,
+      [event.target.name]: event.target.value
+    })
+    await dispatch(getSubCategoriesOf(productInfo.category))
   }
 
   return (
     <>
       {
-      !productInfo.subCategory || !subCategories.payload
+      !productInfo.subCategory || !productDetails || !subCategoriesOf
         ? <CircularProgress />
         : (
           <form
@@ -70,14 +77,12 @@ const EditProductsDetails = ({
                       select
                       value=''
                     >
-                      {/* {subCategories.payload.map((option) => ( */}
                       <option
                           // key={option}
                         value='MARCAS'
                       >
-                        MARCAS
+                        POSIBLES MARCAS
                       </option>
-                      {/* ))} */}
                     </TextField>
                   </Grid>
                   <Grid
@@ -102,7 +107,7 @@ const EditProductsDetails = ({
                       fullWidth
                       label='Categoria'
                       name='category'
-                      onChange={handleChange}
+                      onChange={handleCategories}
                       select
                       value={productInfo.category}
                       SelectProps={{ native: true }}
@@ -131,7 +136,7 @@ const EditProductsDetails = ({
                       value={productInfo.subCategory}
                       SelectProps={{ native: true }}
                     >
-                      {subCategories.payload.map(option => (
+                      {subCategoriesOf.map(option => (
                         <option
                           key={option}
                           value={option}

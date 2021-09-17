@@ -6,6 +6,7 @@ import {
   Typography
 } from '@material-ui/core'
 import StarIcon from '@material-ui/icons/Star'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles({
@@ -45,8 +46,25 @@ const ProductPreview = ({ product }) => {
           <Typography variant='h4' component='h2'>
             {'$' + new Intl.NumberFormat('es-ES').format(product.price)}
           </Typography>
-          <div style={{ color: 'orange' }}>
+          <div style={{
+            color: 'orange',
+            marginTop: '15px'
+          }}
+          >
             {stars}
+          </div>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            marginTop: '27px',
+            background: 'black',
+            height: '35px',
+            color: 'white'
+          }}
+          >
+            <ShoppingCartIcon />
+            AGREGAR AL CARRITO
           </div>
         </CardContent>
       </CardActionArea>
