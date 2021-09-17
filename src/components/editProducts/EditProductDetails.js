@@ -29,24 +29,17 @@ const EditProductsDetails = ({
   }, [productDetails])
 
   const handleChange = (event) => {
+    dispatch(getSubCategoriesOf(productInfo.category))
     setProductInfo({
       ...productInfo,
       [event.target.name]: event.target.value
     })
-  }
-
-  const handleCategories = async (event) => {
-    setProductInfo({
-      ...productInfo,
-      [event.target.name]: event.target.value
-    })
-    await dispatch(getSubCategoriesOf(productInfo.category))
   }
 
   return (
     <>
       {
-      !productInfo.subCategory || !productDetails || !subCategoriesOf
+      !productInfo.subCategory || !productDetails || !subCategoriesOf.length
         ? <CircularProgress />
         : (
           <form
@@ -107,7 +100,7 @@ const EditProductsDetails = ({
                       fullWidth
                       label='Categoria'
                       name='category'
-                      onChange={handleCategories}
+                      onChange={handleChange}
                       select
                       value={productInfo.category}
                       SelectProps={{ native: true }}
