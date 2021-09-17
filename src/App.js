@@ -12,8 +12,6 @@ import { getAllBrands } from './redux/actions/brands'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 const App = () => {
-  const token = useSelector(store => store.user.logged.token)
-  console.log(token, 'token app')
   const content = useRoutes(routes)
   const [init, setInit] = useState(true)
   const { dispatch } = FakeContext()
@@ -21,18 +19,18 @@ const App = () => {
     dispatch(getCategories())
     dispatch(getSubCategories())
     dispatch(getProducts())
-    dispatch(getUsers(token))
+    dispatch(getUsers())
     dispatch(getAllBrands())
     setInit(false)
   }, [init])
 
-// const update =() =>{
-//   setTimeout(() => {
-//     axios.get('http://localhost:3001/products')
-//   }, 50000);
+  // const update =() =>{
+  //   setTimeout(() => {
+  //     axios.get('http://localhost:3001/products')
+  //   }, 50000);
 
-// }
-// update()
+  // }
+  // update()
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
