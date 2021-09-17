@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   Grid,
   Container
 } from '@material-ui/core'
 import ProductPreview from '../ProductPreview'
 import EditProductsDetails from '../EditProductDetails'
-import { deleteDetails, getProductsDetails } from 'src/redux/actions/products'
 
 const EditProductsTab = ({
   dispatch,
@@ -13,15 +12,10 @@ const EditProductsTab = ({
   allSubCategories,
   allCategories,
   allBrands,
-  productId,
   productInfo,
-  setProductInfo
+  setProductInfo,
+  subCategoriesOf
 }) => {
-  useEffect(() => {
-    dispatch(deleteDetails())
-    dispatch(getProductsDetails(productId))
-  }, [productId])
-
   return (
     <>
       <Container maxWidth='lg' style={{ marginTop: 0, marginLeft: 0, marginRight: 0, paddingLeft: 12, paddingRight: 12 }}>
@@ -51,6 +45,7 @@ const EditProductsTab = ({
               dispatch={dispatch}
               productInfo={productInfo}
               setProductInfo={setProductInfo}
+              subCategoriesOf={subCategoriesOf}
             />
           </Grid>
 
