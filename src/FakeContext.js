@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+
 export const FakeContext = () => {
   const dispatch = useDispatch()
 
   const allProducts = useSelector(store => store.products.allProducts)
+  const productDetails = useSelector(store => store.products.productDetail)
   const allCategories = useSelector(store => store.categories.allCategories)
   const allSubCategories = useSelector(store => store.categories.allSubCategories)
   const subCategoriesOf = useSelector(store => store.categories.subCategoriesOf)
@@ -13,7 +15,8 @@ export const FakeContext = () => {
     selectedProducts: [],
     setSearch: ''
   })
-
+  const [imageUrl, setImageUrl] = useState([])
+  const [selectedFiles, setSelectedFiles] = useState(null)
   const [productInfo, setProductInfo] = useState({
     brand: '',
     model: '',
@@ -23,16 +26,22 @@ export const FakeContext = () => {
     discount: '',
     description: ''
   })
+
   return {
     eventHandler,
     setEventHandler,
     allProducts,
+    productDetails,
     dispatch,
     allCategories,
     allSubCategories,
     subCategoriesOf,
     allBrands,
     productInfo,
-    setProductInfo
+    setProductInfo,
+    selectedFiles,
+    setSelectedFiles,
+    imageUrl,
+    setImageUrl
   }
 }

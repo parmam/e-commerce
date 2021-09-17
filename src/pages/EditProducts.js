@@ -1,84 +1,59 @@
-import React, { useEffect, useState } from 'react'
-// import { Helmet } from 'react-helmet'
-import { Box, Container, TableHead, Checkbox, TableCell, Table, TableRow, TableBody, Avatar, TextField } from '@material-ui/core'
-import PerfectScrollbar from 'react-perfect-scrollbar'
+import React from 'react'
+import { Helmet } from 'react-helmet'
+import {
+  Box,
+  Container,
+  Paper,
+  Divider,
+  Button
+} from '@material-ui/core'
+import { FakeContext } from 'src/FakeContext'
+import EditProductsTab from '../components/editProducts/tabs/EditProductsTabs'
 
-import { useDispatch, useSelector } from 'react-redux'
-import { EditProduct } from '../components/product/ProductEdit'
-// import ProductListResult from '../components/product/ProductListResult'
-// import ProductListToolbar from '../components/product/ProductListToolbar'
-
-const AddProducts = ({ ...rest }) => {
-  const dispatch = useDispatch()
-  const products = useSelector(store => store.products.allProducts)
-  const [limit, setLimit] = useState(10)
-  const [page, setPage] = useState(0)
-  // const [product, setProducts] = useState([])
-
-  useEffect(() => {
-  }, [dispatch])
-
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value)
-  }
-
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage)
-  }
+const EditProducts = () => {
+  const {
+    dispatch,
+    productDetails,
+    allSubCategories,
+    allCategories,
+    allBrands,
+    productInfo,
+    setProductInfo
+  } = FakeContext()
+  const productId = window.location.pathname.slice(19)
 
   return (
     <>
-      <Box
-        sx={{
-          backgroundColor: 'background.default',
-          minHeight: '100%',
-          py: 3
-        }}
-      >
-        <Container maxWidth={false}>
 
-          <Box sx={{ pt: 3 }}>
-            <PerfectScrollbar>
-              <Box sx={{ minWidth: 1050 }}>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell padding='checkbox'>
-                        <Checkbox />
-                      </TableCell>
-                      <TableCell>
-                        Imagen
-                      </TableCell>
-                      <TableCell>
-                        Marca
-                      </TableCell>
-                      <TableCell>
-                        Modelo
-                      </TableCell>
-                      <TableCell>
-                        Categoria
-                      </TableCell>
-                      <TableCell>
-                        Subcategoria
-                      </TableCell>
-                      <TableCell>
-                        Precio
-                      </TableCell>
-                      <TableCell>
-                        Descuento
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  {/* ACÁ VA EL COMPONENTE CON EL TABLE BODY */}
-                  <EditProduct products={products} page={page} />
-                </Table>
-              </Box>
-            </PerfectScrollbar>
-          </Box>
-        </Container>
+      <Helmet>
+        <title>Account | Edit Product</title>
+      </Helmet>
+      <Box>
+        <Paper square>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '10px 30px' }}>
+            <Button
+              variant='contained'
+              href='/app/products'
+            > VER TODOS
+            </Button>
+          </div>
+          <Divider />
+          <Container maxWidth='lg' style={{ marginTop: 25, padding: 0 }}>
+            <EditProductsTab
+              dispatch={dispatch}
+              productDetails={productDetails}
+              allSubCategories={allSubCategories}
+              allCategories={allCategories}
+              productId={productId}
+              allBrands={allBrands}
+              productInfo={productInfo}
+              setProductInfo={setProductInfo}
+            />
+          </Container>
+        </Paper>
       </Box>
     </>
   )
 }
 
-export default AddProducts
+export default EditProducts

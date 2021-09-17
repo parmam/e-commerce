@@ -1,4 +1,4 @@
-import { GET_ALL_PRODUCTS, GET_PRODUCT_DETAIL, GET_BESTS, POST_PRODUCT, DELETE_PRODUCTS } from '../constants'
+import { GET_ALL_PRODUCTS, GET_PRODUCT_DETAIL, GET_BESTS, POST_PRODUCT, DELETE_PRODUCTS, PUT_PRODUCT, DELETE_DETAILS } from '../constants'
 
 const initialState = {
   allProducts: [],
@@ -33,6 +33,16 @@ const products = (state = initialState, action) => {
       return {
         ...state,
         messages: action.payload
+      }
+    case PUT_PRODUCT:
+      return {
+        ...state,
+        productDetail: action.payload
+      }
+    case DELETE_DETAILS:
+      return {
+        ...state,
+        productDetail: {}
       }
     default:
       return state

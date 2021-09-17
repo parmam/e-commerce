@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getSubCategoriesOf } from '../../redux/actions/categories'
 import { addProducts } from '../../redux/actions/products'
+import FileUploader from '../../Tools/FileUploader'
 import {
   Box,
   Button,
@@ -16,22 +17,34 @@ import {
 
 const AddPorductsDetails = ({
   dispatch,
-  eventHandler,
-  setEventHandler,
-  allProducts,
-  allSubCategories,
   allCategories,
   subCategoriesOf,
   allBrands,
   productInfo,
-  setProductInfo
+  setProductInfo,
+  setSelectedFiles,
+  selectedFiles,
+  imageUrl,
+  setImageUrl
 
 }) => {
+const [localUrl, setLocalUrl] = useState([])
+
+
+ useEffect(() => {
+   if(imageUrl !== ''){
+     setLocalUrl(imageUrl)
+
+   }
+  console.log(localUrl, imageUrl,'         este es local url en details')
+ },[imageUrl])
+
   const handleChange = (event) => {
     setProductInfo({
       ...productInfo,
       [event.target.name]: event.target.value
     })
+    console.log(productInfo)
   }
 
   useEffect(() => {
@@ -221,34 +234,25 @@ const AddPorductsDetails = ({
                       overflowX: 'scroll'
                     }}
                   >
-                    <ImageListItem>
-                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
-                    </ImageListItem>
-                    <ImageListItem>
-                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
-                    </ImageListItem>
-                    <ImageListItem>
-                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
-                    </ImageListItem>
-                    <ImageListItem>
-                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
-                    </ImageListItem>
-                    <ImageListItem>
-                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
-                    </ImageListItem>
-                    <ImageListItem>
-                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
-                    </ImageListItem>
-                    <ImageListItem>
-                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
-                    </ImageListItem>
-                    <ImageListItem>
-                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
-                    </ImageListItem>
-                    <ImageListItem>
-                      <img style={{ width: '100px', height: '100px' }} src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DX03Nmgvnh38&psig=AOvVaw3x2YfWgvt9muOTi_SGHcxf&ust=1631740989847000&source=images&cd=vfe&ved=0CAYQjRxqFwoTCKjypoKz__ICFQAAAAAdAAAAABAI' />
-                    </ImageListItem>
-                  </ImageList>
+                  
+                    {/* {(localUrl && localUrl)
+                    ? (localUrl.map((local) => (
+                      <ImageListItem>  
+                        <img style={{ width: '100px', height: '100px' }} src={local}/>
+                      </ImageListItem> 
+
+                    )))
+                    
+                    : (                
+                      <ImageListItem>  
+                        <img style={{ width: '100px', height: '100px' }} src={imageUrl}/>
+                      </ImageListItem> 
+                    )
+                    } */}
+
+                    
+
+                    </ImageList>
                 </Box>
               </Grid>
             </Grid>
@@ -261,19 +265,11 @@ const AddPorductsDetails = ({
               p: 2
             }}
           >
-            <input
-              accept='image/*'
-              // className={classes.input}
-              style={{ display: 'none' }}
-              id='raised-button-file'
-              multiple
-              type='file'
+            <FileUploader selectedFiles={selectedFiles}
+                          setSelectedFiles={setSelectedFiles}
+                          imageUrl={imageUrl}
+                          setImageUrl={setImageUrl}
             />
-            <label htmlFor='raised-button-file'>
-              <Button variant='contained' color='primary' component='span'>
-                Agregar imagen
-              </Button>
-            </label>
             <Button
               color='primary'
               variant='contained'

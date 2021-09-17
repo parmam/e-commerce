@@ -10,7 +10,6 @@ import {
 import { Search as SearchIcon } from 'react-feather'
 import { useEffect, useState } from 'react'
 import { removeProducts, getProducts } from '../../redux/actions/products'
-import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 const ProductListToolbar = ({ eventHandler, setEventHandler, props, allProducts, dispatch }) => {
@@ -88,23 +87,23 @@ const ProductListToolbar = ({ eventHandler, setEventHandler, props, allProducts,
         >
           BORRAR
         </Button>
-        <Link to='/app/products/edit'>
-          <Button
-            color='primary'
-            variant='contained'
-            style={{
-              marginRight: '5px'
-            }}
-          >
-            EDITAR LISTA
-          </Button>
-        </Link>
+        <Button
+          color='primary'
+          variant='contained'
+          style={{
+            marginRight: '5px'
+          }}
+          disabled={eventHandler.selectedProducts.length !== 1}
+          href={`/app/products/edit/${eventHandler.selectedProducts}`}
+        >
+          EDITAR LISTA
+        </Button>
         <Link to='/app/products/add'>
           <Button
             color='primary'
             variant='contained'
           >
-            AGREGAR PRODUCTOS
+            PRODUCTOS
           </Button>
         </Link>
       </Box>

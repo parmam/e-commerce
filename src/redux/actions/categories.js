@@ -27,7 +27,7 @@ export const getSubCategories = () => async (dispatch) => {
 }
 
 export const getSubCategoriesOf = (cat) => async (dispatch) => {
-  console.log(cat)
+  // console.log(cat)
   const subCategoriesOf = await axios.get(`${ApiURL}/categories/getSubParams?name=${cat}`, { withCredentials: true })
   if (subCategoriesOf.request.status === 200) {
     return dispatch({
@@ -56,11 +56,10 @@ export const addCategory = (newCategory) => async (dispatch) => {
 export const addSubCategory = (newSubCategory) => async (dispatch) => {
   const cat = newSubCategory.category
   const response = await axios.post(`${ApiURL}/categories/addSub`, newSubCategory, { withCredentials: true })
-  console.log(response)
+
   if (response.request.status === 200) {
     const subCategoriesOf = await axios.get(`${ApiURL}/categories/getSubParams?name=${cat}`, { withCredentials: true })
     if (subCategoriesOf.request.status === 200) {
-      console.log(subCategoriesOf.data, 'llegan las subcat')
       return dispatch({
         type: POST_SUBCATEGORY,
         payload: subCategoriesOf.data

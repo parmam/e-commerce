@@ -28,7 +28,6 @@ const categories = (state = initialState, action) => {
         allSubCategories: action.payload
       }
     case GET_SUBCATEGORIES_OF:
-      console.log(action.payload, 'reducer de subcatof')
       return {
         ...state,
         subCategoriesOf: action.payload

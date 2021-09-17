@@ -33,10 +33,6 @@ const AccountProfileDetails = (props) => {
 
   const dispatch = useDispatch()
   const user = useSelector(store => store.user.logged)
-  // const id = useParams()
-  // const user = usersRedux.filter(us => us.id === id.id)
-  // console.log(usersRedux[0])
-  console.log(user, 'user')
 
   const handleChange = (e) => {
     validate(e.target.value, e.target.name, setErrors)
@@ -64,9 +60,8 @@ const AccountProfileDetails = (props) => {
   console.log(values, 'VALUES')
 
   const onSubmit = (e) => {
-    console.log(values, 'values submit')
     e.preventDefault()
-    console.log(values.type)
+
     try {
       dispatch(editUser(user.user.id, values, user.tokken))
       toastCustom('Los datos han sido modificados', 'success', 4000, 'bottom-right')

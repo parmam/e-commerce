@@ -10,7 +10,7 @@ import { getProducts } from './redux/actions/products'
 import { getUsers } from './redux/actions/user'
 import { getAllBrands } from './redux/actions/brands'
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import axios from 'axios'
 const App = () => {
   const token = useSelector(store => store.user.logged.token)
   console.log(token, 'token app')
@@ -26,6 +26,13 @@ const App = () => {
     setInit(false)
   }, [init])
 
+// const update =() =>{
+//   setTimeout(() => {
+//     axios.get('http://localhost:3001/products')
+//   }, 50000);
+
+// }
+// update()
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
