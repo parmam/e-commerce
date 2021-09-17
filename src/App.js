@@ -10,7 +10,10 @@ import { getProducts } from './redux/actions/products'
 import { getUsers } from './redux/actions/user'
 import { getAllBrands } from './redux/actions/brands'
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 const App = () => {
+  const token = useSelector(store => store.user.logged.token)
+  console.log(token, 'token app')
   const content = useRoutes(routes)
   const [init, setInit] = useState(true)
   const { dispatch } = FakeContext()
@@ -18,7 +21,7 @@ const App = () => {
     dispatch(getCategories())
     dispatch(getSubCategories())
     dispatch(getProducts())
-    dispatch(getUsers())
+    dispatch(getUsers(token))
     dispatch(getAllBrands())
     setInit(false)
   }, [init])

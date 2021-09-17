@@ -19,8 +19,8 @@ import GoogleIcon from '../icons/Google'
 import { ApiURL } from 'src/config'
 import { setLogged } from 'src/redux/actions/user'
 import { toastCustom } from 'src/Tools/Toastify'
-
 const Login = () => {
+  const token = useSelector(store => store.user.logged.token)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector(store => store.user.logged.user)
@@ -43,7 +43,7 @@ const Login = () => {
     e.preventDefault()
     try {
       const response = await axios.post(`${ApiURL}/login`, formData)
-      dispatch(setLogged(response.data))
+      dispatch(setLogged(response.data,token))
       toastCustom(`Bienvenidx nuevamente ${response.data.user.name}!`, 'success', 4000, 'bottom-right')
       navigate('/app/dashboard', { replace: true })
     } catch (error) {
