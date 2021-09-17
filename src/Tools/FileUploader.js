@@ -5,18 +5,17 @@ const FileUploader = ({selectedFiles, setSelectedFiles, imageUrl, setImageUrl}) 
 
 
     useEffect(() => {
-        if (selectedFiles && selectedFiles) {
-        let url = URL.createObjectURL(selectedFiles)
-        console.log(url, ' selected files file uploader')
-
-        setImageUrl(url)
+        console.log(selectedFiles, ' FILE UPLOADER')
+        if (selectedFiles && selectedFiles !== [] && selectedFiles.length !== 0) {
+        // setImageUrl(selectedFiles.map((file) => { return URL.createObjectURL(file) }))
+        let arr = []
+        arr = Array.from(selectedFiles).forEach(file => { 
+            setImageUrl(...imageUrl, URL.createObjectURL(file)) 
+        });
+        console.log(arr, ' en map')
         }
-        console.log(imageUrl, ' este')
       }, [selectedFiles]);
 
-    useEffect(() => {
-        console.log(selectedFiles, 'aca')
-    },[selectedFiles])
     return (
         <React.Fragment>
             <form>
@@ -25,7 +24,7 @@ const FileUploader = ({selectedFiles, setSelectedFiles, imageUrl, setImageUrl}) 
                     style={{ display: 'none' }}
                     id='raised-button-file'
                     multiple
-                    onChange={(e) => setSelectedFiles(e.target.files[0])}
+                    onChange={(e) => setSelectedFiles(e.target.files)}
                     type='file'
                 />
                 <label htmlFor='raised-button-file'>
