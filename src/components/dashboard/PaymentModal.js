@@ -2,8 +2,7 @@ import {
   Box,
   Modal,
   Typography,
-  Chip,
-  CardContent
+  Chip
 } from '@material-ui/core'
 
 const style = {
