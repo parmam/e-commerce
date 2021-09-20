@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 
 const { persistor, store } = Store
-persistor.purge()
+// persistor.purge()
 ReactDOM.render(
   (
     <>

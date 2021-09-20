@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 export const FakeContext = () => {
@@ -15,7 +15,7 @@ export const FakeContext = () => {
     selectedProducts: [],
     setSearch: ''
   })
-  const [imageUrl, setImageUrl] = useState(null)
+  const [imageUrl, setImageUrl] = useState([])
   const [selectedFiles, setSelectedFiles] = useState(null)
   const [productInfo, setProductInfo] = useState({
     brand: '',

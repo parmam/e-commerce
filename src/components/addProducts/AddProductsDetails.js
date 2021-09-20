@@ -28,7 +28,7 @@ const AddPorductsDetails = ({
   setImageUrl
 
 }) => {
-const [localUrl, setLocalUrl] = useState('')
+const [localUrl, setLocalUrl] = useState([])
 
 
  useEffect(() => {
@@ -235,18 +235,20 @@ const [localUrl, setLocalUrl] = useState('')
                     }}
                   >
                   
-                    {(localUrl !== '')
-                    ? (
+                    {/* {(localUrl && localUrl)
+                    ? (localUrl.map((local) => (
                       <ImageListItem>  
-                        <img style={{ width: '100px', height: '100px' }} src={localUrl}/>
+                        <img style={{ width: '100px', height: '100px' }} src={local}/>
                       </ImageListItem> 
-                    )
+
+                    )))
+                    
                     : (                
                       <ImageListItem>  
                         <img style={{ width: '100px', height: '100px' }} src={imageUrl}/>
                       </ImageListItem> 
                     )
-                    }
+                    } */}
 
                     
 

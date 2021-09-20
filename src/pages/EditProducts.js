@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import {
   Box,
@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core'
 import { FakeContext } from 'src/FakeContext'
 import EditProductsTab from '../components/editProducts/tabs/EditProductsTabs'
+import { deleteDetails, getProductsDetails } from 'src/redux/actions/products'
 
 const EditProducts = () => {
   const {
@@ -18,9 +19,16 @@ const EditProducts = () => {
     allCategories,
     allBrands,
     productInfo,
-    setProductInfo
+    setProductInfo,
+    subCategoriesOf
   } = FakeContext()
+
   const productId = window.location.pathname.slice(19)
+
+  useEffect(() => {
+    dispatch(deleteDetails())
+    dispatch(getProductsDetails(productId))
+  }, [])
 
   return (
     <>
@@ -44,10 +52,10 @@ const EditProducts = () => {
               productDetails={productDetails}
               allSubCategories={allSubCategories}
               allCategories={allCategories}
-              productId={productId}
               allBrands={allBrands}
               productInfo={productInfo}
               setProductInfo={setProductInfo}
+              subCategoriesOf={subCategoriesOf}
             />
           </Container>
         </Paper>
