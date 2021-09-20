@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux'
 
 const LatestProducts = () => {
   const products = useSelector(store => store.products.allProducts)
-  console.log('todos los productos', products)
+  const all = products.sort((a, b) => { return b.id - a.id }).slice(0, 5)
   return (
 
     <Card>
@@ -26,7 +26,7 @@ const LatestProducts = () => {
       />
       <Divider />
       <List>
-        {products.map((product, i) => (
+        {all.map((product, i) => (
           <ListItem
             divider={i < products.length - 1}
             key={product.id}
