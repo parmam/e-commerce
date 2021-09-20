@@ -22,11 +22,15 @@ const AddProductsTab = ({
   selectedFiles,
   setSelectedFiles,
   imageUrl,
-  setImageUrl
+  setImageUrl,
+  encodedImgs, 
+  setEncodedImgs,
+  imgPreview, 
+  setImgPreview
 }) => {
   useEffect(() => {
-    console.log('imageURL en tab', imageUrl)
-  },[imageUrl])
+    console.log(encodedImgs, ' en productTab')
+  },[encodedImgs])
   return (
     <>
       <Container
@@ -53,6 +57,8 @@ const AddProductsTab = ({
               productInfo={productInfo}
               imageUrl={imageUrl}
               setImageUrl={setImageUrl}
+              imgPreview={imgPreview} 
+              setImgPreview={setImgPreview}
             />
           </Grid>
           <Grid
@@ -76,6 +82,10 @@ const AddProductsTab = ({
               setSelectedFiles={setSelectedFiles}
               imageUrl={imageUrl}
               setImageUrl={setImageUrl}
+              encodedImgs={encodedImgs} 
+              setEncodedImgs={setEncodedImgs}
+              imgPreview={imgPreview} 
+              setImgPreview={setImgPreview}
             />
           </Grid>
 

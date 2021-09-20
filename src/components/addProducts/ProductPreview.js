@@ -1,87 +1,74 @@
-import moment from 'moment'
-import React, { useEffect, useState } from 'react'
 import {
-  Avatar,
-  Box,
-  Button,
   Card,
-  CardActions,
+  CardActionArea,
+  CardMedia,
   CardContent,
-  Divider,
   Typography
 } from '@material-ui/core'
+import StarIcon from '@material-ui/icons/Star'
+import { makeStyles } from '@material-ui/styles'
+import { useState, useEffect } from 'react'
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 345
+  },
+  media: {
+    height: '50vh'
+  },
+  content: {
+    display: 'flex',
+    textAlign: 'center',
+    flexDirection: 'column'
+  }
+})
 
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  city: 'Los Angeles',
-  country: 'USA',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith',
-  timezone: 'GTM-7'
-}
-
-
-
-const ProductPreview = ({imageUrl}) => {
+const ProductPreview = ({ 
+    product ,
+    imageUrl, 
+    imgPreview, 
+    setImgPreview
+}) => {
   const [localUrl, setLocalUrl] = useState('')
-
+  const classes = useStyles()
+  
 
   useEffect(() => {
     if(imageUrl !== ''){
-      setLocalUrl(imageUrl)
- 
+      setLocalUrl(imageUrl[imgPreview])
+      console.log(localUrl, ' en preview')
+  
     }
-   console.log(localUrl, imageUrl,'         este es local url en preview')
-  },[imageUrl])
+    console.log(localUrl, imageUrl,'         este es local url en preview')
+  },[imageUrl, imgPreview])
   return (
-    <React.Fragment>
-      <Card>
-        <CardContent>
-          <Box
-            sx={{
-              alignItems: 'center',
-              display: 'flex',
-              flexDirection: 'column'
-            }}
-          >
-              {(localUrl !== '')
-                ? (<img style={{ width: '400px', height: '500px' }} src={localUrl}/>)
-                : (<img style={{ width: '400px', height: '500px' }} src={imageUrl}/> )
-              }
-            <Typography
-              color='textPrimary'
-              gutterBottom
-              variant='h3'
-            >
-              {user.name}
-            </Typography>
-            <Typography
-              color='textSecondary'
-              variant='body1'
-            >
-              {`${user.city} ${user.country}`}
-            </Typography>
-            <Typography
-              color='textSecondary'
-              variant='body1'
-            >
-              {`${moment().format('hh:mm A')} ${user.timezone}`}
-            </Typography>
-          </Box>
+    <Card className={classes.root}>
+      <CardActionArea>
+        <CardMedia
+          className={classes.media}
+          image={localUrl}
+          title={'product.model'}
+        />
+        <CardContent className={classes.content}>
+          <Typography 
+            gutterBottom variant='h4'
+            component='h2'>
+            {'product.brand'} 
+            {'product.model'}
+          </Typography>
+          <Typography 
+            variant='h4'
+            component='h2'>
+            {'$' + new Intl.NumberFormat('es-ES').format('15555')}
+          </Typography>
+          <div 
+            style={{ color: 'orange' }}>
+            {'stars'}
+          </div>
         </CardContent>
-        <Divider />
-        <CardActions>
-
-          <Button
-            color='primary'
-            fullWidth
-            variant='text'
-          >
-            Upload picture
-          </Button>
-        </CardActions>
-      </Card>
-    </React.Fragment>
+      </CardActionArea>
+    </Card>
   )
 }
+
 export default ProductPreview
+

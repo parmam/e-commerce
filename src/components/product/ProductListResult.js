@@ -148,10 +148,10 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
 
                   </TableCell>
                   <TableCell>
-                    {/* {product.subCategory.category.name} */}
+                    {product.subCategory.category.name}
                   </TableCell>
                   <TableCell>
-                    {/* {product.subCategory.name} */}
+                    {product.subCategory.name}
 
                   </TableCell>
                   <TableCell>
