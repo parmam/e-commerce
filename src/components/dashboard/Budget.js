@@ -9,71 +9,73 @@ import {
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 import MoneyIcon from '@material-ui/icons/Money'
 import { red } from '@material-ui/core/colors'
+import { useSelector } from 'react-redux'
 
-const Budget = (props) => (
-  <Card
-    sx={{ height: '100%' }}
-    {...props}
-  >
-    <CardContent>
-      <Grid
-        container
-        spacing={3}
-        sx={{ justifyContent: 'space-between' }}
-      >
-        <Grid item>
+const Budget = () => {
+  const products = useSelector(store => store.products.allProducts)
+  console.log('stock', products)
+  return (
+    <Card
+      sx={{ height: '100%' }}
+    >
+      <CardContent>
+        <Grid
+          container
+          spacing={3}
+          sx={{ justifyContent: 'space-between' }}
+        >
+          <Grid item>
+            <Typography
+              color='textSecondary'
+              gutterBottom
+              variant='h6'
+            >
+              STOCK
+            </Typography>
+            <Typography
+              color='textPrimary'
+              variant='h3'
+            />
+          </Grid>
+          <Grid item>
+            <Avatar
+              sx={{
+                backgroundColor: red[600],
+                height: 56,
+                width: 56
+              }}
+            >
+              <MoneyIcon />
+            </Avatar>
+          </Grid>
+        </Grid>
+        <Box
+          sx={{
+            pt: 2,
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        >
+          <ArrowDownwardIcon sx={{ color: red[900] }} />
+          <Typography
+            sx={{
+              color: red[900],
+              mr: 1
+            }}
+            variant='body2'
+          >
+            12%
+          </Typography>
           <Typography
             color='textSecondary'
-            gutterBottom
-            variant='h6'
+            variant='caption'
           >
-            BUDGET
+            Since last month
           </Typography>
-          <Typography
-            color='textPrimary'
-            variant='h3'
-          >
-            $24,000
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Avatar
-            sx={{
-              backgroundColor: red[600],
-              height: 56,
-              width: 56
-            }}
-          >
-            <MoneyIcon />
-          </Avatar>
-        </Grid>
-      </Grid>
-      <Box
-        sx={{
-          pt: 2,
-          display: 'flex',
-          alignItems: 'center'
-        }}
-      >
-        <ArrowDownwardIcon sx={{ color: red[900] }} />
-        <Typography
-          sx={{
-            color: red[900],
-            mr: 1
-          }}
-          variant='body2'
-        >
-          12%
-        </Typography>
-        <Typography
-          color='textSecondary'
-          variant='caption'
-        >
-          Since last month
-        </Typography>
-      </Box>
-    </CardContent>
-  </Card>
-)
+        </Box>
+      </CardContent>
+    </Card>
 
+  )
+}
 export default Budget

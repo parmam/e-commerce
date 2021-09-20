@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux'
 
 const LatestProducts = () => {
   const products = useSelector(store => store.products.allProducts)
+  console.log(products)
   const all = products.sort((a, b) => { return b.id - a.id }).slice(0, 5)
   return (
 
