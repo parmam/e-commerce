@@ -73,7 +73,6 @@ export const removeProducts = (idsArr) => async (dispatch) => {
 
 export const editProducts = (editedProduct) => async (dispatch) => {
   const product = await axios.put(`${ApiURL}/products/edit`, editedProduct, { withCredentials: true })
-  console.log(product.data)
   const formatedDetails = {
     id: product.data.id,
     img: product.data.img,
