@@ -10,6 +10,8 @@ export const FakeContext = () => {
   const allSubCategories = useSelector(store => store.categories.allSubCategories)
   const subCategoriesOf = useSelector(store => store.categories.subCategoriesOf)
   const allBrands = useSelector(store => store.brands.allBrands)
+  const allPayments = useSelector(store => store.payments.allPayments)
+  const paymentByID = useSelector(store => store.payments.paymentByID)
   const [eventHandler, setEventHandler] = useState({
     deleteProductsBtn: false,
     selectedProducts: [],
@@ -42,6 +44,8 @@ export const FakeContext = () => {
     selectedFiles,
     setSelectedFiles,
     imageUrl,
-    setImageUrl
+    setImageUrl,
+    allPayments,
+    paymentByID
   }
 }
