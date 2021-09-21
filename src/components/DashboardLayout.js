@@ -5,6 +5,7 @@ import DashboardNavbar from './DashboardNavbar'
 import DashboardSidebar from './DashboardSidebar'
 import { useSelector } from 'react-redux'
 import { Error } from '../pages/Error'
+
 const DashboardLayoutRoot = styled('div')(
   ({ theme }) => ({
     backgroundColor: theme.palette.background.default,
