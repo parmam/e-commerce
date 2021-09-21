@@ -29,7 +29,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getAllPayments())
-  }, [5000])
+  }, [])
 
   return (
     <>
