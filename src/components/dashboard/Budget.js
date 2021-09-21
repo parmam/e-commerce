@@ -47,7 +47,7 @@ const Budget = () => {
             <Typography
               color='textPrimary'
               variant='h3'
-            >{`${stock} Items`}
+            >{`${stock} productos`}
 
             </Typography>
           </Grid>

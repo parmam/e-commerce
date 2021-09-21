@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { styled } from '@material-ui/core/styles'
 import DashboardNavbar from './DashboardNavbar'
 import DashboardSidebar from './DashboardSidebar'
@@ -43,7 +43,7 @@ const DashboardLayoutContent = styled('div')({
 const DashboardLayout = () => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false)
   const user = useSelector(store => store.user.logged.user)
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   if (!user || user.type === 'User') {
     return (

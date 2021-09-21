@@ -24,7 +24,7 @@ const LatestProducts = () => {
     <Card>
       <CardHeader
         subtitle={`${products.length} in total`}
-        title='Latest Products'
+        title='Últimos productos agregados'
       />
       <Divider />
       <List>
@@ -72,7 +72,7 @@ const LatestProducts = () => {
             size='small'
             variant='text'
           >
-            View all
+            Ver todos
           </Button>
         </Box>
       </NavLink>

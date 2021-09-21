@@ -61,7 +61,7 @@ const LatestOrders = ({ handleOpen, allPayments }) => (
                   {order.id}
                 </TableCell>
                 <TableCell>
-                  {order.card.cardholder.name.toUpperCase()}
+                  {/* {order.card.cardholder.name.toUpperCase()} */}
                 </TableCell>
                 <TableCell>
                   {moment(order.date_created).format('DD/MM/YYYY')}
