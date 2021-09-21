@@ -3,11 +3,8 @@ import { Box, Container, Grid } from '@material-ui/core'
 import Budget from '../components/dashboard/Budget'
 import LatestOrders from '../components/dashboard/LatestOrders'
 import LatestProducts from '../components/dashboard/LatestProducts'
-import Sales from '../components/dashboard/Sales'
-import TasksProgress from '../components/dashboard/TasksProgress'
 import TotalCustomers from '../components/dashboard/TotalCustomers'
 import TotalProfit from '../components/dashboard/TotalProfit'
-import TrafficByDevice from '../components/dashboard/TrafficByDevice'
 
 const Dashboard = () => (
   <>
@@ -28,7 +25,7 @@ const Dashboard = () => (
         >
           <Grid
             item
-            lg={3}
+            lg={4}
             sm={6}
             xl={3}
             xs={12}
@@ -37,7 +34,7 @@ const Dashboard = () => (
           </Grid>
           <Grid
             item
-            lg={3}
+            lg={4}
             sm={6}
             xl={3}
             xs={12}
@@ -46,16 +43,7 @@ const Dashboard = () => (
           </Grid>
           <Grid
             item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <TasksProgress />
-          </Grid>
-          <Grid
-            item
-            lg={3}
+            lg={4}
             sm={6}
             xl={3}
             xs={12}
@@ -64,27 +52,9 @@ const Dashboard = () => (
           </Grid>
           <Grid
             item
-            lg={8}
+            lg={4}
             md={12}
             xl={9}
-            xs={12}
-          >
-            <Sales />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <TrafficByDevice sx={{ height: '100%' }} />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
             xs={12}
           >
             <LatestProducts sx={{ height: '100%' }} />

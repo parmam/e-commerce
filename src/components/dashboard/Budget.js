@@ -6,14 +6,26 @@ import {
   Grid,
   Typography
 } from '@material-ui/core'
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 import MoneyIcon from '@material-ui/icons/Money'
 import { red } from '@material-ui/core/colors'
 import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 
 const Budget = () => {
   const products = useSelector(store => store.products.allProducts)
-  console.log('stock', products)
+  console.log('product', products)
+  const [stock, setStocks] = useState(0)
+
+  useEffect(() => {
+    let stocks = 0
+    products.map((product) => {
+      stocks += product.stock
+      return stocks
+    }
+    )
+    setStocks(stocks)
+  }, [])
+
   return (
     <Card
       sx={{ height: '100%' }}
@@ -35,7 +47,9 @@ const Budget = () => {
             <Typography
               color='textPrimary'
               variant='h3'
-            />
+            >{`${stock} Items`}
+
+            </Typography>
           </Grid>
           <Grid item>
             <Avatar
@@ -55,24 +69,7 @@ const Budget = () => {
             display: 'flex',
             alignItems: 'center'
           }}
-        >
-          <ArrowDownwardIcon sx={{ color: red[900] }} />
-          <Typography
-            sx={{
-              color: red[900],
-              mr: 1
-            }}
-            variant='body2'
-          >
-            12%
-          </Typography>
-          <Typography
-            color='textSecondary'
-            variant='caption'
-          >
-            Since last month
-          </Typography>
-        </Box>
+        />
       </CardContent>
     </Card>
 
