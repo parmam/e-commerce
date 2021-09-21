@@ -27,13 +27,13 @@ const TotalCustomers = () => {
               gutterBottom
               variant='h6'
             >
-              TOTAL CUSTOMERS
+              Usuarios registrados
             </Typography>
             <Typography
               color='textPrimary'
               variant='h3'
             >
-              {totalUsers}
+              {`${totalUsers} usuario(s)`}
             </Typography>
           </Grid>
           <Grid item>

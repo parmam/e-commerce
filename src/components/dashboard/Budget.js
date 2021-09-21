@@ -6,74 +6,73 @@ import {
   Grid,
   Typography
 } from '@material-ui/core'
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 import MoneyIcon from '@material-ui/icons/Money'
 import { red } from '@material-ui/core/colors'
+import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 
-const Budget = (props) => (
-  <Card
-    sx={{ height: '100%' }}
-    {...props}
-  >
-    <CardContent>
-      <Grid
-        container
-        spacing={3}
-        sx={{ justifyContent: 'space-between' }}
-      >
-        <Grid item>
-          <Typography
-            color='textSecondary'
-            gutterBottom
-            variant='h6'
-          >
-            BUDGET
-          </Typography>
-          <Typography
-            color='textPrimary'
-            variant='h3'
-          >
-            $24,000
-          </Typography>
+const Budget = () => {
+  const products = useSelector(store => store.products.allProducts)
+  console.log('product', products)
+  const [stock, setStocks] = useState(0)
+
+  useEffect(() => {
+    let stocks = 0
+    products.map((product) => {
+      stocks += product.stock
+      return stocks
+    }
+    )
+    setStocks(stocks)
+  }, [])
+
+  return (
+    <Card
+      sx={{ height: '100%' }}
+    >
+      <CardContent>
+        <Grid
+          container
+          spacing={3}
+          sx={{ justifyContent: 'space-between' }}
+        >
+          <Grid item>
+            <Typography
+              color='textSecondary'
+              gutterBottom
+              variant='h6'
+            >
+              STOCK
+            </Typography>
+            <Typography
+              color='textPrimary'
+              variant='h3'
+            >{`${stock} productos`}
+
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Avatar
+              sx={{
+                backgroundColor: red[600],
+                height: 56,
+                width: 56
+              }}
+            >
+              <MoneyIcon />
+            </Avatar>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Avatar
-            sx={{
-              backgroundColor: red[600],
-              height: 56,
-              width: 56
-            }}
-          >
-            <MoneyIcon />
-          </Avatar>
-        </Grid>
-      </Grid>
-      <Box
-        sx={{
-          pt: 2,
-          display: 'flex',
-          alignItems: 'center'
-        }}
-      >
-        <ArrowDownwardIcon sx={{ color: red[900] }} />
-        <Typography
+        <Box
           sx={{
-            color: red[900],
-            mr: 1
+            pt: 2,
+            display: 'flex',
+            alignItems: 'center'
           }}
-          variant='body2'
-        >
-          12%
-        </Typography>
-        <Typography
-          color='textSecondary'
-          variant='caption'
-        >
-          Since last month
-        </Typography>
-      </Box>
-    </CardContent>
-  </Card>
-)
+        />
+      </CardContent>
+    </Card>
 
+  )
+}
 export default Budget
