@@ -13,6 +13,7 @@ import Settings from './pages/Settings'
 import Test from './pages/Test'
 import AddProductsPage from './pages/AddProductsPage'
 import EditProducts from './pages/EditProducts'
+import AllPayments from './pages/AllPayments'
 import { Error } from './pages/Error'
 const routes = [
   {
@@ -25,6 +26,7 @@ const routes = [
       { path: 'admins', element: <AdminList userType='User' /> },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'products', element: <ProductList /> },
+      { path: 'payments', element: <AllPayments /> },
       { path: 'settings', element: <Settings /> },
       { path: 'products/add', element: <AddProductsPage /> },
       { path: 'products/edit/:id', element: <EditProducts /> },

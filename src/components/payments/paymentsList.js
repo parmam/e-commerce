@@ -2,7 +2,6 @@ import moment from 'moment'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import {
   Box,
-  Button,
   Card,
   CardHeader,
   Divider,
@@ -11,21 +10,30 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Chip
+  Chip,
+  Stack,
+  Typography,
+  Pagination
 } from '@material-ui/core'
-import ArrowRightIcon from '@material-ui/icons/ArrowRight'
+import { useState } from 'react'
 
-const LatestOrders = ({ handleOpen, allPayments }) => {
-  const LastPayments = allPayments.sort((a, b) => {
-    return new Date(b.date_created) - new Date(a.date_created)
-  }).slice(0, 5)
+const PaymentList = ({ handleOpen, allPayments }) => {
+  const [page, setPage] = useState(1)
+
+  const handleChange = (event, value) => {
+    setPage(value)
+  }
+
+  const limit = 7
+  const lastObj = page * limit + 1
+  const firstObj = lastObj - limit
 
   return (
     <Card>
       <CardHeader title='Últimos pagos realizados' />
       <Divider />
       <PerfectScrollbar>
-        <Box style={{ width: '95wh', height: '52vh' }}>
+        <Box style={{ width: '95wh', height: '70vh' }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -44,7 +52,7 @@ const LatestOrders = ({ handleOpen, allPayments }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {LastPayments.map((order) => (
+              {allPayments.slice(firstObj, lastObj).map((order) => (
                 <TableRow
                   onClick={() => handleOpen(order.id)}
                   hover
@@ -72,25 +80,12 @@ const LatestOrders = ({ handleOpen, allPayments }) => {
           </Table>
         </Box>
       </PerfectScrollbar>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          p: 2
-        }}
-      >
-        <Button
-          color='primary'
-          endIcon={<ArrowRightIcon />}
-          size='small'
-          variant='text'
-          href='/app/payments'
-        >
-          Ver todos
-        </Button>
-      </Box>
+      <Stack spacing={2}>
+        <Typography>Page: {page}</Typography>
+        <Pagination count={allPayments.length - limit} page={page} onChange={handleChange} />
+      </Stack>
     </Card>
   )
 }
 
-export default LatestOrders
+export default PaymentList

@@ -5,28 +5,24 @@ import LatestOrders from '../components/dashboard/LatestOrders'
 import LatestProducts from '../components/dashboard/LatestProducts'
 import TotalCustomers from '../components/dashboard/TotalCustomers'
 import TotalProfit from '../components/dashboard/TotalProfit'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { FakeContext } from 'src/FakeContext'
-import { getAllPayments, getPaymentById } from 'src/redux/actions/getPayments'
+import { getAllPayments } from 'src/redux/actions/getPayments'
 import { PaymentModal } from '../components/dashboard/PaymentModal'
 
 const Dashboard = () => {
   const {
     dispatch,
     allPayments,
-    paymentByID
+    paymentByID,
+    open,
+    handleOpen,
+    handleClose
   } = FakeContext()
-
-  const [open, setOpen] = useState(false)
-  const handleOpen = (id) => {
-    setOpen(true)
-    dispatch(getPaymentById(id))
-  }
-  const handleClose = () => setOpen(false)
 
   useEffect(() => {
     dispatch(getAllPayments())
-  }, [5000])
+  }, [])
 
   return (
     <>

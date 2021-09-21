@@ -19,7 +19,8 @@ import {
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
   // UserPlus as UserPlusIcon,
-  Users as UsersIcon
+  Users as UsersIcon,
+  DollarSign as Dollar
 } from 'react-feather'
 import NavItem from './NavItem'
 import { useSelector } from 'react-redux'
@@ -109,6 +110,12 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
             key='Productos'
             title='Productos'
             icon={ShoppingBagIcon}
+          />
+          <NavItem
+            href='/app/payments'
+            key='Pagos'
+            title='Pagos'
+            icon={Dollar}
           />
           <NavItem
             href='/app/account'
