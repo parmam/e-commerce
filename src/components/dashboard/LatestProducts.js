@@ -13,16 +13,18 @@ import {
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 import { useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 
 const LatestProducts = () => {
   const products = useSelector(store => store.products.allProducts)
+  console.log(products)
   const all = products.sort((a, b) => { return b.id - a.id }).slice(0, 5)
   return (
 
     <Card>
       <CardHeader
         subtitle={`${products.length} in total`}
-        title='Latest Products'
+        title='Últimos productos agregados'
       />
       <Divider />
       <List>
@@ -44,32 +46,36 @@ const LatestProducts = () => {
             <ListItemText
               primary={product.model}
             />
-            <IconButton
-              edge='end'
-              size='small'
-            >
-              <MoreVertIcon />
-            </IconButton>
+            <NavLink to='app/products/edit/32'>
+              <IconButton
+                edge='end'
+                size='small'
+              >
+                <MoreVertIcon />
+              </IconButton>
+            </NavLink>
           </ListItem>
         ))}
       </List>
       <Divider />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          p: 2
-        }}
-      >
-        <Button
-          color='primary'
-          endIcon={<ArrowRightIcon />}
-          size='small'
-          variant='text'
+      <NavLink to='/app/products'>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            p: 2
+          }}
         >
-          View all
-        </Button>
-      </Box>
+          <Button
+            color='primary'
+            endIcon={<ArrowRightIcon />}
+            size='small'
+            variant='text'
+          >
+            Ver todos
+          </Button>
+        </Box>
+      </NavLink>
     </Card>
   )
 }
