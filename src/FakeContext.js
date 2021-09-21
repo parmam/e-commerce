@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { getPaymentById } from './redux/actions/getPayments'
 
 export const FakeContext = () => {
   const dispatch = useDispatch()
@@ -29,6 +30,13 @@ export const FakeContext = () => {
     description: ''
   })
 
+  const [open, setOpen] = useState(false)
+  const handleOpen = (id) => {
+    setOpen(true)
+    dispatch(getPaymentById(id))
+  }
+  const handleClose = () => setOpen(false)
+
   return {
     eventHandler,
     setEventHandler,
@@ -46,6 +54,9 @@ export const FakeContext = () => {
     imageUrl,
     setImageUrl,
     allPayments,
-    paymentByID
+    paymentByID,
+    open,
+    handleOpen,
+    handleClose
   }
 }
