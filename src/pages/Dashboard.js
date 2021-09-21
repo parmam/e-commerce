@@ -89,11 +89,11 @@ const Dashboard = () => {
                 allPayments={allPayments}
                 handleOpen={handleOpen}
               />
-              {/* <PaymentModal
+              <PaymentModal
                 open={open}
                 handleClose={handleClose}
                 paymentByID={paymentByID}
-              /> */}
+              />
             </Grid>
           </Grid>
         </Container>
