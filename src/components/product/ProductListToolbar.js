@@ -11,8 +11,9 @@ import { Search as SearchIcon } from 'react-feather'
 import { useEffect, useState } from 'react'
 import { removeProducts, getProducts } from '../../redux/actions/products'
 import { Link } from 'react-router-dom'
-
+import  ListImporter  from '../../Tools/ListImporter'
 const ProductListToolbar = ({ eventHandler, setEventHandler, props, allProducts, dispatch }) => {
+  const [file, setFile] = useState(null) 
   const [deleter, setDeleter] = useState([])
   const onClickDelete = () => {
     setDeleter(eventHandler.selectedProducts)
@@ -98,12 +99,16 @@ const ProductListToolbar = ({ eventHandler, setEventHandler, props, allProducts,
         >
           EDITAR PRODUCTO
         </Button>
+        <ListImporter 
+          file={file}
+          setFile={setFile}
+        />
         <Link to='/app/products/add'>
           <Button
             color='primary'
             variant='contained'
           >
-            PRODUCTOS
+            AGREGAR
           </Button>
         </Link>
       </Box>

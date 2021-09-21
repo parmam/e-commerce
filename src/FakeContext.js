@@ -13,7 +13,7 @@ export const FakeContext = () => {
   const [eventHandler, setEventHandler] = useState({
     deleteProductsBtn: false,
     selectedProducts: [],
-    setSearch: '',
+    setSearch: ''
   })
   const [imgPreview, setImgPreview] = useState(0)
   const [imageUrl, setImageUrl] = useState([])
@@ -27,7 +27,7 @@ export const FakeContext = () => {
     price: '',
     discount: '',
     description: '',
-    img:[]
+    img: []
   })
 
   return {

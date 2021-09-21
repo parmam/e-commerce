@@ -107,6 +107,9 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
                   Subcategoria
                 </TableCell>
                 <TableCell>
+                  Stock
+                </TableCell>
+                <TableCell>
                   Precio
                 </TableCell>
                 <TableCell>
@@ -136,7 +139,7 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
                       }}
                     >
                       <Avatar
-                        src={product.img}
+                        src={product.img[0]}
                       />
                     </Box>
                   </TableCell>
@@ -148,14 +151,19 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
 
                   </TableCell>
                   <TableCell>
-                    {product.subCategory.category.name}
+                    {product.category}
                   </TableCell>
                   <TableCell>
-                    {product.subCategory.name}
-
+                    {product.subCategory}
+                  </TableCell>
+                  <TableCell>
+                    {product.stock}
                   </TableCell>
                   <TableCell>
                     {product.price}
+                  </TableCell>
+                  <TableCell>
+                    {product.discount}
                   </TableCell>
                   <TableCell />
                 </TableRow>
