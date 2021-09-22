@@ -16,9 +16,9 @@ import React, { useEffect, useState } from 'react'
 
 const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandler, ...rest }) => {
   const [selectedProductIds, setSelectedProductIds] = useState([])
-  const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(0)
   const [products, setProducts] = useState([])
+  const [limit, setLimit] = useState(50)
 
   if (!selectedProductIds.length && selectedProductIds !== eventHandler.selectedProducts) {
     setEventHandler({ ...eventHandler, deleteProductsBtn: false, selectedProducts: selectedProductIds })
