@@ -1,4 +1,13 @@
-import { GET_ALL_PRODUCTS, GET_BESTS, GET_PRODUCT_DETAIL, DELETE_DETAILS, POST_PRODUCT, DELETE_PRODUCTS, PUT_PRODUCT } from '../constants'
+import { 
+        GET_ALL_PRODUCTS, 
+        GET_BESTS, 
+        GET_PRODUCT_DETAIL, 
+        DELETE_DETAILS, 
+        POST_PRODUCT, 
+        DELETE_PRODUCTS, 
+        PUT_PRODUCT, 
+        IMPORT_PRODUCTS,
+        SEARCH_PRODUCTS } from '../constants'
 import axios from 'axios'
 import { ApiURL } from '../../config'
 export const getProducts = (products) => async (dispatch) => {
@@ -63,7 +72,6 @@ export const removeProducts = (idsArr) => async (dispatch) => {
   const product = {
     idProducts: idsArr
   }
-  JSON.stringify(product)
   const deletedProducts = await axios.put(`${ApiURL}/products/deleteproducts`, product, { withCredentials: true })
   return dispatch({
     type: DELETE_PRODUCTS,
@@ -90,4 +98,33 @@ export const editProducts = (editedProduct) => async (dispatch) => {
     type: PUT_PRODUCT,
     payload: formatedDetails
   })
+}
+
+
+export const importProducts = (formData) => async (dispatch) => {
+  console.log('actions')
+  console.log(formData)
+  const response = await axios.post(`${ApiURL}/products/csvadd`, 
+    formData, 
+    { withCredentials:true }, 
+    { headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+  })
+  console.log(response)
+  const products = await axios.get(`${ApiURL}/products`, { withCredentials: true })
+  return dispatch({
+    type: IMPORT_PRODUCTS,
+    payload: products.data
+  })
+}
+
+export const searchProducts = (search) => async (dispatch) => {
+
+  console.log(search)
+
+    return dispatch({
+      type: SEARCH_PRODUCTS,
+      payload: filtered
+    })
 }
