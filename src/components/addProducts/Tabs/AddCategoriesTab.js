@@ -227,6 +227,7 @@ const AddCategoriesTab = (
                     variant='outlined'
                     style={{ width: "85%"}}
                   >
+                    <option key="0" value="-">Sleccione una categoria</option>
                     {allCategories && allCategories.sort().map((cat, index) => (
                       <option
                         key={index}

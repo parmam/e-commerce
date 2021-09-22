@@ -47,7 +47,10 @@ const [key, setKey] = useState(0)
     setProductInfo({...productInfo, img: encodedImgs})
     setFlag(2)
   }
-  if(flag === 2){
+  if( flag === 2 
+      && productInfo.category !== "-" 
+      && productInfo.subCategory !== "-" 
+      && productInfo.brand !=="-"){
     dispatch(addProducts(productInfo))
     setFlag(3)
   }
@@ -71,11 +74,11 @@ const [key, setKey] = useState(0)
   console.log(encodedImgs, ' en details')
  },[flag, encodedImgs])
   const handleChange = (event) => {
-    setProductInfo({
-      ...productInfo,
-      [event.target.name]: event.target.value,
-    })
-    console.log(productInfo)
+      setProductInfo({
+        ...productInfo,
+        [event.target.name]: event.target.value,
+      })
+      console.log(productInfo)    
   }
 
   useEffect(() => {
@@ -131,7 +134,8 @@ const [key, setKey] = useState(0)
                   value={productInfo.brand}
                   variant='outlined'
                 >
-                  {allBrands && allBrands.map((brand) => (
+                <option key="0" value="-">Sleccione una marca</option>
+                  {allBrands && allBrands.sort().map((brand) => (
                     <option
                       key={brand.id}
                       value={brand.name}
@@ -173,7 +177,8 @@ const [key, setKey] = useState(0)
                   value={productInfo.category}
                   variant='outlined'
                 >
-                  {allCategories && allCategories.map((category, index) => (
+                <option key="0" value="-">Sleccione una categoria</option>
+                  {allCategories && allCategories.sort().map((category, index) => (
                     <option
                       key={index}
                       value={category}
@@ -199,7 +204,8 @@ const [key, setKey] = useState(0)
                   value={productInfo.subCategory}
                   variant='outlined'
                 >
-                  {subCategoriesOf && subCategoriesOf.map((subCat, index) => (
+                <option key="0" value="-">Sleccione una categoria</option>
+                  {subCategoriesOf && subCategoriesOf.sort().map((subCat, index) => (
                     <option
                       key={index}
                       value={subCat}
@@ -231,11 +237,11 @@ const [key, setKey] = useState(0)
               >
                 <TextField
                   fullWidth
-                  label='Descuento'
-                  name='discount'
+                  label='Stock'
+                  name='stock'
                   onChange={handleChange}
                   required
-                  value={productInfo.discount}
+                  value={productInfo.stock}
                   variant='outlined'
                 />
               </Grid>
