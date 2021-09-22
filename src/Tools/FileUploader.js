@@ -3,8 +3,11 @@ import { Button } from '@material-ui/core'
 import ImgEncoder from 'src/Tools/ImgEncoder'
 const FileUploader = ({selectedFiles, setSelectedFiles, imageUrl, setImageUrl, encodedImgs, setEncodedImgs}) => {
 
-
-
+    const resetImages = () => {
+        setSelectedFiles([])
+        setEncodedImgs([])
+        setImageUrl([])   
+    }
     useEffect(() => {
         console.log(selectedFiles, ' FILE UPLOADER')
         let arr 
@@ -38,6 +41,7 @@ const FileUploader = ({selectedFiles, setSelectedFiles, imageUrl, setImageUrl, e
                     variant='contained'
                     color='primary'
                     component='span'
+                    onClick={resetImages}
                 >
                     Agregar imagen
                 </Button>

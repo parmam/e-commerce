@@ -34,6 +34,7 @@ const AddPorductsDetails = ({
 }) => {
 const [localUrl, setLocalUrl] = useState([])
 const [flag, setFlag] = useState(0)
+const [key, setKey] = useState(0)
  useEffect(() => {
    if(imageUrl !== []){
      setLocalUrl(imageUrl)
@@ -48,10 +49,25 @@ const [flag, setFlag] = useState(0)
   }
   if(flag === 2){
     dispatch(addProducts(productInfo))
-    
+    setFlag(3)
   }
-
-
+  if(flag === 3){
+    setKey(key + 1)
+    setProductInfo({
+      brand: '',
+      model: '',
+      category: '',
+      subCategory: '',
+      price: '',
+      discount: '',
+      description: '',
+      img: [],
+    })
+    setSelectedFiles([])
+    setEncodedImgs([])
+    setImageUrl([])   
+    setFlag(0)
+  }
   console.log(encodedImgs, ' en details')
  },[flag, encodedImgs])
   const handleChange = (event) => {
@@ -86,6 +102,7 @@ const [flag, setFlag] = useState(0)
         autoComplete='off'
         noValidate
         onSubmit={submitAddProducts}
+        key={key}
       >
         <Card>
           <CardHeader

@@ -6,6 +6,7 @@ import {
   Typography
 } from '@material-ui/core'
 import StarIcon from '@material-ui/icons/Star'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import { makeStyles } from '@material-ui/styles'
 import { useState, useEffect } from 'react'
 const useStyles = makeStyles({
@@ -22,47 +23,75 @@ const useStyles = makeStyles({
   }
 })
 
-const ProductPreview = ({ 
-    product ,
-    imageUrl, 
-    imgPreview, 
-    setImgPreview
+const ProductPreview = ({
+  productInfo,
+  imageUrl,
+  imgPreview,
+  setImgPreview
 }) => {
   const [localUrl, setLocalUrl] = useState('')
+  const [productPreview, setProductPreview] = useState({})
   const classes = useStyles()
-  
+
+  const stars = []
+
 
   useEffect(() => {
-    if(imageUrl !== ''){
+    if (imageUrl !== '') {
       setLocalUrl(imageUrl[imgPreview])
       console.log(localUrl, ' en preview')
-  
     }
-    console.log(localUrl, imageUrl,'         este es local url en preview')
-  },[imageUrl, imgPreview])
+    console.log(localUrl, imageUrl, '         este es local url en preview')
+  }, [imageUrl, imgPreview])
+
+  useEffect(() => {
+    console.log(productInfo)
+  },[productInfo])
+
   return (
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
           image={localUrl}
-          title={'product.model'}
+          title='product.model'
         />
         <CardContent className={classes.content}>
-          <Typography 
-            gutterBottom variant='h4'
-            component='h2'>
-            {'product.brand'} 
-            {'product.model'}
+        {
+        (productInfo && productInfo !== undefined) 
+         ? (
+            <Typography gutterBottom variant='h4' component='h2'>
+              {productInfo.brand}<br/>
+              {productInfo.model}
+              </Typography>
+            ) 
+          : ''
+          }	
+          <Typography variant='h4' component='h2'>
+            {'$' + new Intl.NumberFormat('es-ES').format(productInfo.price)}
           </Typography>
-          <Typography 
-            variant='h4'
-            component='h2'>
-            {'$' + new Intl.NumberFormat('es-ES').format('15555')}
-          </Typography>
-          <div 
-            style={{ color: 'orange' }}>
-            {'stars'}
+          <div style={{
+            color: 'orange',
+            marginTop: '15px'
+          }}
+          >
+            <StarIcon/>
+            <StarIcon/>
+            <StarIcon/>
+            <StarIcon/>
+          </div>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            marginTop: '27px',
+            background: 'black',
+            height: '35px',
+            color: 'white'
+          }}
+          >
+            <ShoppingCartIcon />
+            AGREGAR AL CARRITO
           </div>
         </CardContent>
       </CardActionArea>
@@ -71,4 +100,3 @@ const ProductPreview = ({
 }
 
 export default ProductPreview
-
