@@ -27,7 +27,11 @@ const AddProductsPage = () => {
     selectedFiles,
     setSelectedFiles,
     imageUrl,
-    setImageUrl
+    setImageUrl,
+    encodedImgs,
+    setEncodedImgs,
+    imgPreview, 
+    setImgPreview
   } = FakeContext()
 
   useEffect(() => {
@@ -37,6 +41,10 @@ const AddProductsPage = () => {
   const handleView = (event, newValue) => {
     setSelectedTab(newValue)
   }
+
+  useEffect(() => {
+    console.log(encodedImgs, ' en product page')
+  }, [encodedImgs])
   return (
 
     <>
@@ -73,6 +81,13 @@ const AddProductsPage = () => {
               setSelectedFiles={setSelectedFiles}
               imageUrl={imageUrl}
               setImageUrl={setImageUrl}
+              encodedImgs={encodedImgs}
+              setEncodedImgs={setEncodedImgs}
+              setEventHandler={setEventHandler}
+              eventHandler={setEventHandler}
+              imgPreview={imgPreview}
+              setImgPreview={setImgPreview}
+
                                   />}
             {selectedTab === 1 && <AddCategoriesTab
               dispatch={dispatch}

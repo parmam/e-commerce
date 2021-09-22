@@ -8,7 +8,8 @@ import {
   CardHeader,
   TextField,
   Typography,
-  Container
+  Container,
+  Divider
 } from '@material-ui/core'
 import { DeleteAlertCategory } from 'src/Tools/Swal2/DeleteAlert'
 import { addCategory, addSubCategory, getSubCategoriesOf } from 'src/redux/actions/categories'
@@ -181,16 +182,50 @@ const AddCategoriesTab = (
                   md={6}
                   xs={12}
                 >
+                  <Box>
+                    {(allCategories && allCategories)
+                      ? ((allCategories && allCategories.sort().map((cat, index) => {
+                          return (
+                            <Button
+                              variant='outlined'
+                              color='primary'
+                              style={{
+                                heigth: 5,
+                                fontSize: 12,
+                                marginRight: 1,
+                                margin: 1.5
+                              }}
+                              key={index}
+                            >
+                              {cat}
+                            </Button>
+                          )
+                        })))
+                      : (
+                        <Typography>
+                          Debe seleccionar una categoria
+                        </Typography>
+                        )}
+                  </Box>
+
+                </Grid>
+                <Divider />
+                <Grid
+                  item
+                  md={6}
+                  xs={12}
+                >
                   <TextField
-                    fullWidth
-                    label='Categorias registradas'
-                    name='allCategories'
-                    value={categoryRemover.value}
-                    onChange={(e) => handleDeleteCategory(e)}
+                    
+                    label='Categorias asociada a la subcategoria'
+                    name='selectedSubcategory'
+                    value={selectedCategory.value}
+                    onChange={(e) => handleSelectedCategory(e)}
                     select
-                    helperText='Haga click sobre la categoria que desea eliminar'
+                    helperText='Seleccione una para luego asignar la subcategoria'
                     SelectProps={{ native: true }}
                     variant='outlined'
+                    style={{ width: "85%"}}
                   >
                     {allCategories && allCategories.sort().map((cat, index) => (
                       <option
@@ -201,14 +236,21 @@ const AddCategoriesTab = (
                       </option>
                     ))}
                   </TextField>
-                </Grid>
 
+                </Grid>
                 <Grid
                   item
                   md={6}
                   xs={12}
                 >
 
+
+                </Grid>
+                <Grid
+                  item
+                  md={6}
+                  xs={12}
+                >
                   <Box
                     heigth='100%'
                     display='flex'
@@ -244,49 +286,6 @@ const AddCategoriesTab = (
                     </Box>
                   </Box>
 
-                </Grid>
-                <Grid
-                  item
-                  md={6}
-                  xs={12}
-                >
-
-                  <TextField
-                    fullWidth
-                    label='Categorias asociada a la subcategoria'
-                    name='selectedSubcategory'
-                    value={selectedCategory.value}
-                    onChange={(e) => handleSelectedCategory(e)}
-                    select
-                    helperText='Seleccione una para luego asignar la subcategoria'
-                    SelectProps={{ native: true }}
-                    variant='outlined'
-                  >
-                    {allCategories && allCategories.sort().map((cat, index) => (
-                      <option
-                        key={index}
-                        value={cat}
-                      >
-                        {cat}
-                      </option>
-                    ))}
-                  </TextField>
-
-                </Grid>
-
-                <Grid
-                  item
-                  md={6}
-                  xs={12}
-                >
-                  <Typography
-                    color='textSecondary'
-                    variant='body1'
-                    style={{ fontSize: 14 }}
-                  >
-                    A su derecha tiene las sub categorias asignadas a la categoria seleccionada, en caso de querer eliminar alguna de ellas solo debe presionar
-                    el boton correspondiente a la sub categoria, tenga en cuenta que esta se desvinculara de todos los productos a la cual esta asignada.
-                  </Typography>
                 </Grid>
                 <Grid
                   item
@@ -365,28 +364,35 @@ const AddCategoriesTab = (
                   md={6}
                   xs={12}
                 >
-                  <TextField
-                    fullWidth
-                    label='Marcas registradas'
-                    name='allBrands'
-                    select
-                    helperText='Haga click sobre la marca que desea eliminar'
-                    SelectProps={{ native: true }}
-                    variant='outlined'
-                  >
-                    {(allBrands && allBrands)
+
+                  <Box>
+                  {(allBrands && allBrands)
                       ? (allBrands && allBrands.map((brand) => {
                           return (
-                            <option
+                            <Button
+                              variant='outlined'
+                              color='primary'
+                              name={brand.name}
+                              style={{
+                                heigth: 5,
+                                fontSize: 12,
+                                marginRight: 1,
+                                margin: 1.5
+                              }}
                               key={brand.id}
-                              value={brand.name}
                             >
                               {brand.name}
-                            </option>
+                            </Button>
                           )
                         }))
-                      : ('asd')}
-                  </TextField>
+                      : (
+                        <Typography>
+                          Debe seleccionar una categoria
+                        </Typography>
+                        )}
+                  </Box>
+
+
                 </Grid>
               </Grid>
             </CardContent>

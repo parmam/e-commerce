@@ -9,8 +9,9 @@ import {
 } from '@material-ui/core'
 import { Search as SearchIcon } from 'react-feather'
 import { useEffect, useState } from 'react'
-import { removeProducts, getProducts } from '../../redux/actions/products'
+import { removeProducts, getProducts, searchProducts } from '../../redux/actions/products'
 import { Link } from 'react-router-dom'
+import ListImporter from '../../Tools/ListImporter'
 
 const ProductListToolbar = ({ eventHandler, setEventHandler, props, allProducts, dispatch }) => {
   const [deleter, setDeleter] = useState([])
@@ -27,6 +28,10 @@ const ProductListToolbar = ({ eventHandler, setEventHandler, props, allProducts,
     dispatch(getProducts())
   }, [dispatch, deleter])
 
+  const handleSearch = (e) => {
+    dispatch(searchProducts(e.target.value))
+  }
+
   return (
     <Box {...props}>
       <Box
@@ -40,20 +45,24 @@ const ProductListToolbar = ({ eventHandler, setEventHandler, props, allProducts,
                 style={{
                   marginTop: '8px'
                 }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment
-                      position='start'
-                    >
-                      <SvgIcon
-                        fontSize='small'
-                        color='action'
-                      >
-                        <SearchIcon />
-                      </SvgIcon>
-                    </InputAdornment>
-                  )
-                }}
+
+                InputProps={
+                            {
+                              startAdornment: (
+                                <InputAdornment
+                                  position='start'
+                                >
+                                  <SvgIcon
+                                    fontSize='small' 
+                                    color='action'
+                                  >
+                                    <SearchIcon />
+                                  </SvgIcon>
+                                </InputAdornment>
+                              )
+                            }
+                        }
+                onChange={(e) => handleSearch(e)}
                 placeholder='Search Product'
                 variant='outlined'
               />
@@ -103,7 +112,7 @@ const ProductListToolbar = ({ eventHandler, setEventHandler, props, allProducts,
             color='primary'
             variant='contained'
           >
-            PRODUCTOS
+            AGREGAR
           </Button>
         </Link>
       </Box>

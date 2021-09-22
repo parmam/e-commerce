@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { getPaymentById } from './redux/actions/getPayments'
 
 export const FakeContext = () => {
   const dispatch = useDispatch()
@@ -17,8 +18,10 @@ export const FakeContext = () => {
     selectedProducts: [],
     setSearch: ''
   })
+  const [imgPreview, setImgPreview] = useState(0)
   const [imageUrl, setImageUrl] = useState([])
   const [selectedFiles, setSelectedFiles] = useState(null)
+  const [encodedImgs, setEncodedImgs] = useState([])
   const [productInfo, setProductInfo] = useState({
     brand: '',
     model: '',
@@ -26,8 +29,16 @@ export const FakeContext = () => {
     subCategory: '',
     price: '',
     discount: '',
-    description: ''
+    description: '',
+    img: []
   })
+
+  const [open, setOpen] = useState(false)
+  const handleOpen = (id) => {
+    setOpen(true)
+    dispatch(getPaymentById(id))
+  }
+  const handleClose = () => setOpen(false)
 
   return {
     eventHandler,
@@ -45,7 +56,14 @@ export const FakeContext = () => {
     setSelectedFiles,
     imageUrl,
     setImageUrl,
+    setEncodedImgs,
+    encodedImgs,
+    imgPreview,
+    setImgPreview,
     allPayments,
-    paymentByID
+    paymentByID,
+    open,
+    handleOpen,
+    handleClose
   }
 }
