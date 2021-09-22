@@ -29,7 +29,7 @@ const CustomerListResults = ({ userType, ...rest }) => {
 
   const dispatch = useDispatch()
   const usersRedux = useSelector(store => store.user.users)
-  const users = usersRedux.filter(user => user.type !== userType && user.type !== 'Super')
+  let users = usersRedux.filter(user => user.type !== userType && user.type !== 'Super')
 
   users.sort(function (a, b) {
     if (a.name < b.name) {

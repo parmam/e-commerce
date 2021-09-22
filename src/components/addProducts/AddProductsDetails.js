@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getSubCategoriesOf } from '../../redux/actions/categories'
 import { addProducts } from '../../redux/actions/products'
 import FileUploader from '../../Tools/FileUploader'
+
 import {
   Box,
   Button,
@@ -25,24 +26,38 @@ const AddPorductsDetails = ({
   setSelectedFiles,
   selectedFiles,
   imageUrl,
-  setImageUrl
-
+  setImageUrl,
+  encodedImgs,
+  setEncodedImgs,
+  imgPreview, 
+  setImgPreview
 }) => {
 const [localUrl, setLocalUrl] = useState([])
-
-
+const [flag, setFlag] = useState(0)
  useEffect(() => {
-   if(imageUrl !== ''){
+   if(imageUrl !== []){
      setLocalUrl(imageUrl)
 
    }
-  console.log(localUrl, imageUrl,'         este es local url en details')
  },[imageUrl])
 
+ useEffect(() => {
+  if(flag === 1){
+    setProductInfo({...productInfo, img: encodedImgs})
+    setFlag(2)
+  }
+  if(flag === 2){
+    dispatch(addProducts(productInfo))
+    
+  }
+
+
+  console.log(encodedImgs, ' en details')
+ },[flag, encodedImgs])
   const handleChange = (event) => {
     setProductInfo({
       ...productInfo,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     })
     console.log(productInfo)
   }
@@ -53,9 +68,15 @@ const [localUrl, setLocalUrl] = useState([])
     }
   }, [dispatch, productInfo.category])
 
-  const submitAddProducts = (e) => {
+  const submitAddProducts = async (e) => {
     e.preventDefault()
-    dispatch(addProducts(productInfo))
+    setFlag(1)
+    // dispatch(addProducts(productInfo))
+
+  }
+
+  const catchImgId = (e) => {
+    setImgPreview(e.target.id)
   }
 
   return (
@@ -231,26 +252,32 @@ const [localUrl, setLocalUrl] = useState([])
                       display: 'flex',
                       flexWrap: 'no-wrap',
                       flexDirection: 'row',
-                      overflowX: 'scroll'
+                      overflowX: 'scroll',
                     }}
                   >
-                  
-                    {/* {(localUrl && localUrl)
-                    ? (localUrl.map((local) => (
-                      <ImageListItem>  
-                        <img style={{ width: '100px', height: '100px' }} src={local}/>
-                      </ImageListItem> 
+
+                    {(localUrl && localUrl)
+                    ? (localUrl.map((local, index) => (
+                      <ImageListItem>
+                        <img style={{
+                          width: '100px',
+                          height: '100px' }}
+                          src={local}
+                          onClick={(e) => catchImgId(e)}
+                          id={index}
+                        />
+                      </ImageListItem>
 
                     )))
-                    
-                    : (                
-                      <ImageListItem>  
-                        <img style={{ width: '100px', height: '100px' }} src={imageUrl}/>
-                      </ImageListItem> 
-                    )
-                    } */}
 
-                    
+                    : (
+                      <ImageListItem>
+                        <img style={{ width: '100px', height: '100px' }} src={imageUrl}/>
+                      </ImageListItem>
+                    )
+                    }
+
+
 
                     </ImageList>
                 </Box>
@@ -269,6 +296,8 @@ const [localUrl, setLocalUrl] = useState([])
                           setSelectedFiles={setSelectedFiles}
                           imageUrl={imageUrl}
                           setImageUrl={setImageUrl}
+                          encodedImgs={encodedImgs}
+                          setEncodedImgs={setEncodedImgs}
             />
             <Button
               color='primary'

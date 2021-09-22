@@ -1,24 +1,30 @@
 import React, {useState, useEffect} from 'react'
 import { Button } from '@material-ui/core'
-import { FakeContext } from 'src/FakeContext'
-const FileUploader = ({selectedFiles, setSelectedFiles, imageUrl, setImageUrl}) => {
+import ImgEncoder from 'src/Tools/ImgEncoder'
+const FileUploader = ({selectedFiles, setSelectedFiles, imageUrl, setImageUrl, encodedImgs, setEncodedImgs}) => {
+
 
 
     useEffect(() => {
         console.log(selectedFiles, ' FILE UPLOADER')
+        let arr 
         if (selectedFiles && selectedFiles !== [] && selectedFiles.length !== 0) {
-        // setImageUrl(selectedFiles.map((file) => { return URL.createObjectURL(file) }))
-        let arr = []
-        arr = Array.from(selectedFiles).forEach(file => { 
-            setImageUrl(...imageUrl, URL.createObjectURL(file)) 
+        arr = Array.from(selectedFiles).map(file => { 
+            return (URL.createObjectURL(file)) 
         });
         console.log(arr, ' en map')
+        setImageUrl(arr)
         }
-      }, [selectedFiles]);
+        if(selectedFiles && selectedFiles !== [] && selectedFiles.length !== 0){
+            let result = ImgEncoder(selectedFiles)
+            setEncodedImgs(result)
+            console.log(encodedImgs)
+        }
+      }, [selectedFiles, ImgEncoder]);
 
     return (
         <React.Fragment>
-            <form>
+
                 <input
                     accept='image/*'
                     style={{ display: 'none' }}
@@ -36,7 +42,6 @@ const FileUploader = ({selectedFiles, setSelectedFiles, imageUrl, setImageUrl}) 
                     Agregar imagen
                 </Button>
                 </label>
-            </form>
 
         </React.Fragment>
     )
