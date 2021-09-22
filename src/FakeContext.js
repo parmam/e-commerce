@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { getPaymentById } from './redux/actions/getPayments'
 
 export const FakeContext = () => {
   const dispatch = useDispatch()
@@ -10,6 +11,8 @@ export const FakeContext = () => {
   const allSubCategories = useSelector(store => store.categories.allSubCategories)
   const subCategoriesOf = useSelector(store => store.categories.subCategoriesOf)
   const allBrands = useSelector(store => store.brands.allBrands)
+  const allPayments = useSelector(store => store.payments.allPayments)
+  const paymentByID = useSelector(store => store.payments.paymentByID)
   const [eventHandler, setEventHandler] = useState({
     deleteProductsBtn: false,
     selectedProducts: [],
@@ -30,6 +33,13 @@ export const FakeContext = () => {
     img: []
   })
 
+  const [open, setOpen] = useState(false)
+  const handleOpen = (id) => {
+    setOpen(true)
+    dispatch(getPaymentById(id))
+  }
+  const handleClose = () => setOpen(false)
+
   return {
     eventHandler,
     setEventHandler,
@@ -49,7 +59,11 @@ export const FakeContext = () => {
     setEncodedImgs,
     encodedImgs,
     imgPreview,
-    setImgPreview
-
+    setImgPreview,
+    allPayments,
+    paymentByID,
+    open,
+    handleOpen,
+    handleClose
   }
 }

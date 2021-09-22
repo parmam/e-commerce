@@ -19,5 +19,10 @@ export const POST_BRAND = 'POST_BRAND'
 export const SET_LOGGED = 'SET_LOGGED'
 export const LOG_OUT = 'LOG_OUT'
 export const PUT_PRODUCT = 'PUT_PRODUCT'
+<<<<<<< HEAD
 export const IMPORT_PRODUCTS = 'IMPORT_PRODUCTS'
 export const SEARCH_PRODUCTS = 'SEARCH_PRODUCTS'
+=======
+export const GET_PAYMENTS = 'GET_PAYMENTS'
+export const GET_PAYMENT_ID = 'GET_PAYMENT_ID'
+>>>>>>> develop
