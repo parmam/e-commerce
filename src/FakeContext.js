@@ -18,8 +18,10 @@ export const FakeContext = () => {
     selectedProducts: [],
     setSearch: ''
   })
+  const [imgPreview, setImgPreview] = useState(0)
   const [imageUrl, setImageUrl] = useState([])
   const [selectedFiles, setSelectedFiles] = useState(null)
+  const [encodedImgs, setEncodedImgs] = useState([])
   const [productInfo, setProductInfo] = useState({
     brand: '',
     model: '',
@@ -27,7 +29,8 @@ export const FakeContext = () => {
     subCategory: '',
     price: '',
     discount: '',
-    description: ''
+    description: '',
+    img: []
   })
 
   const [open, setOpen] = useState(false)
@@ -53,6 +56,10 @@ export const FakeContext = () => {
     setSelectedFiles,
     imageUrl,
     setImageUrl,
+    setEncodedImgs,
+    encodedImgs,
+    imgPreview,
+    setImgPreview,
     allPayments,
     paymentByID,
     open,

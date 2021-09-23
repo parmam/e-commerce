@@ -19,8 +19,8 @@ import GoogleIcon from '../icons/Google'
 import { ApiURL } from 'src/config'
 import { setLogged } from 'src/redux/actions/user'
 import { toastCustom } from 'src/Tools/Toastify'
-
 const Login = () => {
+  const token = useSelector(store => store.user.logged.token)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector(store => store.user.logged.user)
@@ -43,7 +43,7 @@ const Login = () => {
     e.preventDefault()
     try {
       const response = await axios.post(`${ApiURL}/login`, formData)
-      dispatch(setLogged(response.data))
+      dispatch(setLogged(response.data,token))
       toastCustom(`Bienvenidx nuevamente ${response.data.user.name}!`, 'success', 4000, 'bottom-right')
       navigate('/app/dashboard', { replace: true })
     } catch (error) {
@@ -93,41 +93,7 @@ const Login = () => {
               touched
             }) => (
               <form onSubmit={onSubmit}>
-                <Box sx={{ mb: 3 }}>
-                  <Typography
-                    color='textPrimary'
-                    variant='h2'
-                  >
-                    Sign in
-                  </Typography>
-                  <Typography
-                    color='textSecondary'
-                    gutterBottom
-                    variant='body2'
-                  >
-                    Sign in on the internal platform
-                  </Typography>
-                </Box>
-                <Grid
-                  container
-                  spacing={3}
-                >
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                  >
-                    <Button
-                      fullWidth
-                      startIcon={<GoogleIcon />}
-                      onClick={onSubmit}
-                      size='large'
-                      variant='contained'
-                    >
-                      Login with Google
-                    </Button>
-                  </Grid>
-                </Grid>
+
                 <Box
                   sx={{
                     pb: 1,
@@ -138,8 +104,12 @@ const Login = () => {
                     align='center'
                     color='textSecondary'
                     variant='body1'
+                    style={{
+                      fontSize: 35,
+                      color: 'black'
+                    }}
                   >
-                    or login with email address
+                    Inicio de sesion
                   </Typography>
                 </Box>
                 <TextField

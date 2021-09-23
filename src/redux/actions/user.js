@@ -2,8 +2,10 @@ import { GET_USERS, SET_LOGGED, LOG_OUT } from '../constants'
 import axios from 'axios'
 import { ApiURL } from 'src/config'
 
-export const getUsers = () => async (dispatch) => {
-  const users = await axios.get(`${ApiURL}/admin`, { withCredentials: true })
+export const getUsers = (token) => async (dispatch) => {
+  console.log(token, 'TOKEN ')
+  const headers = { nToken: token }
+  const users = await axios.get(`${ApiURL}/admin`, headers)
   return dispatch({
     type: GET_USERS,
     payload: users.data

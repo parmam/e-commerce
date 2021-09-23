@@ -27,10 +27,10 @@ const App = () => {
 // const update =() =>{
 //   setTimeout(() => {
 //     axios.get('http://localhost:3001/products')
-//   }, 50000);
+//   }, 40000);
 
-// }
-// update()
+  // }
+  // update()
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
