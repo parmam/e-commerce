@@ -29,8 +29,8 @@ const App = () => {
 //     axios.get('http://localhost:3001/products')
 //   }, 40000);
 
-// }
-// update()
+  // }
+  // update()
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
