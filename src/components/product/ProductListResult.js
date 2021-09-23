@@ -77,11 +77,7 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
   }
 
   const changeOrder = (e) => {
-    if(e.target.value === 'desc'){
-      setOrder({
-  
-      })
-    }
+
   }
 
   return (
