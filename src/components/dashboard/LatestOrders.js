@@ -16,7 +16,7 @@ import {
 import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 
 const LatestOrders = ({ handleOpen, allPayments }) => {
-  const LastPayments = allPayments.sort((a, b) => {
+  const lastPayments = allPayments?.sort((a, b) => {
     return new Date(b.date_created) - new Date(a.date_created)
   }).slice(0, 5)
 
@@ -44,7 +44,7 @@ const LatestOrders = ({ handleOpen, allPayments }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {LastPayments.map((order) => (
+              {lastPayments && lastPayments.map((order) => (
                 <TableRow
                   onClick={() => handleOpen(order.id)}
                   hover
