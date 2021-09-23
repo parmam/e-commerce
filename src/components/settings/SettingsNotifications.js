@@ -4,14 +4,11 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Checkbox,
   Divider,
   FormControlLabel,
   Grid,
   Typography,
-  FormLabel,
   FormGroup,
-  FormHelperText,
   Switch
 } from '@material-ui/core'
 import React, { useState, useEffect } from 'react'
@@ -30,12 +27,13 @@ const SettingsNotifications = () => {
     smsDelivered: false,
     smsCanceled: false
   })
-
+  const configs = useSelector(store => store.config.notificationsConfig)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getConfigs())
-  }, [dispatch])
+    setOptions({ ...options, configs })
+  }, [dispatch, configs])
 
   const handleChange = (event) => {
     setOptions({ ...options, [event.target.name]: event.target.checked })
