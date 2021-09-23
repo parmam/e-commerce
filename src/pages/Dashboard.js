@@ -5,6 +5,7 @@ import LatestOrders from '../components/dashboard/LatestOrders'
 import LatestProducts from '../components/dashboard/LatestProducts'
 import TotalCustomers from '../components/dashboard/TotalCustomers'
 import TotalProfit from '../components/dashboard/TotalProfit'
+import TasksProgress from '../components/dashboard/TasksProgress'
 import { useEffect } from 'react'
 import { FakeContext } from 'src/FakeContext'
 import { getAllPayments } from 'src/redux/actions/getPayments'
@@ -43,25 +44,34 @@ const Dashboard = () => {
           >
             <Grid
               item
-              lg={4}
+              lg={6}
               sm={6}
               xl={3}
               xs={12}
             >
-              <Budget />
+              <TasksProgress sx={{ height: '100%' }} />
             </Grid>
             <Grid
               item
-              lg={4}
+              lg={6}
               sm={6}
               xl={3}
               xs={12}
             >
-              <TotalCustomers />
+              <Budget sx={{ height: '100%' }} />
             </Grid>
             <Grid
               item
-              lg={4}
+              lg={6}
+              sm={6}
+              xl={3}
+              xs={12}
+            >
+              <TotalCustomers sx={{ height: '100%' }} />
+            </Grid>
+            <Grid
+              item
+              lg={6}
               sm={6}
               xl={3}
               xs={12}
@@ -69,15 +79,6 @@ const Dashboard = () => {
               <TotalProfit sx={{ height: '100%' }} />
             </Grid>
 
-            <Grid
-              item
-              lg={4}
-              md={6}
-              xl={3}
-              xs={12}
-            >
-              <LatestProducts sx={{ height: '100%' }} />
-            </Grid>
             <Grid
               item
               lg={8}
@@ -94,6 +95,16 @@ const Dashboard = () => {
                 handleClose={handleClose}
                 paymentByID={paymentByID}
               />
+            </Grid>
+
+            <Grid
+              item
+              lg={4}
+              md={12}
+              xl={3}
+              xs={12}
+            >
+              <LatestProducts />
             </Grid>
           </Grid>
         </Container>
