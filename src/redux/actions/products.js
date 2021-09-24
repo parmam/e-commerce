@@ -26,21 +26,9 @@ export const getProducts = (products) => async (dispatch) => {
 export const getProductsDetails = (id) => async (dispatch) => {
   try {
     const product = await axios.get(`${ApiURL}/products/detail/${id}`, { withCredentials: true })
-    // const formatedDetails = {
-    //   id: product.data.id,
-    //   img: product.data.img,
-    //   brand: product.data.brand,
-    //   model: product.data.model,
-    //   category: product.data.subCategory.category.name,
-    //   subCategory: product.data.subCategory.name,
-    //   price: product.data.price,
-    //   discount: product.data.discount,
-    //   description: product.data.description,
-    //   points: product.data.points
-    // }
     return dispatch({
       type: GET_PRODUCT_DETAIL,
-      payload: product
+      payload: product.data
     })
   } catch (error) {
     console.log(error)
@@ -87,8 +75,8 @@ export const editProducts = (editedProduct) => async (dispatch) => {
   const product = await axios.put(`${ApiURL}/products/edit`, editedProduct, { withCredentials: true })
   const formatedDetails = {
     id: product.data.id,
-    img: product.data.img,
-    brand: product.data.brand,
+    img: product.data.img[0],
+    brand: product.data.brand.name,
     model: product.data.model,
     category: product.data.subCategory.category.name,
     subCategory: product.data.subCategory.name,
