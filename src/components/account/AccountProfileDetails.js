@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Dispatch } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Box,
   Button,
@@ -12,7 +12,7 @@ import {
 import { validate } from '../../Helpers/formValidate'
 import stylex from './AcoountProfileDetails.module.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { ApiURL } from 'src/config'
+// import { ApiURL } from 'src/config'
 import { editUser } from 'src/redux/actions/user'
 import { toastCustom } from '../../Tools/Toastify'
 const AccountProfileDetails = (props) => {
