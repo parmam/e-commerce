@@ -52,7 +52,7 @@ const PaymentList = ({ handleOpen, allPayments }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {allPayments.slice(firstObj, lastObj).map((order) => (
+              {allPayments && allPayments.slice(firstObj, lastObj).map((order) => (
                 <TableRow
                   onClick={() => handleOpen(order.id)}
                   hover
@@ -82,7 +82,7 @@ const PaymentList = ({ handleOpen, allPayments }) => {
       </PerfectScrollbar>
       <Stack spacing={2}>
         <Typography>Page: {page}</Typography>
-        <Pagination count={allPayments.length - limit} page={page} onChange={handleChange} />
+        <Pagination count={allPayments?.length - limit} page={page} onChange={handleChange} />
       </Stack>
     </Card>
   )

@@ -1,4 +1,5 @@
 import PerfectScrollbar from 'react-perfect-scrollbar'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import {
   Avatar,
   Box,
@@ -9,7 +10,8 @@ import {
   TableCell,
   TableHead,
   TablePagination,
-  TableRow
+  TableRow,
+  Button
 } from '@material-ui/core'
 
 import React, { useEffect, useState } from 'react'
@@ -18,7 +20,8 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
   const [selectedProductIds, setSelectedProductIds] = useState([])
   const [page, setPage] = useState(0)
   const [products, setProducts] = useState([])
-  const [limit, setLimit] = useState(50)
+  const [limit, setLimit] = useState(10)
+  const [order, setOrder] = useState({})
 
   if (!selectedProductIds.length && selectedProductIds !== eventHandler.selectedProducts) {
     setEventHandler({ ...eventHandler, deleteProductsBtn: false, selectedProducts: selectedProductIds })
@@ -73,6 +76,10 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
     setPage(newPage)
   }
 
+  const changeOrder = (e) => {
+
+  }
+
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -92,33 +99,74 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
                   />
                 </TableCell>
                 <TableCell>
-                  Imagen
+                  <Button>
+                    Imagen
+                  </Button>
+                </TableCell>
+                <TableCell
+                  value='desc'
+                  name='brand'
+                >
+                  <Button>
+                    Marca
+                    <ArrowDropDownIcon />
+                  </Button>
+
                 </TableCell>
                 <TableCell>
-                  Marca
+                  <Button
+                    onClick={(e) => changeOrder(e)}
+                    name='model'
+                    value='desc'
+                  >
+                    Modelo
+                    <ArrowDropDownIcon />
+                  </Button>
                 </TableCell>
                 <TableCell>
-                  Modelo
+                  <Button
+                    onClick={(e) => changeOrder(e)}
+                    name='category'
+                    value='desc'
+                  >
+                    Categoria
+                    <ArrowDropDownIcon />
+                  </Button>
                 </TableCell>
                 <TableCell>
-                  Categoria
+                  <Button
+                    onClick={(e) => changeOrder(e)}
+                    name='subcategory'
+                    value='desc'
+                  >
+                    Subcategoria
+                    <ArrowDropDownIcon />
+                  </Button>
                 </TableCell>
                 <TableCell>
-                  Subcategoria
+                  <Button
+                    onClick={(e) => changeOrder(e)}
+                    name='stock'
+                    value='desc'
+                  >
+                    Stock
+                    <ArrowDropDownIcon />
+                  </Button>
                 </TableCell>
                 <TableCell>
-                  Stock
-                </TableCell>
-                <TableCell>
-                  Precio
-                </TableCell>
-                <TableCell>
-                  Descuento
+                  <Button
+                    onClick={(e) => changeOrder(e)}
+                    name='price'
+                    value='desc'
+                  >
+                    Precio
+                    <ArrowDropDownIcon />
+                  </Button>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {products.slice(page, page + limit).map((product) => (
+              {products.sort().slice(page, page + limit).map((product) => (
                 <TableRow
                   hover
                   key={product.id}
@@ -161,9 +209,6 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
                   </TableCell>
                   <TableCell>
                     {product.price}
-                  </TableCell>
-                  <TableCell>
-                    {product.discount}
                   </TableCell>
                   <TableCell />
                 </TableRow>

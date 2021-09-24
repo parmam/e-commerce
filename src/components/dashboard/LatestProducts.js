@@ -18,7 +18,7 @@ import { NavLink } from 'react-router-dom'
 const LatestProducts = () => {
   const products = useSelector(store => store.products.allProducts)
   console.log(products)
-  const all = products.sort((a, b) => { return b.id - a.id }).slice(0, 5)
+  const all = products?.sort((a, b) => { return b.id - a.id }).slice(0, 5)
   return (
 
     <Card>
@@ -28,7 +28,7 @@ const LatestProducts = () => {
       />
       <Divider />
       <List>
-        {all.map((product, i) => (
+        {all && all.map((product, i) => (
           <ListItem
             divider={i < products.length - 1}
             key={product.id}

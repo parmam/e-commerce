@@ -28,7 +28,7 @@ export const FakeContext = () => {
     category: '',
     subCategory: '',
     price: '',
-    discount: '',
+    stock: '',
     description: '',
     img: []
   })

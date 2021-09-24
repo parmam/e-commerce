@@ -7,6 +7,7 @@ import products from './products'
 import user from './user'
 import brands from './brands'
 import payments from './payments'
+import config from './config'
 
 const persistConfig = {
   key: 'root',
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   categories,
   user,
   brands,
-  payments
+  payments,
+  config
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
