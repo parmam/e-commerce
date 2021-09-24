@@ -6,6 +6,7 @@ export const getAllPayments = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(`${ApiURL}/api/v1/mercadopago`)
+      // Llamar al carrito con el id que llegará por description
       return dispatch({
         type: GET_PAYMENTS,
         payload: response.data.results
