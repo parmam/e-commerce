@@ -1,5 +1,5 @@
 
-function validate (value, target, setErrors) {
+export function validate (value, target, setErrors) {
   if (target === 'category' || target === 'brand' || target === 'subCategory') {
     setErrors((prev) => ({ ...prev, [target]: null }))
     if (value === '-') setErrors((prev) => ({ ...prev, [target]: 'Por favor elige una opción', subCategory: 'Por favor elige una subCategoría' }))
@@ -40,5 +40,3 @@ function validate (value, target, setErrors) {
   }
   setErrors((prev) => ({ ...prev, change: null }))
 }
-
-module.exports = { validate }
