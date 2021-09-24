@@ -57,7 +57,6 @@ const AccountProfileDetails = (props) => {
       type: user.user.type
     })
   }, [])
-  console.log(values, 'VALUES')
 
   const onSubmit = (e) => {
     e.preventDefault()

@@ -41,7 +41,6 @@ const SettingsNotifications = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(dispatch)
     dispatch(setConfigs(options))
   }
   return (

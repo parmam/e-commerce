@@ -77,7 +77,17 @@ const ProductListResults = ({ dispatch, allProducts, eventHandler, setEventHandl
   }
 
   const changeOrder = (e) => {
-
+    if (e.value === 'desc') {
+      return e.sort(function (a, b) {
+        if (a.name < b.name) {
+          return 1
+        }
+        if (a.name > b.name) {
+          return -1
+        }
+        return 0
+      })
+    }
   }
 
   return (
