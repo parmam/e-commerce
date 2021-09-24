@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { getSubCategoriesOf } from '../../redux/actions/categories'
 import { addProducts } from '../../redux/actions/products'
 import FileUploader from '../../Tools/FileUploader'
-
 import {
   Box,
   Button,
@@ -15,6 +14,8 @@ import {
   ImageList,
   ImageListItem
 } from '@material-ui/core'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import { validate } from './formValidate.js'
 
 const AddPorductsDetails = ({
   dispatch,
@@ -29,56 +30,66 @@ const AddPorductsDetails = ({
   setImageUrl,
   encodedImgs,
   setEncodedImgs,
-  imgPreview, 
+  imgPreview,
   setImgPreview
 }) => {
-const [localUrl, setLocalUrl] = useState([])
-const [flag, setFlag] = useState(0)
-const [key, setKey] = useState(0)
- useEffect(() => {
-   if(imageUrl !== []){
-     setLocalUrl(imageUrl)
+  const [localUrl, setLocalUrl] = useState([])
+  const [flag, setFlag] = useState(0)
+  const [key, setKey] = useState(0)
+  const [errors, setErrors] = useState({})
 
-   }
- },[imageUrl])
+  useEffect(() => {
+    if (imageUrl !== []) {
+      setLocalUrl(imageUrl)
+    }
+  }, [imageUrl])
+  useEffect(() => {
+    if (flag === 1) {
+      setProductInfo({ ...productInfo, img: encodedImgs })
+      setFlag(2)
+    }
+    if (flag === 2 &&
+      (productInfo.category !== '-') &&
+      productInfo.subCategory !== '-' &&
+      productInfo.brand !== '-' &&
+      productInfo.model !== '' &&
+      productInfo.price !== '' &&
+      productInfo.description !== '' &&
+      productInfo.img.length !== 0 &&
+      productInfo.stock !== ''
+    ) {
+      setErrors(null)
+      dispatch(addProducts(productInfo))
+      setFlag(3)
+    } else {
+      if (productInfo.img.length === 0) setErrors((prev) => ({ ...prev, img: 'Por favor carga una imagen' }))
+    }
 
- useEffect(() => {
-  if(flag === 1){
-    setProductInfo({...productInfo, img: encodedImgs})
-    setFlag(2)
-  }
-  if( flag === 2 
-      && productInfo.category !== "-" 
-      && productInfo.subCategory !== "-" 
-      && productInfo.brand !=="-"){
-    dispatch(addProducts(productInfo))
-    setFlag(3)
-  }
-  if(flag === 3){
-    setKey(key + 1)
-    setProductInfo({
-      brand: '',
-      model: '',
-      category: '',
-      subCategory: '',
-      price: '',
-      discount: '',
-      description: '',
-      img: [],
-    })
-    setSelectedFiles([])
-    setEncodedImgs([])
-    setImageUrl([])   
-    setFlag(0)
-  }
-  console.log(encodedImgs, ' en details')
- },[flag, encodedImgs])
-  const handleChange = (event) => {
+    if (flag === 3) {
+      setKey(key + 1)
       setProductInfo({
-        ...productInfo,
-        [event.target.name]: event.target.value,
+        brand: '',
+        model: '',
+        category: '',
+        subCategory: '',
+        price: '',
+        discount: '',
+        description: '',
+        img: []
       })
-      console.log(productInfo)    
+      setSelectedFiles([])
+      setEncodedImgs([])
+      setImageUrl([])
+      setFlag(0)
+    }
+  }, [flag, encodedImgs])
+  const handleChange = (event) => {
+    validate(event.target.value, event.target.name, setErrors)
+
+    setProductInfo({
+      ...productInfo,
+      [event.target.name]: event.target.value
+    })
   }
 
   useEffect(() => {
@@ -91,7 +102,6 @@ const [key, setKey] = useState(0)
     e.preventDefault()
     setFlag(1)
     // dispatch(addProducts(productInfo))
-
   }
 
   const catchImgId = (e) => {
@@ -123,6 +133,7 @@ const [key, setKey] = useState(0)
                 md={6}
                 xs={12}
               >
+
                 <TextField
                   fullWidth
                   label='Marca'
@@ -134,7 +145,7 @@ const [key, setKey] = useState(0)
                   value={productInfo.brand}
                   variant='outlined'
                 >
-                <option key="0" value="-">Sleccione una marca</option>
+                  <option key='0' value='-'>Seleccione una marca</option>
                   {allBrands && allBrands.sort().map((brand) => (
                     <option
                       key={brand.id}
@@ -144,6 +155,11 @@ const [key, setKey] = useState(0)
                     </option>
                   ))}
                 </TextField>
+
+                {errors.brand
+                  ? <FormHelperText style={{ color: 'red' }}> {errors.brand} </FormHelperText>
+                  : null}
+
               </Grid>
               <Grid
                 item
@@ -160,6 +176,11 @@ const [key, setKey] = useState(0)
                   value={productInfo.model}
                   variant='outlined'
                 />
+
+                {errors.model
+                  ? <FormHelperText style={{ color: 'red' }}> {errors.model} </FormHelperText>
+                  : null}
+
               </Grid>
               <Grid
                 item
@@ -177,7 +198,7 @@ const [key, setKey] = useState(0)
                   value={productInfo.category}
                   variant='outlined'
                 >
-                <option key="0" value="-">Sleccione una categoria</option>
+                  <option key='0' value='-'>Seleccione una categoria</option>
                   {allCategories && allCategories.sort().map((category, index) => (
                     <option
                       key={index}
@@ -187,6 +208,10 @@ const [key, setKey] = useState(0)
                     </option>
                   ))}
                 </TextField>
+                {errors.category
+                  ? <FormHelperText style={{ color: 'red' }}> {errors.category} </FormHelperText>
+                  : null}
+
               </Grid>
               <Grid
                 item
@@ -204,7 +229,7 @@ const [key, setKey] = useState(0)
                   value={productInfo.subCategory}
                   variant='outlined'
                 >
-                <option key="0" value="-">Sleccione una categoria</option>
+                  <option key='0' value='-'>Seleccione una Subcategoria</option>
                   {subCategoriesOf && subCategoriesOf.sort().map((subCat, index) => (
                     <option
                       key={index}
@@ -214,6 +239,11 @@ const [key, setKey] = useState(0)
                     </option>
                   ))}
                 </TextField>
+
+                {errors.subCategory
+                  ? <FormHelperText style={{ color: 'red' }}> {errors.subCategory} </FormHelperText>
+                  : null}
+
               </Grid>
               <Grid
                 item
@@ -224,11 +254,18 @@ const [key, setKey] = useState(0)
                   fullWidth
                   label='Precio'
                   name='price'
+                  // InputProps={{ inputProps: { min: 0, max: 1000000 } }}
+                  // type='number'
                   onChange={handleChange}
                   required
                   value={productInfo.price}
                   variant='outlined'
                 />
+
+                {errors.price
+                  ? <FormHelperText style={{ color: 'red' }}> {errors.price} </FormHelperText>
+                  : null}
+
               </Grid>
               <Grid
                 item
@@ -244,6 +281,10 @@ const [key, setKey] = useState(0)
                   value={productInfo.stock}
                   variant='outlined'
                 />
+                {errors.stock
+                  ? <FormHelperText style={{ color: 'red' }}> {errors.stock} </FormHelperText>
+                  : null}
+
               </Grid>
 
               <Grid
@@ -262,6 +303,9 @@ const [key, setKey] = useState(0)
                   variant='outlined'
 
                 />
+                {errors.description
+                  ? <FormHelperText style={{ color: 'red' }}> {errors.description} </FormHelperText>
+                  : null}
               </Grid>
 
               <Grid
@@ -275,34 +319,33 @@ const [key, setKey] = useState(0)
                       display: 'flex',
                       flexWrap: 'no-wrap',
                       flexDirection: 'row',
-                      overflowX: 'scroll',
+                      overflowX: 'scroll'
                     }}
                   >
 
                     {(localUrl && localUrl)
-                    ? (localUrl.map((local, index) => (
-                      <ImageListItem>
-                        <img style={{
-                          width: '100px',
-                          height: '100px' }}
-                          src={local}
-                          onClick={(e) => catchImgId(e)}
-                          id={index}
-                        />
-                      </ImageListItem>
+                      ? (localUrl.map((local, index) => (
+                        <ImageListItem key={index}>
+                          <img
+                            style={{
+                              width: '100px',
+                              height: '100px'
+                            }}
+                            src={local}
+                            onClick={(e) => catchImgId(e)}
+                            id={index}
+                          />
+                        </ImageListItem>
 
-                    )))
+                        )))
 
-                    : (
-                      <ImageListItem>
-                        <img style={{ width: '100px', height: '100px' }} src={imageUrl}/>
-                      </ImageListItem>
-                    )
-                    }
+                      : (
+                        <ImageListItem>
+                          <img style={{ width: '100px', height: '100px' }} src={imageUrl} />
+                        </ImageListItem>
+                        )}
 
-
-
-                    </ImageList>
+                  </ImageList>
                 </Box>
               </Grid>
             </Grid>
@@ -315,20 +358,33 @@ const [key, setKey] = useState(0)
               p: 2
             }}
           >
-            <FileUploader selectedFiles={selectedFiles}
-                          setSelectedFiles={setSelectedFiles}
-                          imageUrl={imageUrl}
-                          setImageUrl={setImageUrl}
-                          encodedImgs={encodedImgs}
-                          setEncodedImgs={setEncodedImgs}
+            <FileUploader
+              selectedFiles={selectedFiles}
+              setSelectedFiles={setSelectedFiles}
+              imageUrl={imageUrl}
+              setImageUrl={setImageUrl}
+              encodedImgs={encodedImgs}
+              setEncodedImgs={setEncodedImgs}
             />
-            <Button
-              color='primary'
-              variant='contained'
-              type='submit'
-            >
-              Guardar producto
-            </Button>
+            {!errors.brand && !errors.model && !errors.price && !errors.description && !errors.stock && !errors.category && !errors.subCategory && productInfo.brand && productInfo.model && productInfo.price && productInfo.description && productInfo.stock && productInfo.category && productInfo.subCategory
+              ? (
+                <Button
+                  color='primary'
+                  variant='contained'
+                  type='submit'
+                >
+                  Guardar producto
+                </Button>
+                )
+              : (
+                <Button
+                  color='primary'
+                  variant='contained'
+                  disabled
+                >
+                  Guardar producto
+                </Button>
+                )}
           </Box>
         </Card>
       </form>

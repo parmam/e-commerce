@@ -7,7 +7,8 @@ import {
   DELETE_PRODUCTS,
   PUT_PRODUCT,
   IMPORT_PRODUCTS,
-  SEARCH_PRODUCTS
+  SEARCH_PRODUCTS,
+  SET_SEARCH_STRING
 } from '../constants'
 import axios from 'axios'
 import { ApiURL } from '../../config'
@@ -92,8 +93,6 @@ export const editProducts = (editedProduct) => async (dispatch) => {
 }
 
 export const importProducts = (formData) => async (dispatch) => {
-  console.log('actions')
-  console.log(formData)
   const response = await axios.post(`${ApiURL}/products/csvadd`,
     formData,
     { withCredentials: true },
@@ -111,10 +110,15 @@ export const importProducts = (formData) => async (dispatch) => {
 }
 
 export const searchProducts = (search) => async (dispatch) => {
-  console.log(search)
+  return {
+    type: SEARCH_PRODUCTS,
+    payload: search
+  }
+}
 
-  // return dispatch({
-  //   type: SEARCH_PRODUCTS,
-  //   payload: filtered
-  // })
+export const setSearchString = (searchString) => {
+  return {
+    type: SET_SEARCH_STRING,
+    payload: searchString
+  }
 }
